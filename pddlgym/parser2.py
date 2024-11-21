@@ -113,7 +113,7 @@ class PDDLParser:
         assert string[-1] == ")"
         if string.startswith("(and") and string[4] in (" ", "\n", "(", ")"):
             clauses = self._find_all_balanced_expressions(string[4:-1].strip())
-            return LiteralConjunction([self._parse_into_literal(clause, params, 
+            return LiteralConjunction([self._parse_into_literal(clause, params,
                                        is_effect=is_effect) for clause in clauses])
         if string.startswith("(or") and string[3] in (" ", "\n", "(", ")"):
             clauses = self._find_all_balanced_expressions(string[3:-1].strip())
@@ -150,7 +150,7 @@ class PDDLParser:
                 # Handle existential goal with no arguments.
                 body = self._parse_into_literal(clause, params, is_effect=is_effect)
                 return body
-            variables = self.parse_objects(new_binding[1:-1], self.types, 
+            variables = self.parse_objects(new_binding[1:-1], self.types,
                 uses_typing=self.uses_typing)
             if isinstance(params, list):
                 for v in variables:
@@ -319,8 +319,8 @@ class PDDLParser:
 class PDDLDomain:
     """A PDDL domain.
     """
-    def __init__(self, domain_name=None, types=None, type_hierarchy=None, predicates=None, 
-                 operators=None, actions=None, constants=None, operators_as_actions=False, 
+    def __init__(self, domain_name=None, types=None, type_hierarchy=None, predicates=None,
+                 operators=None, actions=None, constants=None, operators_as_actions=False,
                  is_probabilistic=False):
         # String of domain name.
         self.domain_name = domain_name
@@ -472,21 +472,10 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.actions = set()
 
     def _parse_actions(self):
-        start_ind = re.search(r"\(:action", self.domain)
-        start_ind = start_ind.start()  # Get the starting index of the first action
-        actions = []
-        while start_ind != -1:
-            action = self._find_balanced_expression(self.domain, start_ind)
-            actions.append(action)
-
-            # Find the next `(:action`
-            next_action = re.search(r"\(:action", self.domain[start_ind + 1:])
-            if next_action:
-                start_ind = next_action.start() + start_ind + 1
-            else:
-                start_ind = -1  # No more actions, stop the loop
-
-        return actions
+        start_ind = re.search(r"\(:actions", self.domain).start()
+        actions = self._find_balanced_expression(self.domain, start_ind)
+        actions = actions[9:-1].strip()
+        return set(actions.split())
 
     def _create_actions_from_operators(self):
         actions = set()
@@ -565,55 +554,32 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.constants = PDDLProblemParser.parse_objects(constants, self.types,
                 uses_typing=self.uses_typing)
 
-
-    def _process_typed_lists(self, params):
-        new_params = []
-        arg_types = []
-        if len(params) != 1:
-            last_param_split = params[-1].split(' - ')
-            type = last_param_split[1].strip()
-        for i in range(1, len(params)):
-            if ' - ' in params[i]:
-                params[i] = params[i].split(' - ')
-                type = params[i][1].strip()
-                new_param = (params[i][0].strip(), type)
-            else:
-                new_param = (params[i].strip(), type)
-            new_params.append(new_param)
-            arg_types.append(type)
-
-        processed_params = [self.types[v]("?" + k) for k, v in new_params]
-        return processed_params, arg_types
-
     def _parse_domain_predicates(self):
-        # Find the start of the predicates section
-        start_ind = re.search(r"\(:predicates", self.domain)
-        if not start_ind:
-            return  # If no predicates are found, return
-        start_ind = start_ind.start()
-
-        # Extract predicates section and find all balanced expressions
-        predicates_section = self._find_balanced_expression(self.domain, start_ind)
-        predicates_section = predicates_section[12:-1].strip()  # Remove '(:predicates' and ')'
-        predicates = self._find_all_balanced_expressions(predicates_section)
+        start_ind = re.search(r"\(:predicates", self.domain).start()
+        predicates = self._find_balanced_expression(self.domain, start_ind)
+        predicates = predicates[12:-1].strip()
+        predicates = self._find_all_balanced_expressions(predicates)
         self.predicates = {}
-        # Process each predicate
         for pred in predicates:
-            pred = pred.strip()[1:-1].split("?")  # Split by '?'
+            pred = pred.strip()[1:-1].split("?")
             pred_name = pred[0].strip()
+            # arg_types = [self.types[arg.strip().split("-")[1].strip()]
+            #              for arg in pred[1:]]
             arg_types = []
-
-            if self.uses_typing:
-                _, arg_types = self._process_typed_lists(pred)
-            else:  # Untyped argument
-                arg_types.append(self.types.get("default", "default"))
-            self.predicates[pred_name] = Predicate(pred_name, len(pred[1:]), arg_types)
-
-        # Handle equality predicate if it exists
+            for arg in pred[1:]:
+                if ' - ' in arg:
+                    assert arg_types is not None, "Mixing of typed and untyped args not allowed"
+                    assert self.uses_typing
+                    arg_type = self.types[arg.strip().split("-", 1)[1].strip()]
+                    arg_types.append(arg_type)
+                else:
+                    assert not self.uses_typing
+                    arg_types.append(self.types["default"])
+            self.predicates[pred_name] = Predicate(
+                pred_name, len(pred[1:]), arg_types)
+        # Handle equality
         if "=" in self.domain:
             self.predicates["="] = Predicate("=", 2)
-
-
 
     def _parse_domain_derived_predicates(self):
         for match in re.finditer(r"\(:derived", self.domain):
@@ -636,9 +602,9 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.predicates[name].setup(param_names, body)
 
     def _parse_domain_operators(self):
-        action_matches = re.finditer(r"\(:action", self.domain)
+        matches = re.finditer(r"\(:action", self.domain)
         self.operators = {}
-        for match in action_matches:
+        for match in matches:
             start_ind = match.start()
             op = self._find_balanced_expression(self.domain, start_ind).strip()
             patt = r"\(:action(.*):parameters(.*):precondition(.*):effect(.*)\)"
@@ -647,7 +613,10 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             op_name = op_name.strip()
             params = params.strip()[1:-1].split("?")
             if self.uses_typing:
-                params, _ = self._process_typed_lists(params)
+                params = [(param.strip().split("-", 1)[0].strip(),
+                           param.strip().split("-", 1)[1].strip())
+                          for param in params[1:]]
+                params = [self.types[v]("?"+k) for k, v in params]
             else:
                 params = [param.strip() for param in params[1:]]
                 params = [self.types["default"]("?"+k) for k in params]
