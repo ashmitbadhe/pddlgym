@@ -35,7 +35,7 @@ def get_object_combinations(objects, arity, var_types=None,
 def run_demo(env, policy, max_num_steps=10, render=False,
              video_path=None, fps=3, verbose=False, seed=None,
              check_reward=False):
-    tot_reward = 0
+
     images = []
 
     if seed is not None:
