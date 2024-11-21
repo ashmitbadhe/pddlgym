@@ -36,6 +36,7 @@ def register_pddl_env(name, is_test_env, other_args):
     )
 
 for env_name, kwargs in [
+    ("perestroika", {'render' : perestroika_render, 'operators_as_actions' : False, 'dynamic_action_space' : True}),
         ("gripper", {'operators_as_actions' : True,
                      'dynamic_action_space' : True}),
         ("easygripper", {'operators_as_actions' : True,
