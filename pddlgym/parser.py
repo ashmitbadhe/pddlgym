@@ -472,20 +472,23 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.actions = set()
 
     def _parse_actions(self):
-        start_ind = re.search(r"\(:action", self.domain)
-        start_ind = start_ind.start()  # Get the starting index of the first action
-        actions = []
-        while start_ind != -1:
-            action = self._find_balanced_expression(self.domain, start_ind)
-            actions.append(action)
+        # Find all occurrences of "(:action "
+        matches = re.finditer(r"\(:action ", self.domain)
+        actions = set()
 
-            # Find the next `(:action`
-            next_action = re.search(r"\(:action", self.domain[start_ind + 1:])
-            if next_action:
-                start_ind = next_action.start() + start_ind + 1
-            else:
-                start_ind = -1  # No more actions, stop the loop
+        for match in matches:
+            # Get the start index of the current match
+            start_ind = match.start()
 
+            # Extract the balanced expression for the action
+            action_section = self._find_balanced_expression(self.domain, start_ind)
+
+            # Extract the action name from the section
+            action_name = action_section[9:action_section.index(":", 2)].strip()
+
+            # Add the action name to the set
+            actions.add(action_name)
+        print(actions)
         return actions
 
     def _create_actions_from_operators(self):
@@ -646,6 +649,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             op_name, params, preconds, effects = op_match.groups()
             op_name = op_name.strip()
             params = params.strip()[1:-1].split("?")
+            print(params)
             if self.uses_typing:
                 params, _ = self._process_typed_lists(params)
             else:

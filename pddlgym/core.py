@@ -327,7 +327,8 @@ class PDDLEnv(gym.Env):
 
         # Initialize action space with problem-independent components
         actions = list(self.domain.actions)
-        self.action_predicates = [self.domain.predicates[a] for a in actions]
+        print(self.domain.predicates)
+        self.action_predicates = [self.domain.predicates[a] for a in actions if a in self.domain.predicates]
         self._dynamic_action_space = dynamic_action_space
         if dynamic_action_space:
             if self.domain.operators_as_actions and self._domain_is_strips:
