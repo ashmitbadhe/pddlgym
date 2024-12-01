@@ -61,6 +61,7 @@ class LiteralSpace(Space):
     def sample_literal(self, state):
         while True:
             num_lits = len(self._all_ground_literals)
+            print(num_lits)
             idx = self.np_random.choice(num_lits)
             lit = self._all_ground_literals[idx]
             if self._lit_valid_test(state, lit):
@@ -82,11 +83,13 @@ class LiteralSpace(Space):
         all_ground_literals = set()
         for predicate in self.predicates:
             choices = [self._type_to_objs[vt] for vt in predicate.var_types]
-            for choice in itertools.product(*choices):
-                if len(set(choice)) != len(choice):
-                    continue
-                lit = predicate(*choice)
-                all_ground_literals.add(lit)
+            if len(choices) != 0:
+                for choice in itertools.product(*choices):
+                    if len(set(choice)) != len(choice):
+                        continue
+                    lit = predicate(*choice)
+                    all_ground_literals.add(lit)
+        print(all_ground_literals)
         return all_ground_literals
 
     def contains(self, x):
@@ -220,6 +223,7 @@ class LiteralActionSpace(LiteralSpace):
         # Post-process to our representation.
         obj_name_to_obj = {obj.name: obj for obj in state.objects}
         all_ground_literals = set()
+        print("ACTIONS: ",actions)
         for action in actions:
             name = action.name.strip().strip("()").split()
             pred_name, obj_names = name[0], name[1:]

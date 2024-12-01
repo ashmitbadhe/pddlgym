@@ -488,7 +488,6 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
 
             # Add the action name to the set
             actions.add(action_name)
-        print(actions)
         return actions
 
     def _create_actions_from_operators(self):
@@ -649,7 +648,6 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             op_name, params, preconds, effects = op_match.groups()
             op_name = op_name.strip()
             params = params.strip()[1:-1].split("?")
-            print(params)
             if self.uses_typing:
                 params, _ = self._process_typed_lists(params)
             else:
