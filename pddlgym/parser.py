@@ -508,6 +508,12 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         self._parse_domain_derived_predicates()
         self._parse_constants()
         self._parse_domain_operators()
+        self._parse_events()
+
+
+        print(self.actions)
+        print(self.predicates)
+        print(self.events)
 
     def _parse_domain_types(self):
         match = re.search(r"\(:types", self.domain)
@@ -593,7 +599,6 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         if not start_ind:
             return  # If no predicates are found, return
         start_ind = start_ind.start()
-
         # Extract predicates section and find all balanced expressions
         predicates_section = self._find_balanced_expression(self.domain, start_ind)
         predicates_section = predicates_section[12:-1].strip()  # Remove '(:predicates' and ')'
@@ -614,6 +619,117 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         # Handle equality predicate if it exists
         if "=" in self.domain:
             self.predicates["="] = Predicate("=", 2)
+
+    def _parse_events(self):
+        """Parses the events defined in the PDDL domain."""
+        # Find all occurrences of "(:event "
+        matches = re.finditer(r"\(:event ", self.domain)
+        events = {}  # Use a dictionary instead of a set to store event definitions
+
+        for match in matches:
+            # Get the start index of the current match
+            start_ind = match.start()
+
+            # Extract the balanced expression for the event
+            event_section = self._find_balanced_expression(self.domain, start_ind)
+
+            # Extract the event name from the section (better approach)
+            event_name_match = re.search(r"\(:event (\S+)", event_section)
+            if event_name_match:
+                event_name = event_name_match.group(1).strip()
+            else:
+                continue  # If no event name is found, skip this event
+
+            # Extract the parameters, precondition, and effect of the event
+            event_parameters = self._extract_event_parameters(event_section)
+            event_precondition = self._extract_event_precondition(event_section)
+            event_effect = event_effect = self._extract_event_effect(event_section)
+
+            # Save the event definition in the dictionary
+            events[event_name] = {
+                "parameters": event_parameters,
+                "precondition": event_precondition,
+                "effect": event_effect
+            }
+
+        # Return the parsed events as a dictionary
+        self.events = events
+        return events
+
+    def _extract_event_parameters(self, event_section):
+        """Extracts the parameters from the event section."""
+        parameters_pattern = r":parameters\s*\(([^)]+)\)"
+        params_match = re.search(parameters_pattern, event_section, re.DOTALL)
+        if params_match:
+            params = params_match.group(1).strip().split("?")[1:]
+            return params
+        return []
+
+    def _extract_event_precondition(self, event_section):
+        # Find the start of the precondition section
+        start_ind = re.search(r"\:precondition \(and ", event_section)
+        if not start_ind:
+            return  # If no predicates are found, return
+        start_ind = start_ind.start()
+
+        # Extract predicates section and find all balanced expressions
+        prec_section = self._find_balanced_expression(event_section, start_ind + 14)
+        preconditions = self._find_all_balanced_expressions(prec_section)
+
+        # Parse the preconditions into the desired format
+        parsed_preconditions = []
+
+        for precondition in preconditions:
+            # Remove surrounding parentheses and split into components
+            content = precondition.strip("()").split()
+
+            # Check if 'not' is in the precondition
+            if content[0] == "not":
+                # Handle `not` cases by grouping the predicate inside `not`
+                negated_predicate = content[1:]
+                negated_predicate_name = negated_predicate[0]
+                negated_args = [arg.strip("?") for arg in negated_predicate[1:]]
+                parsed_preconditions.append(f"not {negated_predicate_name}: {' '.join(negated_args)}")
+            else:
+                # Handle normal predicates
+                predicate_name = content[0]
+                args = [arg.strip("?") for arg in content[1:]]
+                parsed_preconditions.append(f"{predicate_name}: {' '.join(args)}")
+
+        return parsed_preconditions
+
+    def _extract_event_effect(self, event_section):
+        # Find the start of the effect section (replace 'precondition' with 'effect')
+        start_ind = re.search(r"\:effect \(and ", event_section)
+        if not start_ind:
+            return  # If no predicates are found, return
+        start_ind = start_ind.start()
+
+        # Extract predicates section and find all balanced expressions
+        eff_section = self._find_balanced_expression(event_section, start_ind + 8)
+        effects = self._find_all_balanced_expressions(eff_section)
+
+        # Parse the effects into the desired format
+        parsed_effects = []
+
+        for effect in effects:
+            # Remove surrounding parentheses and split into components
+            content = effect.strip("()").split()
+
+            # Check if 'not' is in the effect
+            if content[0] == "not":
+                # Handle `not` cases by grouping the predicate inside `not`
+                negated_predicate = content[1:]
+                negated_predicate_name = negated_predicate[0]
+                negated_args = [arg.strip("?") for arg in negated_predicate[1:]]
+                parsed_effects.append(f"not {negated_predicate_name}: {' '.join(negated_args)}")
+            else:
+                # Handle normal predicates
+                predicate_name = content[0]
+                args = [arg.strip("?") for arg in content[1:]]
+                parsed_effects.append(f"{predicate_name}: {' '.join(args)}")
+
+        return parsed_effects
 
 
 
