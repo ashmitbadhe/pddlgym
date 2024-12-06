@@ -37,11 +37,12 @@ class LiteralSpace(Space):
         self._objects = None
 
     def _update_objects_from_state(self, state):
-        """Given a state, extract the objects and if they have changed, 
+        """Given a state, extract the objects and if they have changed,
         recompute all ground literals
         """
         # Check whether the objects have changed
         # If so, we need to recompute the ground literals
+
         if state.objects == self._objects:
             return
 
@@ -56,40 +57,51 @@ class LiteralSpace(Space):
                     self._type_to_objs[t].append(obj)
 
         self._objects = state.objects
+
         self._all_ground_literals = sorted(self._compute_all_ground_literals(state))
+
+
 
     def sample_literal(self, state):
         while True:
             num_lits = len(self._all_ground_literals)
-            print(num_lits)
             idx = self.np_random.choice(num_lits)
             lit = self._all_ground_literals[idx]
             if self._lit_valid_test(state, lit):
                 break
-        return lit  
+        return lit
 
     def sample(self, state):
         self._update_objects_from_state(state)
+
         return self.sample_literal(state)
 
     def all_ground_literals(self, state, valid_only=True):
+
         self._update_objects_from_state(state)
         if not valid_only:
             return set(self._all_ground_literals)
         return set(l for l in self._all_ground_literals \
                    if self._lit_valid_test(state, l))
-
     def _compute_all_ground_literals(self, state):
         all_ground_literals = set()
+
         for predicate in self.predicates:
-            choices = [self._type_to_objs[vt] for vt in predicate.var_types]
-            if len(choices) != 0:
+            # Check if the predicate has parameters (i.e., variables)
+            if len(predicate.var_types) == 0:
+                # If there are no parameters, directly add the predicate as a ground literal
+                lit = predicate()
+                all_ground_literals.add(lit)
+            else:
+                # If there are parameters, compute the Cartesian product of possible object choices
+                choices = [self._type_to_objs[vt] for vt in predicate.var_types]
                 for choice in itertools.product(*choices):
-                    if len(set(choice)) != len(choice):
+                    if len(set(choice)) != len(choice):  # Avoid duplicate objects in the same choice
                         continue
                     lit = predicate(*choice)
                     all_ground_literals.add(lit)
-        print(all_ground_literals)
+
+
         return all_ground_literals
 
     def contains(self, x):
@@ -178,6 +190,7 @@ class LiteralActionSpace(LiteralSpace):
             self._ground_action_to_neg_preconds[ground_action] = neg_preconds
 
     def sample_literal(self, state):
+        print(1)
         valid_literals = self.all_ground_literals(state)
         valid_literals = list(sorted(valid_literals))
         return valid_literals[self.np_random.choice(len(valid_literals))]
@@ -223,7 +236,6 @@ class LiteralActionSpace(LiteralSpace):
         # Post-process to our representation.
         obj_name_to_obj = {obj.name: obj for obj in state.objects}
         all_ground_literals = set()
-        print("ACTIONS: ",actions)
         for action in actions:
             name = action.name.strip().strip("()").split()
             pred_name, obj_names = name[0], name[1:]
