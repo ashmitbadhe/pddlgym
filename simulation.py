@@ -3,7 +3,7 @@ from pddlgym.utils import run_demo
 
 def demo_random_perestroika():
     # Create the Sokoban environment
-    env = pddlgym.make("PDDLEnvAuv-v0")
+    env = pddlgym.make("PDDLEnvPerestroika-v0")
 
     # Fix the problem index (optional for reproducibility)
     env.fix_problem_index(0)
