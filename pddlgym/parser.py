@@ -555,29 +555,34 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
                 uses_typing=self.uses_typing)
 
     def _parse_domain_predicates(self):
-        start_ind = re.search(r"\(:predicates", self.domain).start()
-        predicates = self._find_balanced_expression(self.domain, start_ind)
-        predicates = predicates[12:-1].strip()
-        predicates = self._find_all_balanced_expressions(predicates)
+        # Find the start of the predicates section
+        start_ind = re.search(r"\(:predicates", self.domain)
+        if not start_ind:
+            return  # If no predicates are found, return
+        start_ind = start_ind.start()
+        # Extract predicates section and find all balanced expressions
+        predicates_section = self._find_balanced_expression(self.domain, start_ind)
+        predicates_section = predicates_section[12:-1].strip()  # Remove '(:predicates' and ')'
+        predicates = self._find_all_balanced_expressions(predicates_section)
         self.predicates = {}
+        # Process each predicate
         for pred in predicates:
-            pred = pred.strip()[1:-1].split("?")
+            pred = pred.strip()[1:-1].split("?")  # Split by '?'
             pred_name = pred[0].strip()
-            # arg_types = [self.types[arg.strip().split("-")[1].strip()]
-            #              for arg in pred[1:]]
             arg_types = []
             for arg in pred[1:]:
-                if ' - ' in arg:
-                    assert arg_types is not None, "Mixing of typed and untyped args not allowed"
-                    assert self.uses_typing
-                    arg_type = self.types[arg.strip().split("-", 1)[1].strip()]
+                arg = arg.strip()
+                if ' - ' in pred[1:][-1]:  # Typed argument
+                    assert self.uses_typing, "Mixing of typed and untyped args not allowed"
+                    arg_type = self.types.get(pred[1:][-1].split(" - ")[1].strip(), "default")
                     arg_types.append(arg_type)
-                else:
-                    assert not self.uses_typing
-                    arg_types.append(self.types["default"])
-            self.predicates[pred_name] = Predicate(
-                pred_name, len(pred[1:]), arg_types)
-        # Handle equality
+                else:  # Untyped argument
+                    assert not self.uses_typing, "Mixing of typed and untyped args not allowed"
+                    arg_types.append(self.types.get("default", "default"))
+
+            self.predicates[pred_name] = Predicate(pred_name, len(pred[1:]), arg_types)
+
+        # Handle equality predicate if it exists
         if "=" in self.domain:
             self.predicates["="] = Predicate("=", 2)
 
@@ -602,9 +607,9 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.predicates[name].setup(param_names, body)
 
     def _parse_domain_operators(self):
-        matches = re.finditer(r"\(:action", self.domain)
+        action_matches = re.finditer(r"\(:action", self.domain)
         self.operators = {}
-        for match in matches:
+        for match in action_matches:
             start_ind = match.start()
             op = self._find_balanced_expression(self.domain, start_ind).strip()
             patt = r"\(:action(.*):parameters(.*):precondition(.*):effect(.*)\)"
@@ -613,10 +618,20 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             op_name = op_name.strip()
             params = params.strip()[1:-1].split("?")
             if self.uses_typing:
-                params = [(param.strip().split("-", 1)[0].strip(),
-                           param.strip().split("-", 1)[1].strip())
-                          for param in params[1:]]
-                params = [self.types[v]("?"+k) for k, v in params]
+                new_params = []
+                last_param_split = params[-1].split("-")
+                type = last_param_split[1].strip()
+                for i in range(1,len(params)):
+                    if  "-" in params[i]:
+                        params[i] = params[i].split("-")
+                        new_param = (params[i][0].strip(),type)
+                    else:
+                        new_param = (params[i].strip(), type)
+                    new_params.append(new_param)
+
+
+                params = [self.types[v]("?"+k) for k, v in new_params]
+
             else:
                 params = [param.strip() for param in params[1:]]
                 params = [self.types["default"]("?"+k) for k in params]
