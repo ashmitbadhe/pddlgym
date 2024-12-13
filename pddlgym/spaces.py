@@ -62,11 +62,12 @@ class LiteralSpace(Space):
 
 
 
+
     def sample_literal(self, state):
         while True:
             num_lits = len(self._all_ground_literals)
             idx = self.np_random.choice(num_lits)
-            lit = self._all_ground_literals[idx]
+            lit = self._all_ground_literals[1]
             if self._lit_valid_test(state, lit):
                 break
         return lit
@@ -77,7 +78,6 @@ class LiteralSpace(Space):
         return self.sample_literal(state)
 
     def all_ground_literals(self, state, valid_only=True):
-
         self._update_objects_from_state(state)
         if not valid_only:
             return set(self._all_ground_literals)
@@ -85,23 +85,13 @@ class LiteralSpace(Space):
                    if self._lit_valid_test(state, l))
     def _compute_all_ground_literals(self, state):
         all_ground_literals = set()
-
         for predicate in self.predicates:
-            # Check if the predicate has parameters (i.e., variables)
-            if len(predicate.var_types) == 0:
-                # If there are no parameters, directly add the predicate as a ground literal
-                lit = predicate()
+            choices = [self._type_to_objs[vt] for vt in predicate.var_types]
+            for choice in itertools.product(*choices):
+                if len(set(choice)) != len(choice):
+                    continue
+                lit = predicate(*choice)
                 all_ground_literals.add(lit)
-            else:
-                # If there are parameters, compute the Cartesian product of possible object choices
-                choices = [self._type_to_objs[vt] for vt in predicate.var_types]
-                for choice in itertools.product(*choices):
-                    if len(set(choice)) != len(choice):  # Avoid duplicate objects in the same choice
-                        continue
-                    lit = predicate(*choice)
-                    all_ground_literals.add(lit)
-
-
         return all_ground_literals
 
     def contains(self, x):
@@ -190,7 +180,6 @@ class LiteralActionSpace(LiteralSpace):
             self._ground_action_to_neg_preconds[ground_action] = neg_preconds
 
     def sample_literal(self, state):
-        print(1)
         valid_literals = self.all_ground_literals(state)
         valid_literals = list(sorted(valid_literals))
         return valid_literals[self.np_random.choice(len(valid_literals))]
