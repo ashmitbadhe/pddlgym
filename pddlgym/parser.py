@@ -493,6 +493,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
     def _create_actions_from_operators(self):
         actions = set()
         for name, operator in self.operators.items():
+
             types = [p.var_type for p in operator.params]
             action = Predicate(name, len(types), types)
             assert name not in self.predicates, "Cannot have predicate with same name as operator"
@@ -718,7 +719,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
                                                    is_effect=True)
                 self.operators[op_name] = Operator(
                     op_name, params, preconds, effects)
-            print(self.operators)
+
 
 
 class PDDLProblemParser(PDDLParser):
