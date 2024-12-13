@@ -47,8 +47,8 @@ def run_demo(env, policy, max_num_steps=10, render=False,
         env.action_space.seed(seed)
 
     for t in range(max_num_steps):
-        if verbose:
-            print("Obs:", obs)
+        # if verbose:
+        #     print("Obs:", obs)
 
         if render:
             images.append(env.render())
@@ -58,7 +58,8 @@ def run_demo(env, policy, max_num_steps=10, render=False,
             print("Act:", action)
 
         obs, reward, done, _, _ = env.step(action)
-        env.render()
+        if render:
+            env.render()
         if verbose:
             print("Rew:", reward)
 

@@ -121,7 +121,7 @@ def _select_operator(state, action, domain, inference_mode="infer",
             conds = [action.predicate(*operator.params)] + conds
         # Check whether action is in the preconditions
         action_literal = None
-        for lit in conds: 
+        for lit in conds:
             if lit.predicate == action.predicate:
                 action_literal = lit
                 break
@@ -336,6 +336,7 @@ class PDDLEnv(gym.Env):
                     type_hierarchy=self.domain.type_hierarchy,
                     type_to_parent_types=self.domain.type_to_parent_types)
             else:
+
                 self._action_space = LiteralSpace(
                     self.action_predicates, lit_valid_test=self._action_valid_test,
                     type_hierarchy=self.domain.type_hierarchy,

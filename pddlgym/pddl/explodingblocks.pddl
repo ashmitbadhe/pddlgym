@@ -23,7 +23,7 @@
     (:action pick-up
         :parameters (?x - block ?robot - robot)
         :precondition (and
-            (pickup ?x) 
+            (pickup ?x)
             (clear ?x) 
             (ontable ?x) 
             (handempty ?robot)
@@ -41,7 +41,7 @@
 
     (:action put-down
         :parameters (?x - block ?robot - robot)
-        :precondition (and 
+        :precondition (and
             (putdown ?x)
             (holding ?x)
             (handfull ?robot)
@@ -61,7 +61,7 @@
         :parameters (?x - block ?y - block ?robot - robot)
         :precondition (and
             (stack ?x ?y)
-            (holding ?x) 
+            (holding ?x)
             (clear ?y)
             (handfull ?robot)
             (not (destroyed ?y))
