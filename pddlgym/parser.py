@@ -320,7 +320,7 @@ class PDDLDomain:
     """A PDDL domain.
     """
     def __init__(self, domain_name=None, types=None, type_hierarchy=None, predicates=None, 
-                 operators=None, actions=None, constants=None, operators_as_actions=False, 
+                 operators=None, actions=None, constants=None, operators_as_actions=False,
                  is_probabilistic=False):
         # String of domain name.
         self.domain_name = domain_name
@@ -338,6 +338,7 @@ class PDDLDomain:
         self.constants = constants or []
         self.operators_as_actions = operators_as_actions
         self.is_probabilistic = is_probabilistic
+
 
     @property
     def type_to_parent_types(self):
@@ -464,12 +465,14 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
 
         # Run parsing.
         self._parse_domain()
+        self.events = self._parse_events()
 
         if operators_as_actions:
             assert not expect_action_preds
             self.actions = self._create_actions_from_operators()
         elif not expect_action_preds:
             self.actions = set()
+
 
     def _parse_actions(self):
         # Find all occurrences of "(:action "
@@ -493,7 +496,6 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
     def _create_actions_from_operators(self):
         actions = set()
         for name, operator in self.operators.items():
-
             types = [p.var_type for p in operator.params]
             action = Predicate(name, len(types), types)
             assert name not in self.predicates, "Cannot have predicate with same name as operator"
@@ -622,7 +624,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         """Parses the events defined in the PDDL domain."""
         # Find all occurrences of "(:event "
         matches = re.finditer(r"\(:event ", self.domain)
-        events = {}  # Use a dictionary instead of a set to store event definitions
+        events = set()  # Use a dictionary instead of a set to store event definitions
 
         for match in matches:
             # Get the start index of the current match
@@ -635,11 +637,9 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             event_name_match = re.search(r"\(:event (\S+)", event_section)
             if event_name_match:
                 event_name = event_name_match.group(1).strip()
+                events.add(event_name)
             else:
                 continue  # If no event name is found, skip this event
-
-        # Return the parsed event names
-        self.events = events
         return events
 
 
@@ -664,6 +664,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             body = self._parse_into_literal(body, params)
             param_names = [p.name for p in params]
             self.predicates[name].setup(param_names, body)
+
 
     def _parse_domain_operators(self):
         action_matches = re.finditer(r"\(:action", self.domain)
