@@ -571,7 +571,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             pred_name = pred[0].strip()
             arg_types = []
             for arg in pred[1:]:
-                arg = arg.strip()
+                arg_stripped = arg.strip()
                 if ' - ' in pred[1:][-1]:  # Typed argument
                     assert self.uses_typing, "Mixing of typed and untyped args not allowed"
                     arg_type = self.types.get(pred[1:][-1].split(" - ")[1].strip(), "default")
@@ -622,7 +622,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
                 last_param_split = params[-1].split("-")
                 type = last_param_split[1].strip()
                 for i in range(1,len(params)):
-                    if  "-" in params[i]:
+                    if  '-' in params[i]:
                         params[i] = params[i].split("-")
                         new_param = (params[i][0].strip(),type)
                     else:
