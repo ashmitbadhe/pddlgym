@@ -54,30 +54,65 @@ def get_successor_state(state, action, domain, raise_error_on_invalid_action=Fal
     -------
     next_state : State
     """
-    selected_operator, assignment = _select_operator(state, action, domain, 
-        inference_mode=inference_mode, 
-        require_unique_assignment=require_unique_assignment)
+    try :
+        for sub_act in action:
+            if sub_act is not None:
+                selected_operator, assignment = _select_operator(state, sub_act, domain,
+                    inference_mode=inference_mode,
+                    require_unique_assignment=require_unique_assignment)
+            else:
+                assignment = None
 
-    # A ground operator was found; execute the ground effects
-    if assignment is not None:
-        # Get operator effects
-        if isinstance(selected_operator.effects, LiteralConjunction):
-            effects = selected_operator.effects.literals
+            # A ground operator was found; execute the ground effects
+            if assignment is not None:
+                # Get operator effects
+                if isinstance(selected_operator.effects, LiteralConjunction):
+                    effects = selected_operator.effects.literals
+                else:
+                    assert isinstance(selected_operator.effects, Literal)
+                    effects = [selected_operator.effects]
+
+                state = _apply_effects(
+                    state,
+                    effects,
+                    assignment,
+                    get_all_transitions,
+                    return_probs=return_probs,
+                )
+
+            # No operator was found
+            elif raise_error_on_invalid_action:
+                raise InvalidAction(f"called get_successor_state with invalid action '{action}' for given state")
+
+    except:
+        if action is not None:
+            selected_operator, assignment = _select_operator(state, action, domain,
+                                                             inference_mode=inference_mode,
+                                                             require_unique_assignment=require_unique_assignment)
         else:
-            assert isinstance(selected_operator.effects, Literal)
-            effects = [selected_operator.effects]
+            assignment = None
 
-        state = _apply_effects(
-            state,
-            effects,
-            assignment,
-            get_all_transitions,
-            return_probs=return_probs,
-        )
+        # A ground operator was found; execute the ground effects
+        if assignment is not None:
+            # Get operator effects
+            if isinstance(selected_operator.effects, LiteralConjunction):
+                effects = selected_operator.effects.literals
+            else:
+                assert isinstance(selected_operator.effects, Literal)
+                effects = [selected_operator.effects]
 
-    # No operator was found
-    elif raise_error_on_invalid_action:
-        raise InvalidAction(f"called get_successor_state with invalid action '{action}' for given state")
+            state = _apply_effects(
+                state,
+                effects,
+                assignment,
+                get_all_transitions,
+                return_probs=return_probs,
+            )
+
+        # No operator was found
+        elif raise_error_on_invalid_action:
+            raise InvalidAction(f"called get_successor_state with invalid action '{action}' for given state")
+
 
     return state
 
