@@ -191,8 +191,9 @@ class LiteralActionSpace(LiteralSpace):
     def sample_literal(self, state):
         valid_literals = self.all_ground_literals(state)
         valid_literals = list(sorted(valid_literals))
-        #switch turns
-        self.is_turn = not self.is_turn
+        #switch turns if domain has events
+        if len(self.domain.events) != 0:
+            self.is_turn = not self.is_turn
 
         if len(valid_literals)>0:
             chosen_move = valid_literals[self.np_random.choice(len(valid_literals))]
@@ -205,6 +206,7 @@ class LiteralActionSpace(LiteralSpace):
 
 
     def all_ground_literals(self, state, valid_only=True):
+        print(self.domain.events)
         self._update_objects_from_state(state)
         assert valid_only, "The point of this class is to avoid the cross product!"
         valid_literals = set()
