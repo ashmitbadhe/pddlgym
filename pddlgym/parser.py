@@ -685,6 +685,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             preconds = self._parse_into_literal(preconds.strip(), params + self.constants)
             effects = self._parse_into_literal(effects.strip(), params + self.constants,
                 is_effect=True)
+            print(params)
             self.operators[op_name] = Operator(
                 op_name, params, preconds, effects)
 #for events

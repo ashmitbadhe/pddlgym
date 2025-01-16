@@ -206,7 +206,6 @@ class LiteralActionSpace(LiteralSpace):
 
 
     def all_ground_literals(self, state, valid_only=True):
-        print(self.domain.events)
         self._update_objects_from_state(state)
         assert valid_only, "The point of this class is to avoid the cross product!"
         valid_literals = set()
