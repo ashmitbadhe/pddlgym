@@ -189,17 +189,18 @@ class LiteralActionSpace(LiteralSpace):
             self._ground_action_to_effects[ground_action] = effects
 
     def sample_literal(self, state):
-        valid_literals = self.all_ground_literals(state)
-        valid_literals = list(sorted(valid_literals))
-        #switch turns if domain has events
+        valid_literals = list(sorted(self.all_ground_literals(state)))
+
+        if self.is_turn:
+            selection = valid_literals[self.np_random.choice(len(valid_literals))] if valid_literals else None
+        else:
+            selection = valid_literals if valid_literals else None  # Already a random combination of pairwise independent events
+
+        # Switch turns if the domain has events
         if len(self.domain.events) != 0:
             self.is_turn = not self.is_turn
 
-        if len(valid_literals)>0:
-            chosen_move = valid_literals[self.np_random.choice(len(valid_literals))]
-        else:
-            chosen_move = None
-        return chosen_move
+        return selection
 
     def sample(self, state):
         return self.sample_literal(state)
@@ -221,29 +222,64 @@ class LiteralActionSpace(LiteralSpace):
 
                 valid_literals.add(ground_action)
         if self.is_turn is False:
-            valid_event_combinations = set()
-            for size in range(2, len(valid_literals) + 1):  # Starting from size 2 for pairs, up to all valid literals
-                for event_combination in combinations(valid_literals, size):
-                    # Check if the combination is compatible (i.e., can all events be applied together)
-                    if self.is_compatible_combination(event_combination, state):
-                        valid_event_combinations.add(event_combination)
-            valid_literals = valid_event_combinations
+            selected_events = []
+            required = {}  # Tracks preconditions that must hold
+            changed = {}  # Tracks variables that have changed
+            selectable = list(valid_literals)
+
+            while selectable:
+                event_order = self.np_random.choice(len(selectable))  # Randomly choose an event
+
+                if event_order == 0:
+                    break  # No-op, stop selecting events
+
+                event = selectable[event_order]
+
+                if self.is_concurrently_applicable(event, state, selected_events, required, changed):
+                    preconditions = self._ground_action_to_pos_preconds[event]
+                    effects = self._ground_action_to_effects[event]
+
+                    for precondition in preconditions:
+                        required[precondition] = True  # Mark precondition as needed
+                    for effect in effects:
+                        changed[effect] = True  # Mark effect as changed
+
+                    selected_events.append(event)
+
+                selectable.pop(event_order)  # Remove the event from selection pool
+
+            valid_literals = selected_events
         return valid_literals
 
-    def is_compatible_combination(self, event_combination, state):
-        """ Check if a set of events (event_combination) can be applied simultaneously """
-        seen_params = set()
-        anti_params = set()
-        # Flatten all effects into a single list
-        all_effects = itertools.chain.from_iterable(self._ground_action_to_effects[event] for event in event_combination)
-        for effect in all_effects:
-            param = re.split(r'[(:)]', str(effect) )[1]
-            if param in seen_params and param in anti_params:
+    def is_concurrently_applicable(self, event, state, selected_events, required, changed):
+        """ Check if an event can be applied along with already selected ones. """
+        preconditions = self._ground_action_to_pos_preconds[event]
+        effects = self._ground_action_to_effects[event]
+
+        # Condition 1: Precondition should not be marked as changed by a previous event
+        for precondition in preconditions:
+            if precondition in changed and changed[precondition] != state.literals.get(precondition, None):
                 return False
-            elif param in seen_params and param not in anti_params:
-                anti_params.add(param)
-            else:
-                seen_params.add(param)
+
+        # Condition 2: Effects should not override required preconditions
+        for effect in effects:
+            if effect in required and required[effect] != state.literals.get(effect, None):
+                return False
+
+        # Condition 3: Shared preconditions must have the same value
+        for selected_event in selected_events:
+            selected_preconditions = self._ground_action_to_pos_preconds[selected_event]
+            for pre in preconditions & selected_preconditions:  # Intersection
+                if pre in state.literals and pre in required and state.literals != required:
+                    return False
+
+        # Condition 4: Shared effects must have the same value
+        for selected_event in selected_events:
+            selected_effects = self._ground_action_to_effects[selected_event]
+            for eff in set(effects) & set(selected_effects):  # Intersection
+                if eff in state.literals and eff in changed and state.literals != changed:
+                    return False
+
         return True
 
     def _compute_all_ground_literals(self, state):
