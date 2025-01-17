@@ -665,8 +665,26 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             param_names = [p.name for p in params]
             self.predicates[name].setup(param_names, body)
 
+    def _process_typed_lists(self, params):
+        new_params = []
+        arg_types = []
+        if len(params) != 1:
+            last_param_split = params[-1].split("-")
+            type = last_param_split[1].strip()
+        for i in range(1, len(params)):
+            if '-' in params[i]:
+                params[i] = params[i].split("-")
+                type = params[i][1].strip()
+                new_param = (params[i][0].strip(), type)
+            else:
+                new_param = (params[i].strip(), type)
+            new_params.append(new_param)
+            arg_types.append(type)
 
+        processed_params = [self.types[v]("?" + k) for k, v in new_params]
+        return processed_params, arg_types
     def _parse_domain_operators(self):
+#for actions
         action_matches = re.finditer(r"\(:action", self.domain)
         self.operators = {}
         for match in action_matches:
@@ -685,11 +703,10 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             preconds = self._parse_into_literal(preconds.strip(), params + self.constants)
             effects = self._parse_into_literal(effects.strip(), params + self.constants,
                 is_effect=True)
-            print(params)
             self.operators[op_name] = Operator(
                 op_name, params, preconds, effects)
-#for events
 
+#for events
             event_matches = re.finditer(r"\(:event", self.domain)
             for match in event_matches:
                 start_ind = match.start()
@@ -700,20 +717,8 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
                 op_name = op_name.strip()
                 params = params.strip()[1:-1].split("?")
                 if self.uses_typing:
-                    new_params = []
-                    temp_params = params.copy()
-                    for i in range(1, len(params)):
-                        if "-" in params[i]:
-                            params[i] = params[i].split("-")
-                            new_param = (params[i][0].strip(), params[i][1].strip())
-                            new_params.append(new_param)
-                        else:
-                            temp_params[i] = params[i + 1].split("-")
-                            new_param = (params[i].strip(), temp_params[i][1].strip())
-                            new_params.append(new_param)
-                    params = [self.types[v]("?" + k) for k, v in new_params]
-
-                else:
+                    params, _ = self._process_typed_lists(params)
+                else: #untyped
                     params = [param.strip() for param in params[1:]]
                     params = [self.types["default"]("?" + k) for k in params]
                 preconds = self._parse_into_literal(preconds.strip(), params + self.constants)
