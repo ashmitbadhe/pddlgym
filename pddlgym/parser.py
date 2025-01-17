@@ -559,11 +559,11 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         new_params = []
         arg_types = []
         if len(params) != 1:
-            last_param_split = params[-1].split("-")
+            last_param_split = params[-1].split(' - ')
             type = last_param_split[1].strip()
         for i in range(1, len(params)):
-            if '-' in params[i]:
-                params[i] = params[i].split("-")
+            if ' - ' in params[i]:
+                params[i] = params[i].split(' - ')
                 type = params[i][1].strip()
                 new_param = (params[i][0].strip(), type)
             else:
