@@ -244,9 +244,6 @@ class LiteralActionSpace(LiteralSpace):
                 anti_params.add(param)
             else:
                 seen_params.add(param)
-
-
-
         return True
 
     def _compute_all_ground_literals(self, state):
