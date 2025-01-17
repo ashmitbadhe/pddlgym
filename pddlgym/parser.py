@@ -554,6 +554,26 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.constants = PDDLProblemParser.parse_objects(constants, self.types, 
                 uses_typing=self.uses_typing)
 
+
+    def _process_typed_lists(self, params):
+        new_params = []
+        arg_types = []
+        if len(params) != 1:
+            last_param_split = params[-1].split("-")
+            type = last_param_split[1].strip()
+        for i in range(1, len(params)):
+            if '-' in params[i]:
+                params[i] = params[i].split("-")
+                type = params[i][1].strip()
+                new_param = (params[i][0].strip(), type)
+            else:
+                new_param = (params[i].strip(), type)
+            new_params.append(new_param)
+            arg_types.append(type)
+
+        processed_params = [self.types[v]("?" + k) for k, v in new_params]
+        return processed_params, arg_types
+
     def _parse_domain_predicates(self):
         # Find the start of the predicates section
         start_ind = re.search(r"\(:predicates", self.domain)
@@ -570,16 +590,11 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             pred = pred.strip()[1:-1].split("?")  # Split by '?'
             pred_name = pred[0].strip()
             arg_types = []
-            for arg in pred[1:]:
-                arg_stripped = arg.strip()
-                if ' - ' in pred[1:][-1]:  # Typed argument
-                    assert self.uses_typing, "Mixing of typed and untyped args not allowed"
-                    arg_type = self.types.get(pred[1:][-1].split(" - ")[1].strip(), "default")
-                    arg_types.append(arg_type)
-                else:  # Untyped argument
-                    assert not self.uses_typing, "Mixing of typed and untyped args not allowed"
-                    arg_types.append(self.types.get("default", "default"))
 
+            if self.uses_typing:
+                _, arg_types = self._process_typed_lists(pred)
+            else:  # Untyped argument
+                arg_types.append(self.types.get("default", "default"))
             self.predicates[pred_name] = Predicate(pred_name, len(pred[1:]), arg_types)
 
         # Handle equality predicate if it exists
@@ -618,20 +633,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             op_name = op_name.strip()
             params = params.strip()[1:-1].split("?")
             if self.uses_typing:
-                new_params = []
-                last_param_split = params[-1].split("-")
-                type = last_param_split[1].strip()
-                for i in range(1,len(params)):
-                    if  '-' in params[i]:
-                        params[i] = params[i].split("-")
-                        new_param = (params[i][0].strip(),type)
-                    else:
-                        new_param = (params[i].strip(), type)
-                    new_params.append(new_param)
-
-
-                params = [self.types[v]("?"+k) for k, v in new_params]
-
+                params, _ = self._process_typed_lists(params)
             else:
                 params = [param.strip() for param in params[1:]]
                 params = [self.types["default"]("?"+k) for k in params]
