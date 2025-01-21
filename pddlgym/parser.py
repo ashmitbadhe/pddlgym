@@ -472,10 +472,23 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.actions = set()
 
     def _parse_actions(self):
-        start_ind = re.search(r"\(:actions", self.domain).start()
-        actions = self._find_balanced_expression(self.domain, start_ind)
-        actions = actions[9:-1].strip()
-        return set(actions.split())
+        # Find all occurrences of "(:action "
+        matches = re.finditer(r"\(:action ", self.domain)
+        actions = set()
+
+        for match in matches:
+            # Get the start index of the current match
+            start_ind = match.start()
+
+            # Extract the balanced expression for the action
+            action_section = self._find_balanced_expression(self.domain, start_ind)
+
+            # Extract the action name from the section
+            action_name = action_section[9:action_section.index(":", 2)].strip()
+
+            # Add the action name to the set
+            actions.add(action_name)
+        return actions
 
     def _create_actions_from_operators(self):
         actions = set()
@@ -495,6 +508,9 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         self._parse_domain_derived_predicates()
         self._parse_constants()
         self._parse_domain_operators()
+        self.events = self._parse_events()
+
+
 
     def _parse_domain_types(self):
         match = re.search(r"\(:types", self.domain)
@@ -601,6 +617,31 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         if "=" in self.domain:
             self.predicates["="] = Predicate("=", 2)
 
+    def _parse_events(self):
+        """Parses the events defined in the PDDL domain."""
+        # Find all occurrences of "(:event "
+        matches = re.finditer(r"\(:event ", self.domain)
+        events = set()  # Use a dictionary instead of a set to store event definitions
+
+        for match in matches:
+            # Get the start index of the current match
+            start_ind = match.start()
+
+            # Extract the balanced expression for the event
+            event_section = self._find_balanced_expression(self.domain, start_ind)
+
+            # Extract the event name from the section (better approach)
+            event_name_match = re.search(r"\(:event (\S+)", event_section)
+            if event_name_match:
+                event_name = event_name_match.group(1).strip()
+                events.add(event_name)
+            else:
+                continue  # If no event name is found, skip this event
+        return events
+
+
+
+
     def _parse_domain_derived_predicates(self):
         for match in re.finditer(r"\(:derived", self.domain):
             derived_pred = self._find_balanced_expression(self.domain, match.start())
@@ -622,6 +663,8 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.predicates[name].setup(param_names, body)
 
     def _parse_domain_operators(self):
+
+        # actions
         action_matches = re.finditer(r"\(:action", self.domain)
         self.operators = {}
         for match in action_matches:
@@ -642,6 +685,28 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
                 is_effect=True)
             self.operators[op_name] = Operator(
                 op_name, params, preconds, effects)
+
+        # events
+        event_matches = re.finditer(r"\(:event", self.domain)
+        for match in event_matches:
+            start_ind = match.start()
+            op = self._find_balanced_expression(self.domain, start_ind).strip()
+            patt = r"\(:event(.*):parameters(.*):precondition(.*):effect(.*)\)"
+            op_match = re.match(patt, op, re.DOTALL)
+            op_name, params, preconds, effects = op_match.groups()
+            op_name = op_name.strip()
+            params = params.strip()[1:-1].split("?")
+            if self.uses_typing:
+                params, _ = self._process_typed_lists(params)
+            else: #untyped
+                params = [param.strip() for param in params[1:]]
+                params = [self.types["default"]("?" + k) for k in params]
+            preconds = self._parse_into_literal(preconds.strip(), params + self.constants)
+            effects = self._parse_into_literal(effects.strip(), params + self.constants,
+                                                is_effect=True)
+            self.operators[op_name] = Operator(
+                op_name, params, preconds, effects)
+
 
 
 class PDDLProblemParser(PDDLParser):
