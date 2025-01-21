@@ -54,30 +54,65 @@ def get_successor_state(state, action, domain, raise_error_on_invalid_action=Fal
     -------
     next_state : State
     """
-    selected_operator, assignment = _select_operator(state, action, domain, 
-        inference_mode=inference_mode, 
-        require_unique_assignment=require_unique_assignment)
+    try :
+        for sub_act in action:
+            if sub_act is not None:
+                selected_operator, assignment = _select_operator(state, sub_act, domain,
+                    inference_mode=inference_mode,
+                    require_unique_assignment=require_unique_assignment)
+            else:
+                assignment = None
 
-    # A ground operator was found; execute the ground effects
-    if assignment is not None:
-        # Get operator effects
-        if isinstance(selected_operator.effects, LiteralConjunction):
-            effects = selected_operator.effects.literals
+            # A ground operator was found; execute the ground effects
+            if assignment is not None:
+                # Get operator effects
+                if isinstance(selected_operator.effects, LiteralConjunction):
+                    effects = selected_operator.effects.literals
+                else:
+                    assert isinstance(selected_operator.effects, Literal)
+                    effects = [selected_operator.effects]
+
+                state = _apply_effects(
+                    state,
+                    effects,
+                    assignment,
+                    get_all_transitions,
+                    return_probs=return_probs,
+                )
+
+            # No operator was found
+            elif raise_error_on_invalid_action:
+                raise InvalidAction(f"called get_successor_state with invalid action '{action}' for given state")
+
+    except:
+        if action is not None:
+            selected_operator, assignment = _select_operator(state, action, domain,
+                                                             inference_mode=inference_mode,
+                                                             require_unique_assignment=require_unique_assignment)
         else:
-            assert isinstance(selected_operator.effects, Literal)
-            effects = [selected_operator.effects]
+            assignment = None
 
-        state = _apply_effects(
-            state,
-            effects,
-            assignment,
-            get_all_transitions,
-            return_probs=return_probs,
-        )
+        # A ground operator was found; execute the ground effects
+        if assignment is not None:
+            # Get operator effects
+            if isinstance(selected_operator.effects, LiteralConjunction):
+                effects = selected_operator.effects.literals
+            else:
+                assert isinstance(selected_operator.effects, Literal)
+                effects = [selected_operator.effects]
 
-    # No operator was found
-    elif raise_error_on_invalid_action:
-        raise InvalidAction(f"called get_successor_state with invalid action '{action}' for given state")
+            state = _apply_effects(
+                state,
+                effects,
+                assignment,
+                get_all_transitions,
+                return_probs=return_probs,
+            )
+
+        # No operator was found
+        elif raise_error_on_invalid_action:
+            raise InvalidAction(f"called get_successor_state with invalid action '{action}' for given state")
+
 
     return state
 
@@ -121,7 +156,7 @@ def _select_operator(state, action, domain, inference_mode="infer",
             conds = [action.predicate(*operator.params)] + conds
         # Check whether action is in the preconditions
         action_literal = None
-        for lit in conds: 
+        for lit in conds:
             if lit.predicate == action.predicate:
                 action_literal = lit
                 break
@@ -327,7 +362,7 @@ class PDDLEnv(gym.Env):
 
         # Initialize action space with problem-independent components
         actions = list(self.domain.actions)
-        self.action_predicates = [self.domain.predicates[a] for a in actions]
+        self.action_predicates = [self.domain.predicates[a] for a in actions if a in self.domain.predicates]
         self._dynamic_action_space = dynamic_action_space
         if dynamic_action_space:
             if self.domain.operators_as_actions and self._domain_is_strips:
@@ -336,6 +371,7 @@ class PDDLEnv(gym.Env):
                     type_hierarchy=self.domain.type_hierarchy,
                     type_to_parent_types=self.domain.type_to_parent_types)
             else:
+
                 self._action_space = LiteralSpace(
                     self.action_predicates, lit_valid_test=self._action_valid_test,
                     type_hierarchy=self.domain.type_hierarchy,

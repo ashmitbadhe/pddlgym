@@ -5,16 +5,19 @@ each episode, since objects, and therefore possible
 groundings, may change with each new PDDL problem.
 """
 from pddlgym.structs import LiteralConjunction, Literal, ground_literal, State
-from pddlgym.parser import PDDLProblemParser
+from pddlgym.parser import PDDLProblemParser, PDDLDomain
 from pddlgym.downward_translate.instantiate import explore as downward_explore
 from pddlgym.downward_translate.pddl_parser import open as downward_open
 from pddlgym.utils import nostdout
 from gym.spaces import Space
 from collections import defaultdict
 
+
 import os
 import tempfile
 import itertools
+from itertools import combinations
+import re
 
 TMP_PDDL_DIR = "/dev/shm" if os.path.exists("/dev/shm") else None
 
@@ -37,11 +40,12 @@ class LiteralSpace(Space):
         self._objects = None
 
     def _update_objects_from_state(self, state):
-        """Given a state, extract the objects and if they have changed, 
+        """Given a state, extract the objects and if they have changed,
         recompute all ground literals
         """
         # Check whether the objects have changed
         # If so, we need to recompute the ground literals
+
         if state.objects == self._objects:
             return
 
@@ -56,7 +60,11 @@ class LiteralSpace(Space):
                     self._type_to_objs[t].append(obj)
 
         self._objects = state.objects
+
         self._all_ground_literals = sorted(self._compute_all_ground_literals(state))
+
+
+
 
     def sample_literal(self, state):
         while True:
@@ -65,10 +73,11 @@ class LiteralSpace(Space):
             lit = self._all_ground_literals[idx]
             if self._lit_valid_test(state, lit):
                 break
-        return lit  
+        return lit
 
     def sample(self, state):
         self._update_objects_from_state(state)
+
         return self.sample_literal(state)
 
     def all_ground_literals(self, state, valid_only=True):
@@ -77,7 +86,6 @@ class LiteralSpace(Space):
             return set(self._all_ground_literals)
         return set(l for l in self._all_ground_literals \
                    if self._lit_valid_test(state, l))
-
     def _compute_all_ground_literals(self, state):
         all_ground_literals = set()
         for predicate in self.predicates:
@@ -119,6 +127,8 @@ class LiteralActionSpace(LiteralSpace):
                  type_hierarchy=None, type_to_parent_types=None):
         self.domain = domain
         self._initial_state = None
+        self.is_turn = True
+
         if not domain.operators_as_actions:
             raise NotImplementedError()
 
@@ -155,8 +165,10 @@ class LiteralActionSpace(LiteralSpace):
         # Associate each ground action literal with ground preconditions
         self._ground_action_to_pos_preconds = {}
         self._ground_action_to_neg_preconds = {}
+        self._ground_action_to_effects = {}
         for ground_action in self._all_ground_literals:
             operator = self._action_predicate_to_operators[ground_action.predicate]
+            lifted_effects = operator.effects.literals
             if isinstance(operator.preconds, LiteralConjunction):
                 lifted_preconds = operator.preconds.literals
             else:
@@ -165,6 +177,7 @@ class LiteralActionSpace(LiteralSpace):
             subs = dict(zip(operator.params, ground_action.variables))
             subs.update(zip(self.domain.constants, self.domain.constants))
             preconds = [ground_literal(lit, subs) for lit in lifted_preconds]
+            effects = [ground_literal(lit, subs) for lit in lifted_effects]
             pos_preconds, neg_preconds = set(), set()
             for p in preconds:
                 if p.is_negative:
@@ -173,28 +186,65 @@ class LiteralActionSpace(LiteralSpace):
                     pos_preconds.add(p)
             self._ground_action_to_pos_preconds[ground_action] = pos_preconds
             self._ground_action_to_neg_preconds[ground_action] = neg_preconds
+            self._ground_action_to_effects[ground_action] = effects
 
     def sample_literal(self, state):
         valid_literals = self.all_ground_literals(state)
         valid_literals = list(sorted(valid_literals))
-        return valid_literals[self.np_random.choice(len(valid_literals))]
+        #switch turns if domain has events
+        if len(self.domain.events) != 0:
+            self.is_turn = not self.is_turn
+
+        if len(valid_literals)>0:
+            chosen_move = valid_literals[self.np_random.choice(len(valid_literals))]
+        else:
+            chosen_move = None
+        return chosen_move
 
     def sample(self, state):
         return self.sample_literal(state)
+
 
     def all_ground_literals(self, state, valid_only=True):
         self._update_objects_from_state(state)
         assert valid_only, "The point of this class is to avoid the cross product!"
         valid_literals = set()
         for ground_action in self._all_ground_literals:
-            pos_preconds = self._ground_action_to_pos_preconds[ground_action]
-            if not pos_preconds.issubset(state.literals):
-                continue
-            neg_preconds = self._ground_action_to_neg_preconds[ground_action]
-            if len(neg_preconds & state.literals) > 0:
-                continue
-            valid_literals.add(ground_action)
+            ground_action_name = str(ground_action).split("(")[0]
+            if (self.is_turn and ground_action_name not in self.domain.events ) or (self.is_turn == False and ground_action_name in self.domain.events):
+                pos_preconds = self._ground_action_to_pos_preconds[ground_action]
+                if not pos_preconds.issubset(state.literals):
+                    continue
+                neg_preconds = self._ground_action_to_neg_preconds[ground_action]
+                if len(neg_preconds & state.literals) > 0:
+                    continue
+
+                valid_literals.add(ground_action)
+        if self.is_turn is False:
+            valid_event_combinations = set()
+            for size in range(2, len(valid_literals) + 1):  # Starting from size 2 for pairs, up to all valid literals
+                for event_combination in combinations(valid_literals, size):
+                    # Check if the combination is compatible (i.e., can all events be applied together)
+                    if self.is_compatible_combination(event_combination, state):
+                        valid_event_combinations.add(event_combination)
+            valid_literals = valid_event_combinations
         return valid_literals
+
+    def is_compatible_combination(self, event_combination, state):
+        """ Check if a set of events (event_combination) can be applied simultaneously """
+        seen_params = set()
+        anti_params = set()
+        # Flatten all effects into a single list
+        all_effects = itertools.chain.from_iterable(self._ground_action_to_effects[event] for event in event_combination)
+        for effect in all_effects:
+            param = re.split(r'[(:)]', str(effect) )[1]
+            if param in seen_params and param in anti_params:
+                return False
+            elif param in seen_params and param not in anti_params:
+                anti_params.add(param)
+            else:
+                seen_params.add(param)
+        return True
 
     def _compute_all_ground_literals(self, state):
         """Call FastDownward's instantiator.
