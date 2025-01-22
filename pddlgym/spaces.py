@@ -115,26 +115,36 @@ class LiteralActionSpace(LiteralSpace):
 
     For now, assumes operators_as_actions.
     """
-    def __init__(self, domain, predicates,
+    def __init__(self, domain, action_predicates, event_predicates,
                  type_hierarchy=None, type_to_parent_types=None):
+        self.action_predicates = action_predicates
+        self.event_predicates = event_predicates
         self.domain = domain
         self._initial_state = None
         if not domain.operators_as_actions:
             raise NotImplementedError()
-
         # Validate and organize operators
         action_predicate_to_operators = {}
+        event_predicate_to_operators = {}
+        operator_predicates = action_predicates + event_predicates
         for operator_name, operator in domain.operators.items():
-            assert len([p for p in predicates if p.name == operator_name]) == 1
-            action_predicate = [p for p in predicates if p.name == operator_name][0]
-            action_predicate_to_operators[action_predicate] = operator
+            assert (len([p for p in action_predicates if p.name == operator_name]) == 1 or
+            len([p for p in event_predicates if p.name == operator_name]) == 1)
+
+            try:
+                action_predicate = [p for p in action_predicates if p.name == operator_name][0]
+                action_predicate_to_operators[action_predicate] = operator
+            except:
+                event_predicate = [p for p in event_predicates if p.name == operator_name][0]
+                event_predicate_to_operators[event_predicate] = operator
             if isinstance(operator.preconds, LiteralConjunction):
                 assert all([isinstance(l, Literal) for l in operator.preconds.literals])
             else:
                 assert isinstance(operator.preconds, Literal)
         self._action_predicate_to_operators = action_predicate_to_operators
+        self._event_predicate_to_operators = event_predicate_to_operators
 
-        super().__init__(predicates,
+        super().__init__(operator_predicates,
             type_hierarchy=type_hierarchy,
             type_to_parent_types=type_to_parent_types)
 
@@ -156,7 +166,12 @@ class LiteralActionSpace(LiteralSpace):
         self._ground_action_to_pos_preconds = {}
         self._ground_action_to_neg_preconds = {}
         for ground_action in self._all_ground_literals:
-            operator = self._action_predicate_to_operators[ground_action.predicate]
+            if ground_action.predicate in self.action_predicates:
+                operator = self._action_predicate_to_operators[ground_action.predicate]
+            else:
+                operator = self._event_predicate_to_operators[ground_action.predicate]
+
+
             if isinstance(operator.preconds, LiteralConjunction):
                 lifted_preconds = operator.preconds.literals
             else:

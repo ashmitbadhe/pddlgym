@@ -10,7 +10,7 @@ from . import timers
 
 def get_fluent_facts(task, model):
     fluent_predicates = set()
-    for action in task.actions:
+    for action in task.operators:
         for effect in action.effects:
             fluent_predicates.add(effect.literal.predicate)
     for axiom in task.axioms:
@@ -73,7 +73,6 @@ def instantiate(task, model):
                 instantiated_axioms.append(inst_axiom)
         elif atom.predicate == "@goal-reachable":
             relaxed_reachable = True
-
     return (relaxed_reachable, fluent_facts, instantiated_actions,
             sorted(instantiated_axioms), reachable_action_parameters)
 

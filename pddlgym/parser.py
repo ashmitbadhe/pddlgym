@@ -39,6 +39,7 @@ class Operator:
         self.preconds = preconds  # structs.Literal representing preconditions
         self.effects = effects  # structs.Literal representing effects
 
+
     def __repr__(self):
         return str(self)
 
@@ -57,7 +58,10 @@ class Operator:
 
     def pddl_str(self):
         param_strs = [str(param).replace(":", " - ") for param in self.params]
-        s = "\n\n\t(:action {}".format(self.name)
+        if self.tag == "action":
+            s = "\n\n\t(:action {}".format(self.name)
+        else:
+            s = "\n\n\t(:event {}".format(self.name)
         s += "\n\t\t:parameters ({})".format(" ".join(param_strs))
         preconds_pddl_str = self._create_preconds_pddl_str(self.preconds)
         s += "\n\t\t:precondition (and {})".format(preconds_pddl_str)
@@ -320,7 +324,7 @@ class PDDLDomain:
     """A PDDL domain.
     """
     def __init__(self, domain_name=None, types=None, type_hierarchy=None, predicates=None, 
-                 operators=None, actions=None, constants=None, operators_as_actions=False, 
+                 operators=None, actions=None, events=None, constants=None, operators_as_actions=False,
                  is_probabilistic=False):
         # String of domain name.
         self.domain_name = domain_name
@@ -334,6 +338,7 @@ class PDDLDomain:
         self.operators = operators
         # Action predicate names (not part of standard PDDL)
         self.actions = actions
+        self.events = events
         # Constant objects, shared across problems
         self.constants = constants or []
         self.operators_as_actions = operators_as_actions
@@ -383,6 +388,11 @@ class PDDLDomain:
     def to_string(self):
         """Create PDDL string
         """
+        for op in self.operators.values():
+            if op.name in self.actions:
+                op.tag = "action"
+            elif op.name in self.events:
+                op.tag = "event"
         predicates = "\n\t".join([lit.pddl_str() for lit in self.predicates.values()])
         operators = "\n\t".join([op.pddl_str() for op in self.operators.values()])
         if self.constants:
@@ -403,6 +413,7 @@ class PDDLDomain:
   (:predicates {}
   )
   ; (:actions {})
+  ; (:events {})
 
   {}
 
@@ -410,7 +421,7 @@ class PDDLDomain:
 
 )
         """.format(self.domain_name, requirements, self._types_pddl_str(),
-                   constants, predicates, " ".join(map(str, self.actions)), operators,
+                   constants, predicates, " ".join(map(str, self.actions)), " ".join(map(str, self.events)), operators,
                    self._derived_preds_pddl_str())
         return domain_str
 
@@ -446,6 +457,8 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         PDDLDomain.__init__(self, operators_as_actions=operators_as_actions)
 
         self.domain_fname = domain_fname
+        self.action_names = set()
+        self.event_names = set()
 
         # Read files.
         with open(domain_fname, "r") as f:
@@ -468,6 +481,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         if operators_as_actions:
             assert not expect_action_preds
             self.actions = self._create_actions_from_operators()
+            self.events = self._create_events_from_operators()
         elif not expect_action_preds:
             self.actions = set()
 
@@ -493,13 +507,24 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
     def _create_actions_from_operators(self):
         actions = set()
         for name, operator in self.operators.items():
-            types = [p.var_type for p in operator.params]
-            action = Predicate(name, len(types), types)
-            assert name not in self.predicates, "Cannot have predicate with same name as operator"
-            self.predicates[name] = action
-            actions.add(action)
+            if name in self.action_names:
+                types = [p.var_type for p in operator.params]
+                action = Predicate(name, len(types), types)
+                assert name not in self.predicates, "Cannot have predicate with same name as operator"
+                self.predicates[name] = action
+                actions.add(action)
         return actions
 
+    def _create_events_from_operators(self):
+        events = set()
+        for name, operator in self.operators.items():
+            if name in self.event_names:
+                types = [p.var_type for p in operator.params]
+                event = Predicate(name, len(types), types)
+                assert name not in self.predicates, "Cannot have predicate with same name as operator"
+                self.predicates[name] = event
+                events.add(event)
+        return events
     def _parse_domain(self):
         patt = r"\(domain(.*?)\)"
         self.domain_name = re.search(patt, self.domain).groups()[0].strip()
@@ -508,7 +533,6 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         self._parse_domain_derived_predicates()
         self._parse_constants()
         self._parse_domain_operators()
-        self.events = self._parse_events()
 
 
 
@@ -683,6 +707,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             preconds = self._parse_into_literal(preconds.strip(), params + self.constants)
             effects = self._parse_into_literal(effects.strip(), params + self.constants,
                 is_effect=True)
+            self.action_names.add(op_name)
             self.operators[op_name] = Operator(
                 op_name, params, preconds, effects)
 
@@ -704,6 +729,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             preconds = self._parse_into_literal(preconds.strip(), params + self.constants)
             effects = self._parse_into_literal(effects.strip(), params + self.constants,
                                                 is_effect=True)
+            self.event_names.add(op_name)
             self.operators[op_name] = Operator(
                 op_name, params, preconds, effects)
 

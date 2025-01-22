@@ -327,17 +327,22 @@ class PDDLEnv(gym.Env):
 
         # Initialize action space with problem-independent components
         actions = list(self.domain.actions)
+        if self.domain.events is not None:
+            events = list(self.domain.events)
+        print(self.domain.predicates)
         self.action_predicates = [self.domain.predicates[a] for a in actions]
+        self.event_predicates = [self.domain.predicates[a] for a in events]
+        self.operator_predicates = self.action_predicates + self.event_predicates
         self._dynamic_action_space = dynamic_action_space
         if dynamic_action_space:
             if self.domain.operators_as_actions and self._domain_is_strips:
                 self._action_space = LiteralActionSpace(
-                    self.domain, self.action_predicates,
+                    self.domain, self.action_predicates, self.event_predicates,
                     type_hierarchy=self.domain.type_hierarchy,
                     type_to_parent_types=self.domain.type_to_parent_types)
             else:
                 self._action_space = LiteralSpace(
-                    self.action_predicates, lit_valid_test=self._action_valid_test,
+                    self.operator_predicates, lit_valid_test=self._action_valid_test,
                     type_hierarchy=self.domain.type_hierarchy,
                     type_to_parent_types=self.domain.type_to_parent_types)
 

@@ -118,7 +118,7 @@ def get_axiom_predicate(axiom):
     return pddl.Atom(name, variables)
 
 def all_conditions(task):
-    for action in task.actions:
+    for action in task.operators:
         yield PreconditionProxy(action)
         for effect in action.effects:
             yield EffectConditionProxy(action, effect)
