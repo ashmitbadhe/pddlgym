@@ -486,23 +486,10 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.actions = set()
 
     def _parse_actions(self):
-        # Find all occurrences of "(:action "
-        matches = re.finditer(r"\(:action ", self.domain)
-        actions = set()
-
-        for match in matches:
-            # Get the start index of the current match
-            start_ind = match.start()
-
-            # Extract the balanced expression for the action
-            action_section = self._find_balanced_expression(self.domain, start_ind)
-
-            # Extract the action name from the section
-            action_name = action_section[9:action_section.index(":", 2)].strip()
-
-            # Add the action name to the set
-            actions.add(action_name)
-        return actions
+        start_ind = re.search(r"\(:actions", self.domain).start()
+        actions = self._find_balanced_expression(self.domain, start_ind)
+        actions = actions[9:-1].strip()
+        return set(actions.split())
 
     def _create_actions_from_operators(self):
         actions = set()
