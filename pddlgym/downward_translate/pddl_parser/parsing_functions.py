@@ -351,7 +351,7 @@ def parse_task(domain_pddl, task_pddl):
 
     return pddl.Task(
         domain_name, task_name, requirements, types, objects,
-        predicates, functions, init, goal, actions, events, operators, axioms, use_metric)
+        predicates, functions, init, goal, actions, events, axioms, use_metric)
 
 
 def parse_domain_pddl(domain_pddl):
