@@ -334,7 +334,6 @@ class PDDLEnv(gym.Env):
             events = list(self.domain.events)
         self.event_predicates = [self.domain.predicates[a] for a in events]
 
-        self.operator_predicates = self.action_predicates + self.event_predicates
 
         self._dynamic_action_space = dynamic_action_space
         if dynamic_action_space:
@@ -345,7 +344,7 @@ class PDDLEnv(gym.Env):
                     type_to_parent_types=self.domain.type_to_parent_types)
             else:
                 self._action_space = LiteralSpace(
-                    self.operator_predicates, lit_valid_test=self._action_valid_test,
+                    self.action_predicates+self.event_predicates, lit_valid_test=self._action_valid_test,
                     type_hierarchy=self.domain.type_hierarchy,
                     type_to_parent_types=self.domain.type_to_parent_types)
 

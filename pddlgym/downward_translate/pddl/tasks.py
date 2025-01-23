@@ -5,7 +5,7 @@ from . import predicates
 class Task:
     def __init__(self, domain_name, task_name, requirements,
                  types, objects, predicates, functions, init, goal,
-                 actions, events, operators, axioms, use_metric):
+                 actions, events, axioms, use_metric):
         self.domain_name = domain_name
         self.task_name = task_name
         self.requirements = requirements
@@ -15,9 +15,8 @@ class Task:
         self.functions = functions
         self.init = init
         self.goal = goal
-        self.action = actions
+        self.actions = actions
         self.events = events
-        self.operators = operators
         self.axioms = axioms
         self.axiom_counter = 0
         self.use_min_cost_metric = use_metric

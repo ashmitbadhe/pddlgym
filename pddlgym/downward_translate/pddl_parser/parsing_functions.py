@@ -317,7 +317,7 @@ def parse_event(alist, type_dict, predicate_dict):
     for rest in iterator:
         assert False, rest
     if eff:
-        return pddl.Action(name, parameters, len(parameters),
+        return pddl.Event(name, parameters, len(parameters),
                            precondition, eff, cost)
     else:
         return None

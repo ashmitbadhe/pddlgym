@@ -9,6 +9,7 @@ from .predicates import Predicate
 from .functions import Function
 
 from .actions import Action
+from .events import Event
 from .actions import PropositionalAction
 
 from .axioms import Axiom
