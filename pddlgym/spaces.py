@@ -37,7 +37,7 @@ class LiteralSpace(Space):
         self._objects = None
 
     def _update_objects_from_state(self, state):
-        """Given a state, extract the objects and if they have changed, 
+        """Given a state, extract the objects and if they have changed,
         recompute all ground literals
         """
         # Check whether the objects have changed
@@ -65,7 +65,7 @@ class LiteralSpace(Space):
             lit = self._all_ground_literals[idx]
             if self._lit_valid_test(state, lit):
                 break
-        return lit  
+        return lit
 
     def sample(self, state):
         self._update_objects_from_state(state)
@@ -191,7 +191,8 @@ class LiteralActionSpace(LiteralSpace):
     def sample_literal(self, state):
         valid_literals = self.all_ground_literals(state)
         valid_literals = list(sorted(valid_literals))
-        return valid_literals[self.np_random.choice(len(valid_literals))]
+        if len(valid_literals) != 0:
+            return valid_literals[self.np_random.choice(len(valid_literals))]
 
     def sample(self, state):
         return self.sample_literal(state)
