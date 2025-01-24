@@ -581,19 +581,19 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.constants = PDDLProblemParser.parse_objects(constants, self.types, 
                 uses_typing=self.uses_typing)
 
-
     def _process_typed_lists(self, params):
         new_params = []
         arg_types = []
-        if len(params) != 1:
-            last_param_split = params[-1].split(' - ')
-            type = last_param_split[1].strip()
+        hyphen_indices = [i for i, el in enumerate(params) if ' - ' in el]
         for i in range(1, len(params)):
             if ' - ' in params[i]:
                 params[i] = params[i].split(' - ')
                 type = params[i][1].strip()
                 new_param = (params[i][0].strip(), type)
             else:
+                for index in hyphen_indices:
+                    if index > i:
+                        type = params[index].split(' - ')[1].strip()
                 new_param = (params[i].strip(), type)
             new_params.append(new_param)
             arg_types.append(type)
