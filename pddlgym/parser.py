@@ -33,11 +33,12 @@ PROBLEM_STR = """
 class Operator:
     """Class to hold an operator.
     """
-    def __init__(self, name, params, preconds, effects):
+    def __init__(self, name, params, preconds, effects, tag):
         self.name = name  # string
         self.params = params  # list of structs.Type objects
         self.preconds = preconds  # structs.Literal representing preconditions
         self.effects = effects  # structs.Literal representing effects
+        self.tag = tag
 
 
     def __repr__(self):
@@ -60,8 +61,10 @@ class Operator:
         param_strs = [str(param).replace(":", " - ") for param in self.params]
         if self.tag == "action":
             s = "\n\n\t(:action {}".format(self.name)
-        else:
+        elif self.tag == "event":
             s = "\n\n\t(:event {}".format(self.name)
+        else:
+            raise ValueError("operator not tagged correctly as action or event")
         s += "\n\t\t:parameters ({})".format(" ".join(param_strs))
         preconds_pddl_str = self._create_preconds_pddl_str(self.preconds)
         s += "\n\t\t:precondition (and {})".format(preconds_pddl_str)
@@ -586,6 +589,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         arg_types = []
         hyphen_indices = [i for i, el in enumerate(params) if ' - ' in el]
         for i in range(1, len(params)):
+            type = None
             if ' - ' in params[i]:
                 params[i] = params[i].split(' - ')
                 type = params[i][1].strip()
@@ -594,6 +598,9 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
                 for index in hyphen_indices:
                     if index > i:
                         type = params[index].split(' - ')[1].strip()
+                        break
+                if type is None:
+                    raise ValueError("parameters missing types")
                 new_param = (params[i].strip(), type)
             new_params.append(new_param)
             arg_types.append(type)
@@ -696,7 +703,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
                 is_effect=True)
             self.action_names.add(op_name)
             self.operators[op_name] = Operator(
-                op_name, params, preconds, effects)
+                op_name, params, preconds, effects, "action")
 
         # events
         event_matches = re.finditer(r"\(:event", self.domain)
@@ -718,7 +725,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
                                                 is_effect=True)
             self.event_names.add(op_name)
             self.operators[op_name] = Operator(
-                op_name, params, preconds, effects)
+                op_name, params, preconds, effects, "event")
 
 
 
