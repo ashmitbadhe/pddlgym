@@ -37,7 +37,7 @@ class LiteralSpace(Space):
         self._objects = None
 
     def _update_objects_from_state(self, state):
-        """Given a state, extract the objects and if they have changed, 
+        """Given a state, extract the objects and if they have changed,
         recompute all ground literals
         """
         # Check whether the objects have changed
@@ -65,7 +65,7 @@ class LiteralSpace(Space):
             lit = self._all_ground_literals[idx]
             if self._lit_valid_test(state, lit):
                 break
-        return lit  
+        return lit
 
     def sample(self, state):
         self._update_objects_from_state(state)
@@ -115,26 +115,35 @@ class LiteralActionSpace(LiteralSpace):
 
     For now, assumes operators_as_actions.
     """
-    def __init__(self, domain, predicates,
+    def __init__(self, domain, action_predicates, event_predicates,
                  type_hierarchy=None, type_to_parent_types=None):
+        self.action_predicates = action_predicates
+        self.event_predicates = event_predicates
         self.domain = domain
         self._initial_state = None
         if not domain.operators_as_actions:
             raise NotImplementedError()
-
         # Validate and organize operators
         action_predicate_to_operators = {}
+        event_predicate_to_operators = {}
+        operator_predicates = action_predicates + event_predicates
         for operator_name, operator in domain.operators.items():
-            assert len([p for p in predicates if p.name == operator_name]) == 1
-            action_predicate = [p for p in predicates if p.name == operator_name][0]
-            action_predicate_to_operators[action_predicate] = operator
+            assert (len([p for p in action_predicates if p.name == operator_name]) == 1 or
+            len([p for p in event_predicates if p.name == operator_name]) == 1)
+
+            try:
+                action_predicate = [p for p in action_predicates if p.name == operator_name][0]
+                action_predicate_to_operators[action_predicate] = operator
+            except:
+                event_predicate = [p for p in event_predicates if p.name == operator_name][0]
+                event_predicate_to_operators[event_predicate] = operator
             if isinstance(operator.preconds, LiteralConjunction):
                 assert all([isinstance(l, Literal) for l in operator.preconds.literals])
             else:
                 assert isinstance(operator.preconds, Literal)
         self._action_predicate_to_operators = action_predicate_to_operators
-
-        super().__init__(predicates,
+        self._event_predicate_to_operators = event_predicate_to_operators
+        super().__init__(operator_predicates,
             type_hierarchy=type_hierarchy,
             type_to_parent_types=type_to_parent_types)
 
@@ -156,7 +165,12 @@ class LiteralActionSpace(LiteralSpace):
         self._ground_action_to_pos_preconds = {}
         self._ground_action_to_neg_preconds = {}
         for ground_action in self._all_ground_literals:
-            operator = self._action_predicate_to_operators[ground_action.predicate]
+            if ground_action.predicate in self.action_predicates:
+                operator = self._action_predicate_to_operators[ground_action.predicate]
+            else:
+                operator = self._event_predicate_to_operators[ground_action.predicate]
+
+
             if isinstance(operator.preconds, LiteralConjunction):
                 lifted_preconds = operator.preconds.literals
             else:
@@ -177,7 +191,8 @@ class LiteralActionSpace(LiteralSpace):
     def sample_literal(self, state):
         valid_literals = self.all_ground_literals(state)
         valid_literals = list(sorted(valid_literals))
-        return valid_literals[self.np_random.choice(len(valid_literals))]
+        if len(valid_literals) != 0:
+            return valid_literals[self.np_random.choice(len(valid_literals))]
 
     def sample(self, state):
         return self.sample_literal(state)
@@ -216,12 +231,26 @@ class LiteralActionSpace(LiteralSpace):
         # Call instantiator.
         task = downward_open(domain_fname, problem_fname)
         with nostdout():
-            _, _, actions, _, _ = downward_explore(task)
+            _, _, actions, events, _, _, _ = downward_explore(task)
         # Post-process to our representation.
         obj_name_to_obj = {obj.name: obj for obj in state.objects}
         all_ground_literals = set()
         for action in actions:
             name = action.name.strip().strip("()").split()
+            pred_name, obj_names = name[0], name[1:]
+            if len(set(obj_names)) != len(obj_names):
+                continue
+            pred = None
+            for p in self.predicates:
+                if p.name == pred_name:
+                    assert pred is None
+                    pred = p
+                    break
+            assert pred is not None
+            objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
+            all_ground_literals.add(pred(*objs))
+        for event in events:
+            name = event.name.strip().strip("()").split()
             pred_name, obj_names = name[0], name[1:]
             if len(set(obj_names)) != len(obj_names):
                 continue
