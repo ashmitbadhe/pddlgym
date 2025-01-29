@@ -524,8 +524,6 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         self._parse_constants()
         self._parse_domain_operators()
 
-
-
     def _parse_domain_types(self):
         match = re.search(r"\(:types", self.domain)
         if not match:
@@ -581,7 +579,7 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
         if constants == "":
             self.constants = []
         else:
-            self.constants = PDDLProblemParser.parse_objects(constants, self.types, 
+            self.constants = PDDLProblemParser.parse_objects(constants, self.types,
                 uses_typing=self.uses_typing)
 
     def _process_typed_lists(self, params):
@@ -681,7 +679,6 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             self.predicates[name].setup(param_names, body)
 
     def _parse_domain_operators(self):
-
         # actions
         action_matches = re.finditer(r"\(:action", self.domain)
         self.operators = {}
@@ -775,7 +772,7 @@ class PDDLProblemParser(PDDLParser):
         if objects == "":
             self.objects = []
         else:
-            self.objects = self.parse_objects(objects, self.types, 
+            self.objects = self.parse_objects(objects, self.types,
                 uses_typing=self.uses_typing)
         # Add constants to objects
         self.objects += self.constants

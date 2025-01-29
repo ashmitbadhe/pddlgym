@@ -35,7 +35,7 @@ def get_object_combinations(objects, arity, var_types=None,
 def run_demo(env, policy, max_num_steps=10, render=False,
              video_path=None, fps=3, verbose=False, seed=None,
              check_reward=False):
-    tot_reward = 0
+
     images = []
 
     if seed is not None:
@@ -47,8 +47,8 @@ def run_demo(env, policy, max_num_steps=10, render=False,
         env.action_space.seed(seed)
 
     for t in range(max_num_steps):
-        # if verbose:
-        #     print("Obs:", obs)
+        if verbose:
+            print("Obs:", obs)
 
         if render:
             images.append(env.render())
@@ -58,8 +58,7 @@ def run_demo(env, policy, max_num_steps=10, render=False,
             print("Act:", action)
 
         obs, reward, done, _, _ = env.step(action)
-        if render:
-            env.render()
+        env.render()
         if verbose:
             print("Rew:", reward)
 
