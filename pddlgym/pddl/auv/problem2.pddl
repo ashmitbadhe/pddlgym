@@ -1,4 +1,4 @@
-(define (problem AUV-problem-3x3-2)
+(define (problem AUV-problem-3x3-1)
 (:domain AUV)
 (:objects
 l-1-1 l-2-1 l-3-1 l-1-2 l-2-2 l-3-2 l-1-3 l-2-3 l-3-3 - location
@@ -8,7 +8,7 @@ s1 - ship
 )
 (:init
 (operational a)
-(at a l-1-2)
+(at a l-1-1)
 (connected l-1-1 l-2-1)
 (connected l-2-1 l-1-1)
 (connected l-1-1 l-1-2)
@@ -33,15 +33,16 @@ s1 - ship
 (connected l-2-3 l-1-3)
 (connected l-2-3 l-3-3)
 (connected l-3-3 l-2-3)
-(at-res r1 l-3-2)
-(at s1 l-2-2)
+(at-res r1 l-2-3)
+(entry s1 l-2-1)
+(exit s1 l-2-3)
 (connected-ship s1 l-2-1 l-2-2)
-(connected-ship s1 l-2-2 l-2-1)
 (connected-ship s1 l-2-2 l-2-3)
-(connected-ship s1 l-2-3 l-2-2)
-(free l-1-1)
-(free l-3-1)
+(outside s1)
 (free l-2-1)
+(free l-3-1)
+(free l-1-2)
+(free l-2-2)
 (free l-3-2)
 (free l-1-3)
 (free l-2-3)
@@ -49,9 +50,8 @@ s1 - ship
 )
 (:goal
 (and
-(operational a)
+(operational a)(at a l-1-1)
 (sampled r1)
-(at a l-1-2)
 )
 )
 )
