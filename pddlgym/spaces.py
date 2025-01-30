@@ -5,7 +5,7 @@ each episode, since objects, and therefore possible
 groundings, may change with each new PDDL problem.
 """
 from pddlgym.structs import LiteralConjunction, Literal, ground_literal, State
-from pddlgym.parser import PDDLProblemParser
+from pddlgym.parser import PDDLProblemParser, PDDLDomain
 from pddlgym.downward_translate.instantiate import explore as downward_explore
 from pddlgym.downward_translate.pddl_parser import open as downward_open
 from pddlgym.utils import nostdout
@@ -15,6 +15,8 @@ from collections import defaultdict
 import os
 import tempfile
 import itertools
+from itertools import combinations
+import re
 
 TMP_PDDL_DIR = "/dev/shm" if os.path.exists("/dev/shm") else None
 
@@ -121,12 +123,14 @@ class LiteralActionSpace(LiteralSpace):
         self.event_predicates = event_predicates
         self.domain = domain
         self._initial_state = None
+        self.is_turn = True
+
         if not domain.operators_as_actions:
             raise NotImplementedError()
+
         # Validate and organize operators
         action_predicate_to_operators = {}
         event_predicate_to_operators = {}
-        operator_predicates = action_predicates + event_predicates
         for operator_name, operator in domain.operators.items():
             assert (len([p for p in action_predicates if p.name == operator_name]) == 1 or
             len([p for p in event_predicates if p.name == operator_name]) == 1)
@@ -143,7 +147,7 @@ class LiteralActionSpace(LiteralSpace):
                 assert isinstance(operator.preconds, Literal)
         self._action_predicate_to_operators = action_predicate_to_operators
         self._event_predicate_to_operators = event_predicate_to_operators
-        super().__init__(operator_predicates,
+        super().__init__(action_predicates + event_predicates,
             type_hierarchy=type_hierarchy,
             type_to_parent_types=type_to_parent_types)
 
@@ -164,13 +168,13 @@ class LiteralActionSpace(LiteralSpace):
         # Associate each ground action literal with ground preconditions
         self._ground_action_to_pos_preconds = {}
         self._ground_action_to_neg_preconds = {}
+        self._ground_action_to_effects = {}
         for ground_action in self._all_ground_literals:
             if ground_action.predicate in self.action_predicates:
                 operator = self._action_predicate_to_operators[ground_action.predicate]
             else:
                 operator = self._event_predicate_to_operators[ground_action.predicate]
-
-
+            lifted_effects = operator.effects.literals
             if isinstance(operator.preconds, LiteralConjunction):
                 lifted_preconds = operator.preconds.literals
             else:
@@ -179,6 +183,7 @@ class LiteralActionSpace(LiteralSpace):
             subs = dict(zip(operator.params, ground_action.variables))
             subs.update(zip(self.domain.constants, self.domain.constants))
             preconds = [ground_literal(lit, subs) for lit in lifted_preconds]
+            effects = [ground_literal(lit, subs) for lit in lifted_effects]
             pos_preconds, neg_preconds = set(), set()
             for p in preconds:
                 if p.is_negative:
@@ -187,12 +192,21 @@ class LiteralActionSpace(LiteralSpace):
                     pos_preconds.add(p)
             self._ground_action_to_pos_preconds[ground_action] = pos_preconds
             self._ground_action_to_neg_preconds[ground_action] = neg_preconds
+            self._ground_action_to_effects[ground_action] = effects
 
     def sample_literal(self, state):
-        valid_literals = self.all_ground_literals(state)
-        valid_literals = list(sorted(valid_literals))
-        if len(valid_literals) != 0:
-            return valid_literals[self.np_random.choice(len(valid_literals))]
+        valid_literals = list(sorted(self.all_ground_literals(state)))
+
+        if self.is_turn:
+            selection = valid_literals[self.np_random.choice(len(valid_literals))] if valid_literals else None
+        else:
+            selection = valid_literals if valid_literals else None  # Already a random combination of pairwise independent events
+
+        # Switch turns if the domain has events
+        if len(self.domain.events) != 0:
+            self.is_turn = not self.is_turn
+
+        return selection
 
     def sample(self, state):
         return self.sample_literal(state)
@@ -202,14 +216,74 @@ class LiteralActionSpace(LiteralSpace):
         assert valid_only, "The point of this class is to avoid the cross product!"
         valid_literals = set()
         for ground_action in self._all_ground_literals:
-            pos_preconds = self._ground_action_to_pos_preconds[ground_action]
-            if not pos_preconds.issubset(state.literals):
-                continue
-            neg_preconds = self._ground_action_to_neg_preconds[ground_action]
-            if len(neg_preconds & state.literals) > 0:
-                continue
-            valid_literals.add(ground_action)
+            ground_action_name = str(ground_action).split("(")[0]
+            if (self.is_turn and ground_action_name not in self.domain.events ) or (self.is_turn == False and ground_action_name in self.domain.events):
+                pos_preconds = self._ground_action_to_pos_preconds[ground_action]
+                if not pos_preconds.issubset(state.literals):
+                    continue
+                neg_preconds = self._ground_action_to_neg_preconds[ground_action]
+                if len(neg_preconds & state.literals) > 0:
+                    continue
+
+                valid_literals.add(ground_action)
+        if self.is_turn is False:
+            selected_events = []
+            required = {}  # Tracks preconditions that must hold
+            changed = {}  # Tracks variables that have changed
+            selectable = list(valid_literals)
+
+            while selectable:
+                # Randomly select an event from the selectable list
+                event_order = self.np_random.choice(len(selectable))  # Randomly choose an event
+
+                event = selectable[event_order-1]
+
+                if self.is_concurrently_applicable(event, state, selected_events, required, changed):
+                    preconditions = self._ground_action_to_pos_preconds[event]
+                    effects = self._ground_action_to_effects[event]
+
+                    for precondition in preconditions:
+                        required[precondition] = True  # Mark precondition as needed
+                    for effect in effects:
+                        changed[effect] = True  # Mark effect as changed
+
+                    selected_events.append(event)
+
+                selectable.pop(event_order)  # Remove the event from selection pool
+
+            valid_literals = selected_events
         return valid_literals
+
+    def is_concurrently_applicable(self, event, state, selected_events, required, changed):
+        """ Check if an event can be applied along with already selected ones. """
+        preconditions = self._ground_action_to_pos_preconds[event]
+        effects = self._ground_action_to_effects[event]
+
+        # Condition 1: Precondition should not be marked as changed by a previous event
+        for precondition in preconditions:
+            if precondition in changed and changed[precondition] != state.literals.get(precondition, None):
+                return False
+
+        # Condition 2: Effects should not override required preconditions
+        for effect in effects:
+            if effect in required and required[effect] != state.literals.get(effect, None):
+                return False
+
+        # Condition 3: Shared preconditions must have the same value
+        for selected_event in selected_events:
+            selected_preconditions = self._ground_action_to_pos_preconds[selected_event]
+            for pre in preconditions & selected_preconditions:  # Intersection
+                if pre in state.literals and pre in required and state.literals != required:
+                    return False
+
+        # Condition 4: Shared effects must have the same value
+        for selected_event in selected_events:
+            selected_effects = self._ground_action_to_effects[selected_event]
+            for eff in set(effects) & set(selected_effects):  # Intersection
+                if eff in state.literals and eff in changed and state.literals != changed:
+                    return False
+
+        return True
 
     def _compute_all_ground_literals(self, state):
         """Call FastDownward's instantiator.

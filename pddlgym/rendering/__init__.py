@@ -18,3 +18,4 @@ from .hiking import render as hiking_render
 from .maze import render as maze_render
 from .navigation import render as navigation_render
 from .visit_all import render as visit_all_render
+from .perestroika import render as perestroika_render
