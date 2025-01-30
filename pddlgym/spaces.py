@@ -5,7 +5,7 @@ each episode, since objects, and therefore possible
 groundings, may change with each new PDDL problem.
 """
 from pddlgym.structs import LiteralConjunction, Literal, ground_literal, State
-from pddlgym.parser import PDDLProblemParser, PDDLDomain
+from pddlgym.parser import PDDLProblemParser
 from pddlgym.downward_translate.instantiate import explore as downward_explore
 from pddlgym.downward_translate.pddl_parser import open as downward_open
 from pddlgym.utils import nostdout
@@ -15,8 +15,6 @@ from collections import defaultdict
 import os
 import tempfile
 import itertools
-from itertools import combinations
-import re
 
 TMP_PDDL_DIR = "/dev/shm" if os.path.exists("/dev/shm") else None
 

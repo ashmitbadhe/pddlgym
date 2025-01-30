@@ -143,7 +143,7 @@ for env_name, kwargs in [
                    'operators_as_actions' : True,
                    'dynamic_action_space' : True}),
         ("river", {}),
-        ("explodingblocks", {'render' : exploding_blocks_render}),
+        ("explodingblocks", {'render' : exploding_blocks_render, 'operators_as_actions' : False}),
         ("newspapers", {'operators_as_actions' : True,
                         'dynamic_action_space' : True}),
         ("easynewspapers", {'operators_as_actions' : True,
