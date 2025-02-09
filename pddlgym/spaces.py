@@ -143,7 +143,7 @@ class LiteralActionSpace(LiteralSpace):
                 assert isinstance(operator.preconds, Literal)
         self._action_predicate_to_operators = action_predicate_to_operators
         self._event_predicate_to_operators = event_predicate_to_operators
-        super().__init__(operator_predicates,
+        super().__init__(action_predicates,
             type_hierarchy=type_hierarchy,
             type_to_parent_types=type_to_parent_types)
 
@@ -249,21 +249,6 @@ class LiteralActionSpace(LiteralSpace):
             assert pred is not None
             objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
             all_ground_literals.add(pred(*objs))
-        for event in events:
-            name = event.name.strip().strip("()").split()
-            pred_name, obj_names = name[0], name[1:]
-            if len(set(obj_names)) != len(obj_names):
-                continue
-            pred = None
-            for p in self.predicates:
-                if p.name == pred_name:
-                    assert pred is None
-                    pred = p
-                    break
-            assert pred is not None
-            objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
-            all_ground_literals.add(pred(*objs))
-        os.close(d_desc)
         return all_ground_literals
 
 
