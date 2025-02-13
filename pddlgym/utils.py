@@ -8,6 +8,7 @@ import numpy as np
 import os
 import gym
 import imageio
+from pddlgym.nature import Nature
 
 
 def get_object_combinations(objects, arity, var_types=None, 
@@ -32,7 +33,7 @@ def get_object_combinations(objects, arity, var_types=None,
             continue
         yield choice
 
-def run_demo(env, policy, max_num_steps=10, render=False,
+def run_demo(env, policy, nature, max_num_steps=10, render=False,
              video_path=None, fps=3, verbose=False, seed=None,
              check_reward=False):
 
@@ -47,8 +48,8 @@ def run_demo(env, policy, max_num_steps=10, render=False,
         env.action_space.seed(seed)
 
     for t in range(max_num_steps):
-        if verbose:
-            print("Obs:", obs)
+        # if verbose:
+        #     print("Obs:", obs)
 
         if render:
             images.append(env.render())
@@ -59,6 +60,11 @@ def run_demo(env, policy, max_num_steps=10, render=False,
 
         obs, reward, done, _, _ = env.step(action)
         env.render()
+
+        #apply nature
+        nature_instance = Nature(obs,env)
+        obs, reward, done, _, _ = nature_instance.nature_KR2021()
+
         if verbose:
             print("Rew:", reward)
 
