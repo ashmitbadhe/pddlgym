@@ -47,13 +47,15 @@ def run_demo(env, policy, nature, max_num_steps=10, render=False,
     if seed is not None:
         env.action_space.seed(seed)
 
+    #Initialize event literals
+    event_literals = None
+
     for t in range(max_num_steps):
         # if verbose:
         #     print("Obs:", obs)
 
         if render:
             images.append(env.render())
-    
         action = policy(obs)
         if verbose:
             print("Act:", action)
@@ -61,15 +63,25 @@ def run_demo(env, policy, nature, max_num_steps=10, render=False,
         obs, reward, done, _, _ = env.step(action)
         env.render()
 
-        #apply nature
-        nature_instance = Nature(obs,env)
-        obs, reward, done, _, _ = nature_instance.nature_KR2021()
-
         if verbose:
             print("Rew:", reward)
 
         if done:
             break
+
+        #apply nature
+        if nature is not None:
+            nature_method = getattr(Nature, nature)  # Get the method from the class
+        else:
+            nature_method = getattr(Nature, "no_nature")
+        nature_instance = Nature(obs, env, event_literals)
+        obs, applied_events, event_literals = nature_method(nature_instance)
+
+        if verbose and nature is not None:
+            print("Events:", applied_events)
+
+
+
 
     if verbose:
         print("Final obs:", obs)

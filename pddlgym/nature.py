@@ -1,55 +1,66 @@
 import random
 import pddlgym.core as core
 class Nature:
-    def __init__(self, state, environment):
+    def __init__(self, state, environment, event_literals):
         self.state = state
         self.env = environment.env
         self.space = self.env.action_space
-        self.space._update_objects_from_state(state)
-        self.event_literals = self.space.event_literals
+        if event_literals != None:
+            self.event_literals = event_literals
+        else:
+            self.event_literals = self.space.event_literals
         self.environment = environment
 
 
     def nature_KR2021(self):
+        obs = None
         selected_events = []
-        required = {} #Tracks preconditions that must hold
-        changed = {} # tracks variables that have changed
-        selectable = self.event_literals
+        required = set() #Tracks preconditions that must hold
+        changed = set() # tracks variables that have changed
+        selectable = self.event_literals.copy()
+
         while selectable:
             # Randomly select an event from the selectable list
             event_order = self.space.np_random.choice(len(selectable))
             event = selectable[event_order-1]
+
             if self.is_pairwise_independent(event, self.state, selected_events, required, changed):
                 preconditions = self.space._ground_action_to_pos_preconds[event]
                 effects = self.space._ground_action_to_effects[event]
 
                 for precondition in preconditions:
-                    required[precondition] = True # Mark precondition as needed
+                    required.add(precondition) # Add precondition as needed
                 for effect in effects:
-                    changed[effect] = True # Mark effect as changed
+                    changed.add(effect) # Add effect as changed
 
                 selected_events.append(event)
             selectable.pop(event_order)
+        if len(selected_events) != 0:
+            for event in selected_events:
+                obs, reward, done, _, _ = self.environment.step(event)
+        else:
+            obs = self.state
 
-        for event in selected_events:
-            obs, reward, done, _, _ = self.environment.step(event)
-        return obs, reward, done, _, _
+        return obs, selected_events, self.event_literals
 
-    def no_nature(state):
-        return state
+    def no_nature(self):
+        selected_events = None
+        self.event_literals = None
+        return self.state, selected_events, self.event_literals
 
     def is_pairwise_independent(self, event, state, selected_events, required, changed):
         """ Check if an event can be applied along with already selected ones. """
         preconditions = self.space._ground_action_to_pos_preconds[event]
         effects = self.space._ground_action_to_effects[event]
+
         # Condition 1: Precondition should not be marked as changed by a previous event
         for precondition in preconditions:
-            if precondition in changed and changed[precondition] != state.literals.get(precondition, None):
+            if precondition in changed:
                 return False
 
         # Condition 2: Effects should not override required preconditions
         for effect in effects:
-            if effect in required and required[effect] != state.literals.get(effect, None):
+            if effect in required:
                 return False
 
         # Condition 3: Shared preconditions must have the same value
