@@ -1,7 +1,7 @@
 import random
 import pddlgym.core as core
 class Nature:
-    def __init__(self, state, environment, event_literals):
+    def __init__(self, state, environment, event_literals, method):
         self.state = state
         self.env = environment.env
         self.space = self.env.action_space
@@ -10,6 +10,10 @@ class Nature:
         else:
             self.event_literals = self.space.event_literals
         self.environment = environment
+        if method is not None:
+            self.method = getattr(Nature, method)  # Get the method from the class
+        else:
+            self.method = getattr(Nature, "no_nature")
 
 
     def nature_KR2021(self):

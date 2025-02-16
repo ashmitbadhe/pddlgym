@@ -70,12 +70,9 @@ def run_demo(env, policy, nature, max_num_steps=10, render=False,
             break
 
         #apply nature
-        if nature is not None:
-            nature_method = getattr(Nature, nature)  # Get the method from the class
-        else:
-            nature_method = getattr(Nature, "no_nature")
-        nature_instance = Nature(obs, env, event_literals)
-        obs, applied_events, event_literals = nature_method(nature_instance)
+        nature_instance = Nature(obs, env, event_literals, nature)
+        obs, applied_events, event_literals = nature_instance.method(nature_instance)
+        env.render()
 
         if verbose and nature is not None:
             print("Events:", applied_events)
