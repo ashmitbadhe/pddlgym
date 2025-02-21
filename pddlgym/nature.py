@@ -1,22 +1,20 @@
-import random
-import pddlgym.core as core
-class Nature:
-    def __init__(self, state, environment, event_literals, method):
+from abc import ABC, abstractmethod
+class BaseNature(ABC):
+    def __init__(self, state, environment, event_literals):
         self.state = state
         self.env = environment.env
         self.space = self.env.action_space
-        if event_literals != None:
-            self.event_literals = event_literals
-        else:
-            self.event_literals = self.space.event_literals
+        self.event_literals = event_literals if event_literals is not None else self.space.event_literals
         self.environment = environment
-        if method is not None:
-            self.method = getattr(Nature, method)  # Get the method from the class
-        else:
-            self.method = getattr(Nature, "no_nature")
+
+    @abstractmethod
+    def apply_nature(self):
+        """Abstract method that must be implemented by subclasses."""
+        raise NotImplementedError("Subclasses must implement this method")
 
 
-    def nature_KR2021(self):
+class IndependentEvents(BaseNature):
+    def apply_nature(self):
         obs = None
         selected_events = []
         required = set() #Tracks preconditions that must hold
@@ -47,10 +45,7 @@ class Nature:
 
         return obs, selected_events, self.event_literals
 
-    def no_nature(self):
-        selected_events = None
-        self.event_literals = None
-        return self.state, selected_events, self.event_literals
+
 
     def is_pairwise_independent(self, event, state, selected_events, required, changed):
         """ Check if an event can be applied along with already selected ones. """
@@ -82,3 +77,22 @@ class Nature:
                     return False
 
         return True
+
+
+class NoNature(BaseNature):
+    def apply_nature(self):
+        selected_events = None
+        self.event_literals = None
+        return self.state, selected_events, self.event_literals
+
+
+def create_nature(nature_type, state, environment, event_literals):
+    nature_classes = {
+        "IndependentEvents": IndependentEvents,
+        "NoNature": NoNature
+    }
+
+    if nature_type not in nature_classes:
+        raise ValueError(f"Unknown nature type: {nature_type}")
+
+    return nature_classes[nature_type](state, environment, event_literals)

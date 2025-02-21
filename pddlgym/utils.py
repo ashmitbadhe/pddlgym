@@ -4,11 +4,8 @@ from collections import defaultdict
 import contextlib
 import sys
 import itertools
-import numpy as np
-import os
-import gym
 import imageio
-from pddlgym.nature import Nature
+from pddlgym.nature import create_nature
 
 
 def get_object_combinations(objects, arity, var_types=None, 
@@ -33,7 +30,7 @@ def get_object_combinations(objects, arity, var_types=None,
             continue
         yield choice
 
-def run_demo(env, policy, nature, max_num_steps=10, render=False,
+def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=False,
              video_path=None, fps=3, verbose=False, seed=None,
              check_reward=False):
 
@@ -50,9 +47,12 @@ def run_demo(env, policy, nature, max_num_steps=10, render=False,
     #Initialize event literals
     event_literals = None
 
+    #Create an instance of nature
+    nature_instance = create_nature(nature_type, obs, env, event_literals)
+
     for t in range(max_num_steps):
-        # if verbose:
-        #     print("Obs:", obs)
+        if verbose:
+            print("Obs:", obs)
 
         if render:
             images.append(env.render())
@@ -70,14 +70,11 @@ def run_demo(env, policy, nature, max_num_steps=10, render=False,
             break
 
         #apply nature
-        nature_instance = Nature(obs, env, event_literals, nature)
-        obs, applied_events, event_literals = nature_instance.method(nature_instance)
+        obs, applied_events, event_literals = nature_instance.apply_nature()
         env.render()
 
-        if verbose and nature is not None:
+        if verbose and nature_type != "NoNature":
             print("Events:", applied_events)
-
-
 
 
     if verbose:
