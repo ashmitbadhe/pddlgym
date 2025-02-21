@@ -143,7 +143,7 @@ class LiteralActionSpace(LiteralSpace):
                 assert isinstance(operator.preconds, Literal)
         self._action_predicate_to_operators = action_predicate_to_operators
         self._event_predicate_to_operators = event_predicate_to_operators
-        super().__init__(action_predicates,
+        super().__init__(action_predicates+event_predicates,
             type_hierarchy=type_hierarchy,
             type_to_parent_types=type_to_parent_types)
 
