@@ -59,14 +59,13 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
 
         if render:
             images.append(env.render())
-        action = policy(obs)
 
+        action = policy(obs)
         if verbose:
             print("Act:", action)
 
         obs, reward, done, _, _ = env.step(action)
         env.render()
-
         if verbose:
             print("Rew:", reward)
 
