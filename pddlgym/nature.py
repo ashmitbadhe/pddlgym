@@ -4,6 +4,8 @@ class BaseNature(ABC):
         self.state = state
         self.env = environment.env
         self.space = self.env.action_space
+        if self.space.__class__.__name__ != "LiteralActionSpace":
+            raise ValueError("Input provided not compatible with natural events")
         self.event_literals = event_literals if event_literals is not None else self.space.event_literals
         self.environment = environment
 
@@ -27,7 +29,8 @@ class IndependentEvents(BaseNature):
             event = selectable[event_order-1]
 
             if self.is_pairwise_independent(event, self.state, selected_events, required, changed):
-                preconditions = self.space._ground_action_to_pos_preconds[event]
+                neg_preconditions = {f"not_{pre}" for pre in self.space._ground_action_to_neg_preconds[event]}
+                preconditions = self.space._ground_action_to_pos_preconds[event] | neg_preconditions
                 effects = self.space._ground_action_to_effects[event]
 
                 for precondition in preconditions:
@@ -49,7 +52,8 @@ class IndependentEvents(BaseNature):
 
     def is_pairwise_independent(self, event, state, selected_events, required, changed):
         """ Check if an event can be applied along with already selected ones. """
-        preconditions = self.space._ground_action_to_pos_preconds[event]
+        neg_preconditions = {f"not_{pre}" for pre in self.space._ground_action_to_neg_preconds[event]}
+        preconditions = self.space._ground_action_to_pos_preconds[event] | neg_preconditions
         effects = self.space._ground_action_to_effects[event]
 
         # Condition 1: Precondition should not be marked as changed by a previous event

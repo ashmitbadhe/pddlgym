@@ -50,8 +50,9 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
     #Initialize event literals
     event_literals = None
 
-    #Create an instance of nature
-    nature_instance = create_nature(nature_type, obs, env, event_literals)
+    #Create an instance of nature if applicable to domain
+    if nature_type != "NoNature":
+        nature_instance = create_nature(nature_type, obs, env, event_literals)
 
     for t in range(max_num_steps):
         if verbose:
@@ -72,9 +73,10 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
         if done:
             break
 
-        #apply nature to environment
-        obs, applied_events, event_literals = nature_instance.apply_nature()
-        env.render()
+        #apply nature to environment if applicable
+        if nature_type != "NoNature":
+            obs, applied_events, event_literals = nature_instance.apply_nature()
+            env.render()
 
         if verbose and nature_type != "NoNature":
             print("Events:", applied_events)
