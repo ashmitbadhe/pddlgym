@@ -4,6 +4,9 @@ from collections import defaultdict
 import contextlib
 import sys
 import itertools
+import numpy as np
+import os
+import gym
 import imageio
 from pddlgym.nature import create_nature
 
@@ -57,6 +60,7 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
         if render:
             images.append(env.render())
         action = policy(obs)
+
         if verbose:
             print("Act:", action)
 
@@ -69,7 +73,7 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
         if done:
             break
 
-        #apply nature
+        #apply nature to environment
         obs, applied_events, event_literals = nature_instance.apply_nature()
         env.render()
 
