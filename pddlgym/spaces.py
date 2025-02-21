@@ -237,7 +237,7 @@ class LiteralActionSpace(LiteralSpace):
             _, _, actions, events, _, _, _ = downward_explore(task)
         # Post-process to our representation.
         obj_name_to_obj = {obj.name: obj for obj in state.objects}
-        all_ground_literals = set()
+        action_ground_literals = set()
         for action in actions:
             name = action.name.strip().strip("()").split()
             pred_name, obj_names = name[0], name[1:]
@@ -251,7 +251,7 @@ class LiteralActionSpace(LiteralSpace):
                     break
             assert pred is not None
             objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
-            all_ground_literals.add(pred(*objs))
+            action_ground_literals.add(pred(*objs))
         for event in events:
             name = event.name.strip().strip("()").split()
             pred_name, obj_names = name[0], name[1:]
@@ -267,7 +267,7 @@ class LiteralActionSpace(LiteralSpace):
             objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
             self.event_literals.append(pred(*objs))
         os.close(d_desc)
-        return all_ground_literals
+        return action_ground_literals
 
 
 class LiteralSetSpace(LiteralSpace):
