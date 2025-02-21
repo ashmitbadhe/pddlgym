@@ -266,6 +266,7 @@ class LiteralActionSpace(LiteralSpace):
             assert pred is not None
             objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
             self.event_literals.append(pred(*objs))
+        os.close(d_desc)
         return all_ground_literals
 
 
