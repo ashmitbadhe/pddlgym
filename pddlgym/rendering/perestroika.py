@@ -10,9 +10,9 @@ AGENT, RESOURCE, PLATFORM, MAX= range(NUM_OBJECTS)
 
 # Define images for the tokens
 TOKEN_IMAGES = {
-    AGENT: plt.imread(get_asset_path('doors_player.png')),
-    RESOURCE: plt.imread(get_asset_path('goal.png')),
-    PLATFORM: plt.imread(get_asset_path('hiking_water.png')),
+    AGENT: plt.imread(get_asset_path('perestroika_agent.png')),
+    RESOURCE: plt.imread(get_asset_path('perestroika_resource.png')),
+    PLATFORM: plt.imread(get_asset_path('perestroika_ring.png')),
 
 }
 
@@ -36,15 +36,22 @@ def build_layout(obs):
                 max_r = max(max_r, r)
                 max_c = max(max_c, c)
     layout = np.zeros((max_r + 1, max_c + 1, NUM_OBJECTS))
-
-    levels = {}
+    all_resources = {}
+    taken = []
+    agent_loc = None
+    agent_dead = False
     for lit in obs:
         if lit.predicate.name == 'at-res':
             r, c = loc_str_to_loc(lit.variables[1])
-            layout[r, c, RESOURCE] = 1
+            res_id = lit.variables[0].split(":")[0].strip()
+            all_resources[res_id] = r, c
+            if res_id not in taken:
+                layout[r, c, RESOURCE] = 1
         elif lit.predicate.name == 'at-agent':
             r, c = loc_str_to_loc(lit.variables[0])
-            layout[r, c, AGENT] = 1
+            agent_loc = r, c
+            if agent_dead == False:
+                layout[r, c, AGENT] = 1
         elif lit.predicate.name == 'level':
             r, c = loc_str_to_loc(lit.variables[0])
             level = int(lit.variables[1].split(':')[0].strip()[1])  # Extract level number
@@ -57,6 +64,18 @@ def build_layout(obs):
             r, c = loc_str_to_loc(lit.variables[0])
             layout[r, c, PLATFORM] = 1
             layout[r, c, MAX] = 1
+        elif lit.predicate.name == 'taken':
+            res_id = lit.variables[0].split(":")[0].strip()
+            taken.append(res_id)
+            if res_id in all_resources:
+                r, c = all_resources[res_id]
+                layout[r, c, RESOURCE] = 0
+        elif lit.predicate.name == 'dead':
+            agent_dead = True
+            if agent_loc is not None:
+                r, c = agent_loc
+                layout[r, c, AGENT] = 0
+
 
     # 1 indexing
     layout = layout[1:, 1:]
@@ -68,21 +87,23 @@ def get_token_images(obs_cell):
         # Platform level determines the size of the rectangle
         level = obs_cell[PLATFORM]
         max_level = obs_cell[MAX]
-        scale = level/max_level
-        # Draw the rectangle (using matplotlib)
-        fig, ax = plt.subplots(figsize=(1, 1))
-        ax.add_patch(plt.Rectangle((0, 0), 1*scale, 1*scale, color="black"))  # Draw the rectangle
-        ax.set_xlim(0, 1)
-        ax.set_ylim(0, 1)
-        ax.axis("off")  # Hide axes
-        plt.tight_layout()
+        scale = level / max_level  # Ensure scale is between 0 and 1
 
-        # Convert the matplotlib figure to an image array
-        fig.canvas.draw()
-        platform_image = np.array(fig.canvas.renderer.buffer_rgba())
-        plt.close(fig)  # Close the figure to free resources
+        # Get base image
+        base_image = TOKEN_IMAGES[PLATFORM]
+        image_array = np.array(base_image)
+        image_array = (image_array * 255).astype(np.uint8)  # Convert float (0-1) to uint8 (0-255)
+        pil_image = Image.fromarray(image_array)
 
-        yield platform_image  # Return the drawn rectangle as an image
+        # Resize correctly
+        width, height = pil_image.size
+        width = width-60
+        height = height-60
+        new_size = (60+int(width * scale), 60+int(height * scale))  # Convert to integers
+
+        platform_image = pil_image.resize(new_size, Image.NEAREST)
+
+        yield np.array(platform_image)  # Convert back to NumPy array
     if obs_cell[RESOURCE]:
         yield TOKEN_IMAGES[RESOURCE]
     if obs_cell[AGENT]:
@@ -96,7 +117,11 @@ def render(state):
     """
     layout = build_layout(state)
 
-    return render_from_layout(layout, get_token_images)
+    light_grey = np.array([211/255, 211/255, 211/255])  # RGB for light grey
+
+    # Create a grid of light red color for all cells
+    grid_colors = np.full((10, 10, 3), light_grey)  # Shape (height, width, 3)
+    return render_from_layout(layout, get_token_images, dpi=300, grid_colors=grid_colors)
 
 
 
