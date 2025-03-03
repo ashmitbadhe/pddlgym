@@ -29,9 +29,9 @@ class IndependentEvents(BaseNature):
             event = selectable[event_order-1]
 
             if self.is_pairwise_independent(event, self.state, selected_events, required, changed):
-                neg_preconditions = {f"not_{pre}" for pre in self.space._ground_action_to_neg_preconds[event]}
-                preconditions = self.space._ground_action_to_pos_preconds[event] | neg_preconditions
+                preconditions = self.space._ground_action_to_pos_preconds[event]
                 effects = self.space._ground_action_to_effects[event]
+                print(effects)
 
                 for precondition in preconditions:
                     required.add(precondition) # Add precondition as needed
@@ -52,8 +52,7 @@ class IndependentEvents(BaseNature):
 
     def is_pairwise_independent(self, event, state, selected_events, required, changed):
         """ Check if an event can be applied along with already selected ones. """
-        neg_preconditions = {f"not_{pre}" for pre in self.space._ground_action_to_neg_preconds[event]}
-        preconditions = self.space._ground_action_to_pos_preconds[event] | neg_preconditions
+        preconditions = self.space._ground_action_to_pos_preconds[event]
         effects = self.space._ground_action_to_effects[event]
 
         # Condition 1: Precondition should not be marked as changed by a previous event

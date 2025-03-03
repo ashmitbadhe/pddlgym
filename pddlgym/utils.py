@@ -55,8 +55,8 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
         nature_instance = create_nature(nature_type, obs, env, event_literals)
 
     for t in range(max_num_steps):
-        if verbose:
-            print("Obs:", obs)
+        # if verbose:
+        #     print("Obs:", obs)
 
         if render:
             images.append(env.render())
