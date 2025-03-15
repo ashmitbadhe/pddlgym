@@ -62,11 +62,14 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
             images.append(env.render())
 
         action = policy(obs)
+        if action is None:
+            break
         if verbose:
             print("Act:", action)
 
         obs, reward, done, _, _ = env.step(action)
-        env.render()
+        if render:
+            images.append(env.render())
         if verbose:
             print("Rew:", reward)
 
@@ -76,10 +79,8 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
         #apply nature to environment if applicable
         if nature_type != "NoNature":
             obs, applied_events, event_literals = nature_instance.apply_nature()
-            env.render()
-
-        if verbose and nature_type != "NoNature":
-            print("Events:", applied_events)
+            if verbose:
+                print("Events:", applied_events)
 
 
     if verbose:

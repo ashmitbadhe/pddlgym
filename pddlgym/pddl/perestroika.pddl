@@ -39,6 +39,7 @@
 :parameters (?r - resource ?l - location)
 :precondition (and (at-agent ?l)
                    (at-res ?r ?l)
+                   (not (taken ?r))
                    (alive)
               )
 :effect (and (taken ?r)

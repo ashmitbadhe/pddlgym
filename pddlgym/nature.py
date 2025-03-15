@@ -31,7 +31,6 @@ class IndependentEvents(BaseNature):
             if self.is_pairwise_independent(event, self.state, selected_events, required, changed):
                 preconditions = self.space._ground_action_to_pos_preconds[event]
                 effects = self.space._ground_action_to_effects[event]
-                print(effects)
 
                 for precondition in preconditions:
                     required.add(precondition) # Add precondition as needed
