@@ -1,18 +1,26 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from .utils import get_asset_path, render_from_layout
+from .utils import get_asset_path, fig2data, draw_token
+from PIL import Image
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from matplotlib.patches import RegularPolygon
 from PIL import Image
 
+import matplotlib.pyplot as plt
+import numpy as np
+
+IM_SCALE = 1
 
 # Define constants for the object types
-NUM_OBJECTS = 4
-AGENT, RESOURCE, PLATFORM, MAX= range(NUM_OBJECTS)
+NUM_OBJECTS = 7
+PLATFORM2, BACK, SKY, AGENT, RESOURCE, PLATFORM, MAX= range(NUM_OBJECTS)
 
 # Define images for the tokens
 TOKEN_IMAGES = {
-    AGENT: plt.imread(get_asset_path('perestroika_agent.png')),
-    RESOURCE: plt.imread(get_asset_path('perestroika_resource.png')),
-    PLATFORM: plt.imread(get_asset_path('perestroika_ring.png')),
+    BACK: plt.imread(get_asset_path('Background_0.png')),
+    SKY: plt.imread(get_asset_path('background.png')),
+    AGENT: plt.imread(get_asset_path('wizard.png')),
+    RESOURCE: plt.imread(get_asset_path('resourceful_platform.png')),
+    PLATFORM: plt.imread(get_asset_path('floating_plat.png')),
+    PLATFORM2: plt.imread(get_asset_path('resource_empty_platform.png')),
 
 }
 
@@ -41,10 +49,16 @@ def build_layout(obs):
     agent_loc = None
     agent_dead = False
     for lit in obs:
-        if lit.predicate.name == 'at-res':
+        if lit.predicate.name == 'connected':
+            r1, c1 = loc_str_to_loc(lit.variables[0])
+            r2, c2 = loc_str_to_loc(lit.variables[1])
+            layout[r1, c1, SKY] = 1
+            layout[r2, c2, SKY] = 1
+        elif lit.predicate.name == 'at-res':
             r, c = loc_str_to_loc(lit.variables[1])
             res_id = lit.variables[0].split(":")[0].strip()
             all_resources[res_id] = r, c
+            layout[r, c, PLATFORM2] = 1
             if res_id not in taken:
                 layout[r, c, RESOURCE] = 1
         elif lit.predicate.name == 'at-agent':
@@ -83,6 +97,12 @@ def build_layout(obs):
     return layout
 
 def get_token_images(obs_cell):
+    if obs_cell[BACK]:
+        yield TOKEN_IMAGES[BACK]
+    # if obs_cell[SKY]:
+    #     yield TOKEN_IMAGES[SKY]
+    if obs_cell[PLATFORM2]:
+        yield TOKEN_IMAGES[PLATFORM2]
     if obs_cell[PLATFORM]:
         # Platform level determines the size of the rectangle
         level = obs_cell[PLATFORM]
@@ -99,7 +119,7 @@ def get_token_images(obs_cell):
         width, height = pil_image.size
         width = width-60
         height = height-60
-        new_size = (60+int(width * scale), 60+int(height * scale))  # Convert to integers
+        new_size = (60+int(width * scale), 60+int(height))  # Convert to integers
 
         platform_image = pil_image.resize(new_size, Image.NEAREST)
 
@@ -117,12 +137,47 @@ def render(state):
     """
     layout = build_layout(state)
 
-    light_grey = np.array([211/255, 211/255, 211/255])  # RGB for light grey
+    light_blue = np.array([132/255, 204/255, 230/255])  # RGB for light blue
 
     # Create a grid of light red color for all cells
-    grid_colors = np.full((10, 10, 3), light_grey)  # Shape (height, width, 3)
-    return render_from_layout(layout, get_token_images, dpi=300, grid_colors=grid_colors)
+    grid_colors = np.full((10, 10, 3), light_blue)  # Shape (height, width, 3)
+    return render_from_layout(layout, get_token_images, dpi=300)
 
 
 
+def render_from_layout(layout, get_token_images, dpi=150, grid_colors=None):
+    height, width = layout.shape[:2]
 
+    fig, ax = initialize_figure(height, width, grid_colors=grid_colors, background_png=TOKEN_IMAGES[BACK])
+
+    for r in range(height):
+        for c in range(width):
+            token_images = get_token_images(layout[r, c])
+            for im in token_images:
+                draw_token(im, r, c, ax, height, width)
+
+    im = fig2data(fig, dpi=dpi)
+    plt.close(fig)
+
+    im = Image.fromarray(im)
+    new_width, new_height = (int(im.size[0] * IM_SCALE), int(im.size[1] * IM_SCALE))
+    # TODO : switch resize method to Image.Resampling.LANCZOS when pillow>=10 is supported
+    im = im.resize((new_width, new_height), Image.ANTIALIAS)
+    im = np.array(im)
+
+    return im
+
+
+def initialize_figure(height, width, fig_scale=1., grid_colors=None, background_png=None):
+    fig = plt.figure(figsize=((width + 2) * fig_scale, (height + 2) * fig_scale))
+    ax = fig.add_axes((0.0, 0.0, 1.0, 1.0),
+                      aspect='equal', frameon=False,
+                      xlim=(-0.05, width + 0.05),
+                      ylim=(-0.05, height + 0.05))
+    if isinstance(background_png, np.ndarray):  # If already an array, convert it
+        bg_img = Image.fromarray((background_png * 255).astype(np.uint8))  # Scale to 0-255
+    else:
+        bg_img = Image.open(background_png).convert("RGBA")  # Load from file if it's a path
+    ax.imshow(bg_img, extent=[0, width, 0, height], origin="upper")
+
+    return fig, ax
