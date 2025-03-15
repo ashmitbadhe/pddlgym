@@ -1,8 +1,5 @@
 from .utils import get_asset_path, fig2data, draw_token
 from PIL import Image
-from matplotlib.offsetbox import OffsetImage, AnnotationBbox
-from matplotlib.patches import RegularPolygon
-from PIL import Image
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -16,7 +13,6 @@ PLATFORM2, BACK, SKY, AGENT, RESOURCE, PLATFORM, MAX= range(NUM_OBJECTS)
 # Define images for the tokens
 TOKEN_IMAGES = {
     BACK: plt.imread(get_asset_path('Background_0.png')),
-    SKY: plt.imread(get_asset_path('background.png')),
     AGENT: plt.imread(get_asset_path('wizard.png')),
     RESOURCE: plt.imread(get_asset_path('resourceful_platform.png')),
     PLATFORM: plt.imread(get_asset_path('floating_plat.png')),
@@ -49,12 +45,7 @@ def build_layout(obs):
     agent_loc = None
     agent_dead = False
     for lit in obs:
-        if lit.predicate.name == 'connected':
-            r1, c1 = loc_str_to_loc(lit.variables[0])
-            r2, c2 = loc_str_to_loc(lit.variables[1])
-            layout[r1, c1, SKY] = 1
-            layout[r2, c2, SKY] = 1
-        elif lit.predicate.name == 'at-res':
+        if lit.predicate.name == 'at-res':
             r, c = loc_str_to_loc(lit.variables[1])
             res_id = lit.variables[0].split(":")[0].strip()
             all_resources[res_id] = r, c
@@ -101,8 +92,6 @@ def get_token_images(obs_cell):
         yield TOKEN_IMAGES[BACK]
     # if obs_cell[SKY]:
     #     yield TOKEN_IMAGES[SKY]
-    if obs_cell[PLATFORM2]:
-        yield TOKEN_IMAGES[PLATFORM2]
     if obs_cell[PLATFORM]:
         # Platform level determines the size of the rectangle
         level = obs_cell[PLATFORM]
@@ -124,6 +113,8 @@ def get_token_images(obs_cell):
         platform_image = pil_image.resize(new_size, Image.NEAREST)
 
         yield np.array(platform_image)  # Convert back to NumPy array
+    if obs_cell[PLATFORM2]:
+        yield TOKEN_IMAGES[PLATFORM2]
     if obs_cell[RESOURCE]:
         yield TOKEN_IMAGES[RESOURCE]
     if obs_cell[AGENT]:
