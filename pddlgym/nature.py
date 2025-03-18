@@ -10,25 +10,25 @@ class BaseNature(ABC):
         self.environment = environment
 
     @abstractmethod
-    def apply_nature(self):
+    def apply_nature(self, state):
         """Abstract method that must be implemented by subclasses."""
         raise NotImplementedError("Subclasses must implement this method")
 
 
 class IndependentEvents(BaseNature):
-    def apply_nature(self):
+    def apply_nature(self, state):
         obs = None
         selected_events = []
         required = set() #Tracks preconditions that must hold
         changed = set() # tracks variables that have changed
-        selectable = self.event_literals.copy()
+        selectable = self.is_applicable(self.event_literals, state)
 
         while selectable:
             # Randomly select an event from the selectable list
             event_order = self.space.np_random.choice(len(selectable))
             event = selectable[event_order-1]
 
-            if self.is_pairwise_independent(event, self.state, selected_events, required, changed):
+            if self.is_pairwise_independent(event, state, selected_events, required, changed):
                 preconditions = self.space._ground_action_to_pos_preconds[event]
                 effects = self.space._ground_action_to_effects[event]
 
@@ -43,7 +43,7 @@ class IndependentEvents(BaseNature):
             for event in selected_events:
                 obs, reward, done, _, _ = self.environment.step(event)
         else:
-            obs = self.state
+            obs = state
 
         return obs, selected_events, self.event_literals
 
@@ -80,12 +80,25 @@ class IndependentEvents(BaseNature):
 
         return True
 
+    def is_applicable(self, all_event_literals, state):
+        self.space._update_objects_from_state(state)
+        valid_literals = set()
+        for event_literal in all_event_literals:
+            pos_preconds = self.space._ground_action_to_pos_preconds[event_literal]
+            if not pos_preconds.issubset(state.literals):
+                continue
+            neg_preconds = self.space._ground_action_to_neg_preconds[event_literal]
+            if len(neg_preconds & state.literals) > 0:
+                continue
+            valid_literals.add(event_literal)
+        return list(valid_literals)
+
 
 class NoNature(BaseNature):
-    def apply_nature(self):
+    def apply_nature(self, state):
         selected_events = None
         self.event_literals = None
-        return self.state, selected_events, self.event_literals
+        return state, selected_events, self.event_literals
 
 
 def create_nature(nature_type, state, environment, event_literals):

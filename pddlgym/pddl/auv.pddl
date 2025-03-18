@@ -37,6 +37,7 @@
 :precondition (and (at ?a ?l)
                    (at-res ?r ?l)
                    (operational ?a)
+                   (not (sampled ?r))
               )
 :effect (and (sampled ?r)
         )

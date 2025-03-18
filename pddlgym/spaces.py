@@ -196,7 +196,7 @@ class LiteralActionSpace(LiteralSpace):
         valid_literals = list(sorted(valid_literals))
         if len(valid_literals) != 0:
             for literal in valid_literals:
-                if "collect" in str(literal):
+                if "sample" in str(literal):
                     return literal
             return valid_literals[self.np_random.choice(len(valid_literals))]
 

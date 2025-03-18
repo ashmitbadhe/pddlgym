@@ -78,7 +78,7 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
 
         #apply nature to environment if applicable
         if nature_type != "NoNature":
-            obs, applied_events, event_literals = nature_instance.apply_nature()
+            obs, applied_events, event_literals = nature_instance.apply_nature(obs)
             if verbose:
                 print("Events:", applied_events)
 
