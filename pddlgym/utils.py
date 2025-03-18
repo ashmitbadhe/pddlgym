@@ -11,7 +11,7 @@ import imageio
 from pddlgym.nature import create_nature
 
 
-def get_object_combinations(objects, arity, var_types=None, 
+def get_object_combinations(objects, arity, var_types=None,
                             type_to_parent_types=None, allow_duplicates=False):
     type_to_objs = defaultdict(list)
 
@@ -62,11 +62,14 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
             images.append(env.render())
 
         action = policy(obs)
+        if action is None:
+            break
         if verbose:
             print("Act:", action)
 
         obs, reward, done, _, _ = env.step(action)
-        env.render()
+        if render:
+            images.append(env.render())
         if verbose:
             print("Rew:", reward)
 
@@ -75,11 +78,9 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
 
         #apply nature to environment if applicable
         if nature_type != "NoNature":
-            obs, applied_events, event_literals = nature_instance.apply_nature()
-            env.render()
-
-        if verbose and nature_type != "NoNature":
-            print("Events:", applied_events)
+            obs, applied_events, event_literals = nature_instance.apply_nature(obs)
+            if verbose:
+                print("Events:", applied_events)
 
 
     if verbose:
