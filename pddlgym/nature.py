@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
+from pddlgym.structs import Anti
 class BaseNature(ABC):
-    def __init__(self, state, environment, event_literals):
+    def __init__(self, state, environment):
         self.state = state
         self.env = environment.env
         self.space = self.env.action_space
         if self.space.__class__.__name__ != "LiteralActionSpace":
             raise ValueError("Input provided not compatible with natural events")
-        self.event_literals = event_literals if event_literals is not None else self.space.event_literals
+        self.event_literals = self.space.event_literals
         self.environment = environment
 
     @abstractmethod
@@ -19,26 +20,31 @@ class IndependentEvents(BaseNature):
     def apply_nature(self, state):
         obs = None
         selected_events = []
-        required = set() #Tracks preconditions that must hold
-        changed = set() # tracks variables that have changed
         selectable = self.is_applicable(self.event_literals, state)
 
-        while selectable:
-            # Randomly select an event from the selectable list
-            event_order = self.space.np_random.choice(len(selectable))
-            event = selectable[event_order-1]
+        # select number from 0 to len(selectable_events)
+        # this number is the position of nth action from selectable applicable events
+        # 0 stands for noop event, and it is used for termination
 
-            if self.is_pairwise_independent(event, state, selected_events, required, changed):
-                preconditions = self.space._ground_action_to_pos_preconds[event]
-                effects = self.space._ground_action_to_effects[event]
+        while (event_order := self.space.np_random.choice(len(selectable))) != 0:
+            effect_index = 0
+            current_order = 0
+            while (current_order != event_order):
+                while (selectable[effect_index] is False):
+                    effect_index += 1
+                current_order += 1
+                effect_index += 1
+            effect_index -= 1
 
-                for precondition in preconditions:
-                    required.add(precondition) # Add precondition as needed
-                for effect in effects:
-                    changed.add(effect) # Add effect as changed
+            event = selectable[effect_index]
 
+            #check if concurrently applicable
+            if self.is_pairwise_independent(event, selected_events):
                 selected_events.append(event)
-            selectable.pop(event_order)
+            else:
+                selectable.pop(event_order)
+
+        #apply selected events to state
         if len(selected_events) != 0:
             for event in selected_events:
                 obs, reward, done, _, _ = self.environment.step(event)
@@ -49,34 +55,45 @@ class IndependentEvents(BaseNature):
 
 
 
-    def is_pairwise_independent(self, event, state, selected_events, required, changed):
+    def is_pairwise_independent(self, event, selected_events):
         """ Check if an event can be applied along with already selected ones. """
-        preconditions = self.space._ground_action_to_pos_preconds[event]
-        effects = self.space._ground_action_to_effects[event]
+        preconditions_ei = self.space._ground_action_to_pos_preconds[event]
+        all_effects_ei = self.space._ground_action_to_effects[event]
+        add_effects_ei = set()
+        del_effects_ei = set()
+        for effect in all_effects_ei:
+            if "Anti" in str(effect):
+                del_effects_ei.add(Anti(effect))
+            else:
+                add_effects_ei.add(effect)
 
-        # Condition 1: Precondition should not be marked as changed by a previous event
-        for precondition in preconditions:
-            if precondition in changed:
+        # Check conditions against already selected events
+        for selected_event in selected_events:
+            preconditions_ej = self.space._ground_action_to_pos_preconds[selected_event]
+            all_effects_ej = self.space._ground_action_to_effects[event]
+            add_effects_ej = set()
+            del_effects_ej = set()
+            for effect in all_effects_ej:
+                if "Anti" in str(effect):
+                    del_effects_ei.add(Anti(effect))
+                else:
+                    add_effects_ei.add(effect)
+
+            # Condition 1: addEffect(ei) ∩ (precondition(ej) ∪ delEffect(ej)) = ∅
+            if add_effects_ei & (preconditions_ej | del_effects_ej):
                 return False
 
-        # Condition 2: Effects should not override required preconditions
-        for effect in effects:
-            if effect in required:
+            # Condition 2: delEffect(ei) ∩ (precondition(ej) ∪ addEffect(ej)) = ∅
+            if del_effects_ei & (preconditions_ej | add_effects_ej):
                 return False
 
-        # Condition 3: Shared preconditions must have the same value
-        for selected_event in selected_events:
-            selected_preconditions = self.space._ground_action_to_pos_preconds[selected_event]
-            for pre in preconditions & selected_preconditions:  # Intersection
-                if pre in state.literals and pre in required and state.literals != required:
-                    return False
+            # Condition 3: addEffect(ej) ∩ (precondition(ei) ∪ delEffect(ei)) = ∅
+            if add_effects_ej & (preconditions_ei | del_effects_ei):
+                return False
 
-        # Condition 4: Shared effects must have the same value
-        for selected_event in selected_events:
-            selected_effects = self.space._ground_action_to_effects[selected_event]
-            for eff in set(effects) & set(selected_effects):  # Intersection
-                if eff in state.literals and eff in changed and state.literals != changed:
-                    return False
+            # Condition 4: delEffect(ej) ∩ (precondition(ei) ∪ addEffect(ei)) = ∅
+            if del_effects_ej & (preconditions_ei | add_effects_ei):
+                return False
 
         return True
 
@@ -101,7 +118,7 @@ class NoNature(BaseNature):
         return state, selected_events, self.event_literals
 
 
-def create_nature(nature_type, state, environment, event_literals):
+def create_nature(nature_type, state, environment):
     nature_classes = {
         "IndependentEvents": IndependentEvents,
         "NoNature": NoNature
@@ -110,4 +127,4 @@ def create_nature(nature_type, state, environment, event_literals):
     if nature_type not in nature_classes:
         raise ValueError(f"Unknown nature type: {nature_type}")
 
-    return nature_classes[nature_type](state, environment, event_literals)
+    return nature_classes[nature_type](state, environment)

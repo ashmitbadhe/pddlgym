@@ -52,7 +52,7 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
 
     #Create an instance of nature if applicable to domain
     if nature_type != "NoNature":
-        nature_instance = create_nature(nature_type, obs, env, event_literals)
+        nature_instance = create_nature(nature_type, obs, env)
 
     for t in range(max_num_steps):
         # if verbose:
@@ -63,6 +63,7 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
 
         action = policy(obs)
         if action is None:
+            print("Act:", action)
             break
         if verbose:
             print("Act:", action)
