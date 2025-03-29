@@ -47,9 +47,6 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
     if seed is not None:
         env.action_space.seed(seed)
 
-    #Initialize event literals
-    event_literals = None
-
     #Create an instance of nature if applicable to domain
     if nature_type != "NoNature":
         nature_instance = create_nature(nature_type, obs, env)
