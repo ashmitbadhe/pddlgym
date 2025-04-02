@@ -3,14 +3,14 @@
 
 import pddlgym
 
-from pddlgym_planners import FD  # FastDownward
+from pddlgym.pddlgym_planners.fd import FD  # FastDownward
 
 def test_planners():
     """Make sure that the plans found by the planners
     succeed in the environments
     """
     planners = [FD()]
-    env_names = ["PDDLEnvBlocks-v0", "PDDLEnvBlocks_operator_actions-v0"]
+    env_names = ["PDDLEnvAuv-v0", "PDDLEnvBlocks_operator_actions-v0"]
 
     for planner in planners:
         for env_name in env_names:

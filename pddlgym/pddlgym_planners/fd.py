@@ -7,8 +7,8 @@ import os
 import sys
 import subprocess
 import tempfile
-from pddlgym_planners.pddl_planner import PDDLPlanner
-from pddlgym_planners.planner import PlanningFailure
+from pddlgym.pddlgym_planners.pddl_planner import PDDLPlanner
+from pddlgym.pddlgym_planners.planner import PlanningFailure
 
 FD_URL = "https://github.com/aibasel/downward.git"
 
@@ -31,12 +31,14 @@ class FD(PDDLPlanner):
         if not os.path.exists(self._exec):
             self._install_fd()
 
-    def _get_cmd_str(self, dom_file, prob_file, timeout):
+    def _get_cmd_str(self, dom_file, prob_file, timeout=None):
         sas_file = tempfile.NamedTemporaryFile(delete=False).name
-        timeout_cmd = "gtimeout" if sys.platform == "darwin" else "timeout"
-        cmd_str = "{} {} {} {} --sas-file {} {} {} {}".format(
-            timeout_cmd, timeout, self._exec, self._alias_flag, sas_file,
+        # No timeout, so no need to define timeout_cmd
+        cmd_str = "python {} {} --sas-file  {} {} {} {}".format(
+            self._exec, self._alias_flag, sas_file,
             dom_file, prob_file, self._final_flags)
+        print(f"Domain File: {dom_file}")
+        print(f"Problem File: {prob_file}")
         return cmd_str
 
     def _get_cmd_str_searchonly(self, sas_file, timeout):

@@ -10,7 +10,7 @@ import numpy as np
 from pddlgym.spaces import LiteralSpace
 from pddlgym.utils import nostdout
 from pddlgym.parser import parse_plan_step, PDDLProblemParser
-from pddlgym_planners.planner import Planner, PlanningTimeout, PlanningFailure
+from pddlgym.pddlgym_planners.planner import Planner, PlanningTimeout, PlanningFailure
 
 
 class PDDLPlanner(Planner):
@@ -33,8 +33,8 @@ class PDDLPlanner(Planner):
             domain.domain_name, state.goal, fast_downward_order=True)
         if translate_separately:
             # TODO: don't ignore timeout during translate phase
-            from pddlgym_planners.FD.src.translate.translate import main as downward_translate
-            from pddlgym_planners.FD.src.translate.pddl_parser import open as downward_open
+            from pddlgym.pddlgym_planners.FD.src.translate.translate import main as downward_translate
+            from pddlgym.pddlgym_planners.FD.src.translate.pddl_parser import open as downward_open
             task = downward_open(domain_filename=dom_file, task_filename=prob_file)
             sas_file = tempfile.NamedTemporaryFile(delete=False).name
             with nostdout():
@@ -47,7 +47,7 @@ class PDDLPlanner(Planner):
         else:
             pddl_plan = self.plan_from_pddl(
                 dom_file, prob_file, horizon=horizon,
-                timeout=timeout, remove_files=(not return_files))
+                timeout=timeout, remove_files=False)
         plan = [self._plan_step_to_action(domain, state,
                                           act_predicates, plan_step)
                 for plan_step in pddl_plan]
@@ -59,9 +59,12 @@ class PDDLPlanner(Planner):
                        remove_files=False):
         """PDDL-specific planning method.
         """
+        # After domain file is written
         cmd_str = self._get_cmd_str(dom_file, prob_file, timeout)
+        print(cmd_str)
         start_time = time.time()
         output = subprocess.getoutput(cmd_str)
+        print(output)
         if remove_files:
             os.remove(dom_file)
             os.remove(prob_file)

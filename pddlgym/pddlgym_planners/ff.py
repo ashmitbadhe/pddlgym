@@ -5,8 +5,8 @@ https://fai.cs.uni-saarland.de/hoffmann/ff.html
 import re
 import os
 import sys
-from pddlgym_planners.pddl_planner import PDDLPlanner
-from pddlgym_planners.planner import PlanningFailure
+from pddlgym.pddlgym_planners.pddl_planner import PDDLPlanner
+from pddlgym.pddlgym_planners.planner import PlanningFailure
 
 FF_URL = "https://fai.cs.uni-saarland.de/hoffmann/ff/FF-v2.3.tgz"
 FF_MAC_URL = "https://github.com/ronuchit/FF.git"
@@ -18,7 +18,7 @@ class FF(PDDLPlanner):
     def __init__(self):
         super().__init__()
         dirname = os.path.dirname(os.path.realpath(__file__))
-        self._exec = os.path.join(dirname, "FF-v2.3/ff")
+        self._exec = os.path.join(dirname, "FF/ff")
         print("Instantiating FF")
         if not os.path.exists(self._exec):
             self._install_ff()
@@ -84,4 +84,5 @@ class FF(PDDLPlanner):
             os.system("rm temp_ff_install.tgz")
         # Compile FF.
         os.system("cd {} && make && cd -".format(loc))
+        print(self._exec)
         assert os.path.exists(self._exec)

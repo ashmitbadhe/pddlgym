@@ -391,13 +391,16 @@ class PDDLDomain:
     def to_string(self):
         """Create PDDL string
         """
+        # Ensure self.events is a valid iterable
+        if self.events is None:
+            self.events = []
         for op in self.operators.values():
             if op.name in self.actions:
                 op.tag = "action"
             elif op.name in self.events:
                 op.tag = "event"
         predicates = "\n\t".join([lit.pddl_str() for lit in self.predicates.values()])
-        operators = "\n\t".join([op.pddl_str() for op in self.operators.values()])
+        operators = "\n".join([op.pddl_str().strip() for op in self.operators.values()])
         if self.constants:
             constants_str = "\n\t".join(list(sorted(map(lambda o: str(o).replace(":", " - "),
                                                     self.constants))))
@@ -671,6 +674,8 @@ class PDDLDomainParser(PDDLParser, PDDLDomain):
             params = head.split("?")[1:]
             types = self.predicates[name].var_types
             assert len(params) == len(types)
+            print(types)  # Debugging
+            print([type(t) for t in types])  # Check what is inside types
             params = [param_type("?"+param.strip())
                       for param, param_type in zip(params, types)]
             del self.predicates[name]

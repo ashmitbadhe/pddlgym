@@ -1,26 +1,17 @@
 import pddlgym
-from pddlgym.utils import run_demo
-from pddlgym_planners.fd import FD
+from pddlgym_planners.ff import FF  # FastForward
+from pddlgym_planners.fd import FD  # FastDownward
 
-def demo_random_perestroika():
-    # Create the Sokoban environment
-    env = pddlgym.make("PDDLEnvPerestroika-v0")
+# Planning with FastDownward (--alias seq-opt-lmcut)
+fd_planner = FD()
+env = pddlgym.make("PDDLEnvAuv-v0")
+state, _ = env.reset()
+print("Plan:", fd_planner(env.domain, state))
+print("Statistics:", fd_planner.get_statistics())
 
-    # Fix the problem index (optional for reproducibility)
-    env.fix_problem_index(0)
-
-    obs, debug_info = env.reset()
-    planner = FD()
-    plan = planner(env.domain, obs)
-
-    # Specify video output path
-    video_path = "perestroika_random_agent_10_steps.mp4"
-
-    # Run the demo for exactly 5 steps with rendering
-    run_demo(env, plan, nature_type="IndependentEvents", max_num_steps=50, render=False, video_path=video_path, fps=3, verbose=True)
-
-    print(f"Video saved to {video_path}")
-
-
-if __name__ == "__main__":
-    demo_random_perestroika()
+# Planning with FastDownward (--alias lama-first)
+lama_first_planner = FD(alias_flag="--alias lama-first")
+env = pddlgym.make("PDDLEnvBlocks-v0")
+state, _ = env.reset()
+print("Plan:", lama_first_planner(env.domain, state))
+print("Statistics:", lama_first_planner.get_statistics())
