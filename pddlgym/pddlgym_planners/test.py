@@ -3,7 +3,7 @@
 
 import pddlgym
 
-from pddlgym.pddlgym_planners.fd import FD  # FastDownward
+from .fd import FD  # FastDownward
 
 def test_planners():
     """Make sure that the plans found by the planners
