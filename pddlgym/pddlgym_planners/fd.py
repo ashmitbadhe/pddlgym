@@ -37,8 +37,6 @@ class FD(PDDLPlanner):
         cmd_str = "python {} {} --sas-file  {} {} {} {}".format(
             self._exec, self._alias_flag, sas_file,
             dom_file, prob_file, self._final_flags)
-        print(f"Domain File: {dom_file}")
-        print(f"Problem File: {prob_file}")
         return cmd_str
 
     def _get_cmd_str_searchonly(self, sas_file, timeout):

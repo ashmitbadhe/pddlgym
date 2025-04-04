@@ -10,7 +10,7 @@ def test_planners():
     succeed in the environments
     """
     planners = [FD()]
-    env_names = ["PDDLEnvAuv-v0", "PDDLEnvBlocks_operator_actions-v0"]
+    env_names = ["PDDLEnvBlocks-v0", "PDDLEnvBlocks_operator_actions-v0"]
 
     for planner in planners:
         for env_name in env_names:

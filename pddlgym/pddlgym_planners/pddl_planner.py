@@ -61,10 +61,8 @@ class PDDLPlanner(Planner):
         """
         # After domain file is written
         cmd_str = self._get_cmd_str(dom_file, prob_file, timeout)
-        print(cmd_str)
         start_time = time.time()
         output = subprocess.getoutput(cmd_str)
-        print(output)
         if remove_files:
             os.remove(dom_file)
             os.remove(prob_file)
