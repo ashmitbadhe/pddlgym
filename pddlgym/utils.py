@@ -60,9 +60,7 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
             images.append(env.render())
 
         action = policy(obs)
-        if action is None:
-            print("Act:", action)
-            break
+
         if verbose:
             print("Act:", action)
 

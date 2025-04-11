@@ -55,7 +55,7 @@ class PDDLPlanner(Planner):
             return plan, dom_file, prob_file
         return plan
 
-    def plan_from_pddl(self, dom_file, prob_file, horizon=np.inf, timeout=10,
+    def plan_from_pddl(self, dom_file, prob_file, horizon=np.inf, timeout=30,
                        remove_files=False):
         """PDDL-specific planning method.
         """

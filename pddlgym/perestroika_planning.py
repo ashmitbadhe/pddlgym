@@ -13,10 +13,10 @@ def demo_random_perestroika():
     policy = APPAgent(env)
 
     # Specify video output path
-    video_path = "perestroika_random_agent_10_steps.mp4"
+    video_path = "perestroika_app_agent.mp4"
 
     # Run the demo for exactly 5 steps with rendering
-    run_demo(env, policy, nature_type="NoNature", max_num_steps=1, render=True, video_path=video_path, fps=3, verbose=True)
+    run_demo(env, policy, nature_type="IndependentEvents", max_num_steps=50, render=True, video_path=video_path, fps=3, verbose=True)
 
     print(f"Video saved to {video_path}")
 
