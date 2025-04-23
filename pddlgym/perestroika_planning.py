@@ -14,7 +14,7 @@ def demo_random_perestroika():
     domain_filepath ="pddlgym/pddl/perestroika.pddl"
     problem_filepath = "pddlgym/pddl/perestroika/problem1.pddl"
     safe_states_filepath = "pddlgym/pddl/perestroika/safe1.txt"
-    policy = LIMITAgent(env, safe_states_filepath)
+    policy = LIMITAgent(env, domain_filepath, problem_filepath, safe_states_filepath)
 
     # Specify video output path
     video_path = "perestroika_limit_agent.mp4"

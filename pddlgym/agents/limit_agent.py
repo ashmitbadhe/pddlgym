@@ -4,9 +4,11 @@ from copy import deepcopy
 from pddlgym.structs import Anti
 
 class LIMITAgent:
-    def __init__(self, env, safe_states_filepath=None, unsafeness_start=0, unsafeness_limit=5):
+    def __init__(self, env, domain_filepath, problem_filepath, safe_states_filepath=None, unsafeness_start=0, unsafeness_limit=5):
         self.env = env
         self.domain = self.env.domain
+        self.domain_filepath = domain_filepath
+        self.problem_filepath = problem_filepath
         self.safe_states_filepath = safe_states_filepath
         self.space = self.env.action_space
         self.planner = FD()
