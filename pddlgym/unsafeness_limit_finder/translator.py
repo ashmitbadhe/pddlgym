@@ -7,17 +7,17 @@ import mypy
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".", "fast_downward", "translate"))) # necessary for correct importing inside translator
 
-from fast_downward.translate import timers
-from fast_downward.translate import normalize
-from fast_downward.translate import pddl_parser
-from fast_downward.translate.translate import pddl_to_sas, dump_statistics
-from fast_downward.translate import options
-from fast_downward.translate.pddl_parser import lisp_parser
-from fast_downward.translate.sas_tasks import SASVariables
-from fast_downward.translate.sas_tasks import SASOperator
-from fast_downward.translate.sas_tasks import SASTask
-from fast_downward.translate.sas_tasks import SASInit
-from fast_downward.translate.pddl.tasks import Task
+from pddlgym.downward_translate import timers
+from pddlgym.downward_translate import normalize
+from pddlgym.downward_translate import pddl_parser
+from pddlgym.downward_translate.translate import pddl_to_sas, dump_statistics
+from pddlgym.downward_translate import options
+from pddlgym.downward_translate.pddl_parser import lisp_parser
+from pddlgym.downward_translate.sas_tasks import SASVariables
+from pddlgym.downward_translate.sas_tasks import SASOperator
+from pddlgym.downward_translate.sas_tasks import SASTask
+from pddlgym.downward_translate.sas_tasks import SASInit
+from pddlgym.downward_translate.pddl.tasks import Task
 
 import mapping
 import safe_state_parser

@@ -2,6 +2,8 @@ from pddlgym.pddlgym_planners.fd import FD
 import copy
 from copy import deepcopy
 from pddlgym.structs import Anti
+import subprocess
+import os
 
 class LIMITAgent:
     def __init__(self, env, domain_filepath, problem_filepath, safe_states_filepath=None, unsafeness_start=0, unsafeness_limit=5):
@@ -29,8 +31,9 @@ class LIMITAgent:
                 limit += 1
                 print(f"Trying to generate a plan with unsafeness limit {limit}...")
 
-                limited_domain = self.generate_limited_domain(self.domain, limit)
-                self.plan = self.planner(limited_domain, state)
+                sas_filepath = self.generate_limited_domain(self.domain, limit)
+                # Run FastDownward to generate the plan
+                self.plan = self.run_fastdownward(sas_filepath)
 
                 if self.plan:
                     self.plan_found = True
@@ -65,8 +68,25 @@ class LIMITAgent:
             raise Exception("Plan is empty. No more actions to take.")
 
     def generate_limited_domain(self, domain_obj, limit):
-        print(dir(domain_obj))
-        return None
+        command = [
+            "python",
+            "pddlgym/unsafeness_limit_finder/translator.py",
+            "--add-events-as-operators",
+            self.domain_filepath,
+            self.problem_filepath,
+            self.safe_states_filepath,
+            str(limit)
+        ]
+
+        log_filepath = os.path.join("pddlgym/unsafeness_limit_finder/", "translation.log")
+        # Run the translation and log output
+        with open(log_filepath, "a") as log_file:
+            result = subprocess.run(command, stdout=log_file, stderr=log_file)
+
+        if result.returncode != 0:
+            raise Exception("Error generating SAS file. Check logs.")
+
+        return "pddlgym/unsafeness_limit_finder/output.sas"
 
 
     def find_safe_sequence(self, current_state):
@@ -148,3 +168,37 @@ class LIMITAgent:
 
     def get_noops_count(self):
         return self.noops_performed
+
+    def run_fastdownward(self, sas_filepath):
+        # Run FastDownward on the generated SAS file
+        command = [
+            "pddlgym/pddlgym_planners/FD/builds/release/bin/downward.exe",
+            "--search", "astar(lmcut())",
+            "--internal-plan-file", "pddlgym/unsafeness_limit_finder/plan.txt"
+        ]
+
+        log_filepath = os.path.join("pddlgym/unsafeness_limit_finder/", "fd_log.txt")
+        with open(log_filepath, "a") as log_file, open(sas_filepath, "rb") as sas_file:
+            result = subprocess.run(
+                command,
+                stdin=sas_file,  # Feed SAS input via stdin
+                stdout=log_file,
+                stderr=log_file,
+                timeout=10
+            )
+
+        if result.returncode != 0:
+            return None
+
+        # Parse the plan from the output file
+        return self.parse_plan("pddlgym/unsafeness_limit_finder/plan.txt")
+
+    def parse_plan(self, plan_filepath):
+        # Read the generated plan from FastDownward
+        with open(plan_filepath, "r") as plan_file:
+            plan = plan_file.readlines()
+
+        # Parse the plan if needed (you may need to adjust this based on your format)
+        parsed_plan = [action.strip() for action in plan]
+
+        return parsed_plan

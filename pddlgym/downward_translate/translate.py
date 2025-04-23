@@ -16,19 +16,19 @@ from collections import defaultdict
 from copy import deepcopy
 from itertools import product
 
-import axiom_rules
-import fact_groups
-import instantiate
-import normalize
-import options
-import pddl
-import pddl_parser
-import sas_tasks
-import signal
-import simplify
-import timers
-import tools
-import variable_order
+from pddlgym.downward_translate import axiom_rules
+from pddlgym.downward_translate import fact_groups
+from pddlgym.downward_translate import instantiate
+from pddlgym.downward_translate import normalize
+from pddlgym.downward_translate import options
+from pddlgym.downward_translate import pddl
+from pddlgym.downward_translate import pddl_parser
+from pddlgym.downward_translate import sas_tasks
+# from pddlgym.downward_translate import signal
+from pddlgym.downward_translate import simplify
+from pddlgym.downward_translate import timers
+from pddlgym.downward_translate import tools
+from pddlgym.downward_translate import variable_order
 
 # TODO: The translator may generate trivial derived variables which are always
 # true, for example if there ia a derived predicate in the input that only
@@ -522,8 +522,8 @@ def unsolvable_sas_task(msg):
 
 def pddl_to_sas(task):
     with timers.timing("Instantiating", block=True):
-        (relaxed_reachable, atoms, actions, axioms,
-         reachable_action_params) = instantiate.explore(task)
+        (relaxed_reachable, atoms, actions, events, axioms,
+         reachable_action_params, reachable_event_params) = instantiate.explore(task)
 
     if not relaxed_reachable:
         return unsolvable_sas_task("No relaxed solution")

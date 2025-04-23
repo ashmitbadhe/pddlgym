@@ -1,6 +1,14 @@
+# -*- coding: utf-8 -*-
+
 import argparse
 import sys
 
+safe_state_filepath = None
+unsafety_limit = 0
+skip_events = True
+add_events = False
+
+generate_relaxed_task = False
 
 def parse_args():
     argparser = argparse.ArgumentParser()
@@ -8,6 +16,16 @@ def parse_args():
         "domain", help="path to domain pddl file")
     argparser.add_argument(
         "task", help="path to task pddl file")
+
+    argparser.add_argument(
+        "safe_states_file", help="path to safe states file")
+    argparser.add_argument(
+        "unsafety_limit", type=int, help="maximum unsafety actions in a row reached by planner")
+    argparser.add_argument(
+        "--translate-events-action", help="ignore 'events' operator", dest="skip_events", action="store_false")
+    argparser.add_argument(
+        "--add-events-as-operators", help="add events as operators usable by planner", dest="add_events", action="store_true")
+
     argparser.add_argument(
         "--relaxed", dest="generate_relaxed_task", action="store_true",
         help="output relaxed task (no delete effects)")
@@ -25,9 +43,6 @@ def parse_args():
         "generation and obtain only binary variables. The limit is "
         "needed for grounded input files that would otherwise produce "
         "too many candidates.")
-    argparser.add_argument(
-        "--sas-file", default="output.sas",
-        help="path to the SAS output file (default: %(default)s)")
     argparser.add_argument(
         "--invariant-generation-max-time", default=300, type=int,
         help="max time for invariant generation (default: %(default)ds)")
@@ -55,8 +70,8 @@ def parse_args():
     argparser.add_argument(
         "--layer-strategy", default="min", choices=["min", "max"],
         help="How to assign layers to derived variables. 'min' attempts to put as "
-        "many variables into the same layer as possible, while 'max' puts each variable "
-        "into its own layer unless it is part of a cycle.")
+             "many variables into the same layer as possible, while 'max' puts each variable "
+             "into its own layer unless it is part of a cycle.")
     return argparser.parse_args()
 
 
@@ -69,6 +84,12 @@ def copy_args_to_module(args):
 def setup():
     args = parse_args()
     copy_args_to_module(args)
+    global safe_state_filepath
+    global unsafety_limit
+    global skip_events
+    safe_state_filepath = args.safe_states_file
+    unsafety_limit = args.unsafety_limit
+    skip_events = args.skip_events
 
+setup()
 
-# setup()
