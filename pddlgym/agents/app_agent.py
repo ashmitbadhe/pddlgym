@@ -114,10 +114,7 @@ class APPAgent:
 
 
     def simulate_action(self, state, action):
-        # Make a deep copy of the environment to avoid changing the real one
-        sim_env = copy.deepcopy(self.env)
-        sim_env.set_state(state)
-        next_deterministic_state, _, _, _, _ = sim_env.step(action)
+        next_deterministic_state = self.env.simulate_events(action, state, False)
         return next_deterministic_state
 
     def applicable_events(self, all_event_literals, state):

@@ -23,6 +23,7 @@ from pddlgym.spaces import LiteralSpace, LiteralSetSpace, LiteralActionSpace
 import glob
 import os
 from itertools import product
+from collections.abc import Iterable
 
 import gym
 
@@ -600,3 +601,25 @@ class PDDLEnv(gym.Env):
             else:  # terminate
                 break
         return state
+
+    def simulate_events(self, events, simulated_state=None, apply_bool=False):
+        if simulated_state is None:
+            state = self._state
+        else:
+            state = simulated_state
+
+        if not isinstance(events, Iterable) or isinstance(events, (str, bytes)):
+            events = [events]
+
+        for event in events:
+            state = get_successor_state(
+                state, event, self.domain,
+                inference_mode=self._inference_mode,
+                raise_error_on_invalid_action=self._raise_error_on_invalid_action
+            )
+
+        if apply_bool:
+            self.set_state(state)
+
+        return state
+

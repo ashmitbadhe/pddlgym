@@ -46,8 +46,7 @@ class IndependentEvents(BaseNature):
 
         #apply selected events to state
         if len(selected_events) != 0:
-            for event in selected_events:
-                obs, reward, done, _, _ = self.environment.step(event)
+            obs = self.environment.simulate_events(selected_events, apply_bool=True)
         else:
             obs = state
 

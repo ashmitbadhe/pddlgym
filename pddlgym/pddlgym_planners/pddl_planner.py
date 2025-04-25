@@ -17,7 +17,7 @@ class PDDLPlanner(Planner):
     """Calls out to an external planner with constructed domain and problem
     files; parses the resulting plan.
     """
-    def __call__(self, domain, state, horizon=np.inf, timeout=10,
+    def __call__(self, domain, state, horizon=np.inf, timeout=1000,
                  return_files=False, translate_separately=False):
         act_predicates = [domain.predicates[a] for a in list(domain.actions)]
         act_space = LiteralSpace(

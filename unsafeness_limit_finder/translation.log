@@ -1,0 +1,155 @@
+C:\pddlgym\pddlgym\unsafeness_limit_finder\translator.py:104: SyntaxWarning: invalid escape sequence '\i'
+  """ 
+Parsing...
+Parsing: [0.016s CPU, 0.004s wall-clock]
+Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Instantiating...
+Generating Datalog program... [0.000s CPU, 0.000s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.000s CPU, 0.005s wall-clock]
+Preparing model... [0.000s CPU, 0.001s wall-clock]
+Generated 61 rules.
+Computing model... [0.016s CPU, 0.006s wall-clock]
+499 relevant atoms
+753 auxiliary atoms
+1252 final queue length
+1612 total queue pushes
+Completing instantiation... [0.000s CPU, 0.004s wall-clock]
+Instantiating: [0.016s CPU, 0.017s wall-clock]
+Computing fact groups...
+Finding invariants...
+15 initial candidates
+Finding invariants: [0.000s CPU, 0.002s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.001s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+46 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.000s wall-clock]
+Computing fact groups: [0.000s CPU, 0.004s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.000s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.000s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Translator axioms removed by simplifying: 0
+Computing negative axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.000s CPU, 0.001s wall-clock]
+Translating task: [0.000s CPU, 0.004s wall-clock]
+80 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+14 operators removed
+0 axioms removed
+130 propositions removed
+Detecting unreachable propositions: [0.016s CPU, 0.002s wall-clock]
+Reordering and filtering variables...
+6 of 31 variables necessary.
+0 of 1 mutex groups necessary.
+71 of 71 operators necessary.
+0 of 0 axiom rules necessary.
+Reordering and filtering variables: [0.000s CPU, 0.000s wall-clock]
+Translator variables: 6
+Translator derived variables: 0
+Translator facts: 35
+Translator goal facts: 5
+Translator mutex groups: 0
+Translator total mutex groups size: 0
+Translator operators: 71
+Translator axioms: 0
+Translator task size: 259
+warning: could not determine peak memory
+Predicate alive was optimized out by translator. Therefore it will be ignored in safe states declarations.
+Predicate dead was optimized out by translator. Therefore it will be ignored in safe states declarations.
+Translating operator number 12 of 71.
+Translating operator number 24 of 71.
+Translating operator number 36 of 71.
+Translating operator number 48 of 71.
+Translating operator number 60 of 71.
+Translating operator number 71 of 71.
+Operator translating done. 42 unsafe operators replaced with 0 copies, 29 safe operators persisted, 0 operators ignored
+Writing output... [0.000s CPU, 0.002s wall-clock]
+Done! [0.125s CPU, 0.110s wall-clock]
+C:\pddlgym\pddlgym\unsafeness_limit_finder\translator.py:104: SyntaxWarning: invalid escape sequence '\i'
+  """ 
+Parsing...
+Parsing: [0.000s CPU, 0.004s wall-clock]
+Normalizing task... [0.000s CPU, 0.000s wall-clock]
+Instantiating...
+Generating Datalog program... [0.000s CPU, 0.000s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.000s CPU, 0.005s wall-clock]
+Preparing model... [0.000s CPU, 0.001s wall-clock]
+Generated 61 rules.
+Computing model... [0.016s CPU, 0.007s wall-clock]
+499 relevant atoms
+753 auxiliary atoms
+1252 final queue length
+1612 total queue pushes
+Completing instantiation... [0.000s CPU, 0.004s wall-clock]
+Instantiating: [0.016s CPU, 0.017s wall-clock]
+Computing fact groups...
+Finding invariants...
+15 initial candidates
+Finding invariants: [0.000s CPU, 0.002s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.001s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+46 uncovered facts
+Choosing groups: [0.000s CPU, 0.001s wall-clock]
+Building translation key... [0.000s CPU, 0.000s wall-clock]
+Computing fact groups: [0.000s CPU, 0.004s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.000s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.000s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Translator axioms removed by simplifying: 0
+Computing negative axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.000s CPU, 0.001s wall-clock]
+Translating task: [0.000s CPU, 0.004s wall-clock]
+80 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+14 operators removed
+0 axioms removed
+130 propositions removed
+Detecting unreachable propositions: [0.016s CPU, 0.002s wall-clock]
+Reordering and filtering variables...
+6 of 31 variables necessary.
+0 of 1 mutex groups necessary.
+71 of 71 operators necessary.
+0 of 0 axiom rules necessary.
+Reordering and filtering variables: [0.000s CPU, 0.000s wall-clock]
+Translator variables: 6
+Translator derived variables: 0
+Translator facts: 35
+Translator goal facts: 5
+Translator mutex groups: 0
+Translator total mutex groups size: 0
+Translator operators: 71
+Translator axioms: 0
+Translator task size: 259
+warning: could not determine peak memory
+Predicate alive was optimized out by translator. Therefore it will be ignored in safe states declarations.
+Predicate dead was optimized out by translator. Therefore it will be ignored in safe states declarations.
+Translating operator number 12 of 71.
+Translating operator number 24 of 71.
+Translating operator number 36 of 71.
+Translating operator number 48 of 71.
+Translating operator number 60 of 71.
+Translating operator number 71 of 71.
+Operator translating done. 42 unsafe operators replaced with 0 copies, 29 safe operators persisted, 0 operators ignored
+Writing output... [0.000s CPU, 0.002s wall-clock]
+Done! [0.094s CPU, 0.106s wall-clock]
+python: can't open file 'C:\\pddlgym\\translator.py': [Errno 2] No such file or directory
+python: can't open file 'C:\\pddlgym\\translator.py': [Errno 2] No such file or directory
+python: can't open file 'C:\\pddlgym\\translator.py': [Errno 2] No such file or directory
+python: can't open file 'C:\\pddlgym\\translator.py': [Errno 2] No such file or directory
+python: can't open file 'C:\\pddlgym\\translator.py': [Errno 2] No such file or directory

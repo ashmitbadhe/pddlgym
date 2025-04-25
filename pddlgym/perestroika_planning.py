@@ -14,13 +14,13 @@ def demo_random_perestroika():
     domain_filepath ="pddlgym/pddl/perestroika.pddl"
     problem_filepath = "pddlgym/pddl/perestroika/problem1.pddl"
     safe_states_filepath = "pddlgym/pddl/perestroika/safe1.txt"
-    policy = LIMITAgent(env, domain_filepath, problem_filepath, safe_states_filepath)
+    policy = APPAgent(env)
 
     # Specify video output path
     video_path = "perestroika_limit_agent.mp4"
 
     # Run the demo for exactly 5 steps with rendering
-    run_demo(env, policy, nature_type="IndependentEvents", max_num_steps=10, render=True, video_path=video_path, fps=3, verbose=True)
+    run_demo(env, policy, nature_type="IndependentEvents", max_num_steps=15, render=True, video_path=video_path, fps=3, verbose=True)
 
     print(f"Video saved to {video_path}")
 

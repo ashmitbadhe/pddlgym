@@ -1,17 +1,20 @@
 from pddlgym.pddlgym_planners.fd import FD
 import copy
 from copy import deepcopy
-from pddlgym.structs import Anti
+from pddlgym.structs import Anti, Literal, Predicate, TypedEntity, Type
 import subprocess
 import os
+import re
 
 class LIMITAgent:
-    def __init__(self, env, domain_filepath, problem_filepath, safe_states_filepath=None, unsafeness_start=0, unsafeness_limit=5):
+    def __init__(self, env, domain_filepath, problem_filepath, safe_states_filepath=None, unsafeness_start=0, unsafeness_limit=15):
         self.env = env
         self.domain = self.env.domain
         self.domain_filepath = domain_filepath
         self.problem_filepath = problem_filepath
+        self.objects = self.get_objects_from_problem()
         self.safe_states_filepath = safe_states_filepath
+        self.plan_file = "pddlgym/unsafeness_limit_finder/plan.txt"
         self.space = self.env.action_space
         self.planner = FD()
         self.plan = None
@@ -27,7 +30,7 @@ class LIMITAgent:
             state, _ = self.env.reset()
             limit = self.unsafeness_start - 1
 
-            while not self.plan_found and limit <= self.unsafeness_limit:
+            while not self.plan_found and limit <= self.unsafeness_limit-1:
                 limit += 1
                 print(f"Trying to generate a plan with unsafeness limit {limit}...")
 
@@ -38,6 +41,8 @@ class LIMITAgent:
                 if self.plan:
                     self.plan_found = True
                     self.current_plan_index = 0
+                    print(f"Plan with unsafe flags: {self.plan}")
+                    self.plan = self.retranslate_plan()
                     print(f"Generated plan with limit {limit}: {self.plan}")
                 else:
                     print(f"Planning failed at limit {limit}")
@@ -88,38 +93,77 @@ class LIMITAgent:
 
         return "pddlgym/unsafeness_limit_finder/output.sas"
 
-
     def find_safe_sequence(self, current_state):
         """
-        Logic to find the safe sequence of actions based on the current state.
-        Mimicking the logic of the C++ `find_safe_sequence` method in your original code.
+        Updated to follow Proposition 3. Tracks p_plus, p_minus, Ei for each step.
+        Builds a robust safe sequence starting from the current state.
         """
         state = current_state
-        self.safe_sequence.clear()  # Clear any existing safe sequence
+        self.safe_sequence.clear()
+
+        p_plus = set()  # Initially empty per Proposition 3
+        p_minus = set()
 
         for i in range(self.current_plan_index, len(self.plan)):
-            action = self.plan[i]
-            applicable = self.is_action_applicable(action, state)
-            if not applicable:
-                print(f"Action {action} not applicable at step {i}")
+            action = self.to_Literal(self.plan[i])
+            print(f"\n[STEP {i}] Considering action: {action}")
+
+            if not self.is_action_applicable(action, state):
+                print(f"  ❌ Action not applicable at this step.")
                 break
 
-            # Simulate deterministic action transition
-            next_deterministic_state = self.simulate_action(state, action)
+            # Get positive preconditions
+            pos_preconds = self.space._ground_action_to_pos_preconds[action]
 
-            # Check if this action is safe w.r.t p_plus/p_minus
-            safe, unsafe_literal = self.is_state_safe(next_deterministic_state)
+            # Check robustness: preconditions must not intersect with p_minus
+            if pos_preconds & p_minus:
+                print(f"  ❌ Action preconditions {pos_preconds} intersect with p_minus {p_minus}")
+                break  # not robust
+
+            # Simulate the action
+            next_state = self.simulate_action(state, action)
+
+            # Check if next state is goal-violating
+            safe, unsafe_literal = self.is_state_safe(next_state)
             if not safe:
-                print(f"Action {action} considered unsafe because anti goal state {unsafe_literal} found")
+                print(f"  ⚠️ Unsafe due to anti-goal literal {unsafe_literal}")
                 break
 
+            # Append the action to safe sequence
             self.safe_sequence.append(action)
+            print(f"  ✅ Action added to safe sequence.")
 
-            print(f"[STEP {i}] Considering action: {action}")
-            print(f"  Applicable: {applicable}")
-            print(f" Safe: {safe}")
+            # Compute next Ei, p_plus, p_minus
+            applicable_events = self.applicable_events(self.space.event_literals, next_state)
 
-            state = next_deterministic_state
+            # Update p_plus and p_minus per Proposition 3
+            action_effects = self.space._ground_action_to_effects[action]
+            for eff in action_effects:
+                print(eff)
+                if eff.is_negative:
+                    p_plus.discard(eff.atom)
+                else:
+                    p_minus.discard(eff)
+
+            for e in applicable_events:
+                for eff in self.space._ground_action_to_effects.get(e, []):
+                    if eff.is_negative:
+                        p_minus.add(eff.atom)
+                    else:
+                        p_plus.add(eff)
+
+            # Move to the next state
+            state = next_state
+
+    def to_Literal(self, action_str):
+        action_str_stripped = action_str[1:-1]
+        vars = list(action_str_stripped.split(" ")[1:])
+        for i in range(len(vars)):
+            if vars[i] in self.objects:
+                vars[i] = self.objects[vars[i]]
+        pred = Predicate(action_str_stripped.split(" ")[0], len(vars))
+        action_literal = Literal(pred, vars)
+        return action_literal
 
     def is_action_applicable(self, action, state):
         self.space._update_objects_from_state(state)
@@ -174,7 +218,7 @@ class LIMITAgent:
         command = [
             "pddlgym/pddlgym_planners/FD/builds/release/bin/downward.exe",
             "--search", "astar(lmcut())",
-            "--internal-plan-file", "pddlgym/unsafeness_limit_finder/plan.txt"
+            "--internal-plan-file", self.plan_file
         ]
 
         log_filepath = os.path.join("pddlgym/unsafeness_limit_finder/", "fd_log.txt")
@@ -183,15 +227,14 @@ class LIMITAgent:
                 command,
                 stdin=sas_file,  # Feed SAS input via stdin
                 stdout=log_file,
-                stderr=log_file,
-                timeout=10
+                stderr=log_file
             )
 
         if result.returncode != 0:
             return None
 
         # Parse the plan from the output file
-        return self.parse_plan("pddlgym/unsafeness_limit_finder/plan.txt")
+        return self.parse_plan(self.plan_file)
 
     def parse_plan(self, plan_filepath):
         # Read the generated plan from FastDownward
@@ -202,3 +245,67 @@ class LIMITAgent:
         parsed_plan = [action.strip() for action in plan]
 
         return parsed_plan
+
+    def retranslate_plan(self):
+        print("Plan retranslating started.")
+
+        try:
+            # Read the content of the plan file
+            with open(self.plan_file, 'r') as plan_file:
+                plan_content = plan_file.read()
+
+            # Remove events and comments using regex
+            plan_content = re.sub(r';.*$', '', plan_content, flags=re.MULTILINE)  # Remove comments
+            plan_content = re.sub(r'\(events[^\)]*\)', '', plan_content)  # Remove events section
+            plan_content = re.sub(r'event-action-[^\s]+', '', plan_content)  # Remove event actions
+            plan_content = re.sub(r'-unsafe-copy-[0-9]+\s', ' ', plan_content)  # Remove unsafe-copy digits
+
+            # Write the modified content to the original plan file
+            with open(self.plan_file, 'w') as original_plan_file:
+                original_plan_file.write(plan_content)
+
+            print("Plan retranslating ended.")
+            # Parse the plan from the output file
+            return self.parse_plan(self.plan_file)
+        except Exception as e:
+            print(f"Error during retranslating the plan: {e}")
+            return None
+
+    def get_objects_from_problem(self):
+        """
+        Extract all objects from the problem file.
+        Assumes that the objects are listed under the `:objects` section of the PDDL problem.
+        """
+        with open(self.problem_filepath, 'r') as problem_file:
+            problem_content = problem_file.read()
+
+        # Search for the :objects section using regex
+        objects_match = re.search(r"\(:objects(.*?)\)", problem_content, re.DOTALL)
+
+        if objects_match:
+            # Extract the objects part and strip it of extra whitespace
+            objects_str = objects_match.group(1).strip()
+
+            # The objects are typically listed after the parentheses
+            # Now we split by spaces and consider each object as a separate item
+            objects = objects_str.split()
+            types = [None]
+            typed_objects = {}
+            for i in range(len(objects)):
+                index = len(objects)-1-i
+                if objects[index] in self.domain.types:
+                    types.append(objects[index])
+                elif objects[index] == '-':
+                    pass
+                else:
+                    typed_objects[objects[index]] = (TypedEntity(objects[index], Type(types[-1])))
+
+
+
+
+            # Return the objects as a list of strings
+            return typed_objects
+
+        return []
+
+

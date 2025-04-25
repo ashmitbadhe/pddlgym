@@ -1,217 +1,432 @@
-[t=0.000270s, 944 KB] usage: 
-pddlgym/pddlgym_planners/FD/builds/release/bin/downward.exe [OPTIONS] --search SEARCH < OUTPUT
-
-* SEARCH (SearchAlgorithm): configuration of the search algorithm
-* OUTPUT (filename): translator output
-
-Options:
---help [NAME]
-    Prints help for all heuristics, open lists, etc. called NAME.
-    Without parameter: prints help for everything available
---internal-plan-file FILENAME
-    Plan will be output to a file called FILENAME
-
---internal-previous-portfolio-plans COUNTER
-    This planner call is part of a portfolio which already created
-    plan files FILENAME.1 up to FILENAME.COUNTER.
-    Start enumerating plan files with COUNTER+1, i.e. FILENAME.COUNTER+1
-
-See https://www.fast-downward.org for details.
-Usage error occurred.
-[t=0.000357s, 944 KB] usage: 
-pddlgym/pddlgym_planners/FD/builds/release/bin/downward.exe [OPTIONS] --search SEARCH < OUTPUT
-
-* SEARCH (SearchAlgorithm): configuration of the search algorithm
-* OUTPUT (filename): translator output
-
-Options:
---help [NAME]
-    Prints help for all heuristics, open lists, etc. called NAME.
-    Without parameter: prints help for everything available
---internal-plan-file FILENAME
-    Plan will be output to a file called FILENAME
-
---internal-previous-portfolio-plans COUNTER
-    This planner call is part of a portfolio which already created
-    plan files FILENAME.1 up to FILENAME.COUNTER.
-    Start enumerating plan files with COUNTER+1, i.e. FILENAME.COUNTER+1
-
-See https://www.fast-downward.org for details.
-Usage error occurred.
-[t=0.000248s, 936 KB] usage: 
-pddlgym/pddlgym_planners/FD/builds/release/bin/downward.exe [OPTIONS] --search SEARCH < OUTPUT
-
-* SEARCH (SearchAlgorithm): configuration of the search algorithm
-* OUTPUT (filename): translator output
-
-Options:
---help [NAME]
-    Prints help for all heuristics, open lists, etc. called NAME.
-    Without parameter: prints help for everything available
---internal-plan-file FILENAME
-    Plan will be output to a file called FILENAME
-
---internal-previous-portfolio-plans COUNTER
-    This planner call is part of a portfolio which already created
-    plan files FILENAME.1 up to FILENAME.COUNTER.
-    Start enumerating plan files with COUNTER+1, i.e. FILENAME.COUNTER+1
-
-See https://www.fast-downward.org for details.
-Usage error occurred.
-[t=0.000248s, 948 KB] usage: 
-pddlgym/pddlgym_planners/FD/builds/release/bin/downward.exe [OPTIONS] --search SEARCH < OUTPUT
-
-* SEARCH (SearchAlgorithm): configuration of the search algorithm
-* OUTPUT (filename): translator output
-
-Options:
---help [NAME]
-    Prints help for all heuristics, open lists, etc. called NAME.
-    Without parameter: prints help for everything available
---internal-plan-file FILENAME
-    Plan will be output to a file called FILENAME
-
---internal-previous-portfolio-plans COUNTER
-    This planner call is part of a portfolio which already created
-    plan files FILENAME.1 up to FILENAME.COUNTER.
-    Start enumerating plan files with COUNTER+1, i.e. FILENAME.COUNTER+1
-
-See https://www.fast-downward.org for details.
-Usage error occurred.
-[t=0.000272s, 952 KB] usage: 
-pddlgym/pddlgym_planners/FD/builds/release/bin/downward.exe [OPTIONS] --search SEARCH < OUTPUT
-
-* SEARCH (SearchAlgorithm): configuration of the search algorithm
-* OUTPUT (filename): translator output
-
-Options:
---help [NAME]
-    Prints help for all heuristics, open lists, etc. called NAME.
-    Without parameter: prints help for everything available
---internal-plan-file FILENAME
-    Plan will be output to a file called FILENAME
-
---internal-previous-portfolio-plans COUNTER
-    This planner call is part of a portfolio which already created
-    plan files FILENAME.1 up to FILENAME.COUNTER.
-    Start enumerating plan files with COUNTER+1, i.e. FILENAME.COUNTER+1
-
-See https://www.fast-downward.org for details.
-Usage error occurred.
-[t=0.000306s, 944 KB] reading input...
-[t=0.000846s, 956 KB] done reading input!
-[t=0.003713s, 1272 KB] Initializing landmark cut heuristic...
-[t=0.003767s, 1272 KB] Building successor generator...done!
-[t=0.003849s, 1272 KB] peak memory difference for successor generator creation: 0 KB
-[t=0.003861s, 1272 KB] time for successor generation creation: 0.000021s
-[t=0.003876s, 1272 KB] Variables: 7
-[t=0.003886s, 1272 KB] FactPairs: 36
-[t=0.003896s, 1272 KB] Bytes per state: 4
-[t=0.003947s, 1272 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
-[t=0.003978s, 1272 KB] Initial state is a dead end.
-[t=0.003989s, 1272 KB] Initial heuristic value for lmcut: infinity
-[t=0.003998s, 1272 KB] pruning method: none
-[t=0.004008s, 1272 KB] Completely explored state space -- no solution!
-[t=0.004017s, 1272 KB] Actual search time: 0.000014s
-[t=0.004028s, 1272 KB] Expanded 0 state(s).
-[t=0.004028s, 1272 KB] Reopened 0 state(s).
-[t=0.004028s, 1272 KB] Evaluated 1 state(s).
-[t=0.004028s, 1272 KB] Evaluations: 1
-[t=0.004028s, 1272 KB] Generated 0 state(s).
-[t=0.004028s, 1272 KB] Dead ends: 0 state(s).
-[t=0.004028s, 1272 KB] Number of registered states: 1
-[t=0.004028s, 1272 KB] Int hash set load factor: 1/1 = 1.000000
-[t=0.004028s, 1272 KB] Int hash set resizes: 0
-[t=0.004028s, 1272 KB] Search time: 0.000081s
-[t=0.004028s, 1272 KB] Total time: 0.004028s
+[t=0.000437s, 960 KB] reading input...
+[t=0.001088s, 972 KB] done reading input!
+[t=0.003997s, 1280 KB] Initializing landmark cut heuristic...
+[t=0.004049s, 1280 KB] Building successor generator...done!
+[t=0.004130s, 1280 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.004141s, 1280 KB] time for successor generation creation: 0.000027s
+[t=0.004156s, 1280 KB] Variables: 10
+[t=0.004166s, 1280 KB] FactPairs: 42
+[t=0.004175s, 1280 KB] Bytes per state: 4
+[t=0.004227s, 1280 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.004265s, 1280 KB] Initial state is a dead end.
+[t=0.004276s, 1280 KB] Initial heuristic value for lmcut: infinity
+[t=0.004286s, 1280 KB] pruning method: none
+[t=0.004295s, 1280 KB] Completely explored state space -- no solution!
+[t=0.004305s, 1280 KB] Actual search time: 0.000014s
+[t=0.004315s, 1280 KB] Expanded 0 state(s).
+[t=0.004315s, 1280 KB] Reopened 0 state(s).
+[t=0.004315s, 1280 KB] Evaluated 1 state(s).
+[t=0.004315s, 1280 KB] Evaluations: 1
+[t=0.004315s, 1280 KB] Generated 0 state(s).
+[t=0.004315s, 1280 KB] Dead ends: 0 state(s).
+[t=0.004315s, 1280 KB] Number of registered states: 1
+[t=0.004315s, 1280 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.004315s, 1280 KB] Int hash set resizes: 0
+[t=0.004315s, 1280 KB] Search time: 0.000089s
+[t=0.004315s, 1280 KB] Total time: 0.004315s
 Search stopped without finding a solution.
-[t=0.000305s, 944 KB] reading input...
-[t=0.001233s, 968 KB] done reading input!
-[t=0.004139s, 1288 KB] Initializing landmark cut heuristic...
-[t=0.004327s, 1288 KB] Building successor generator...done!
-[t=0.004456s, 1288 KB] peak memory difference for successor generator creation: 0 KB
-[t=0.004472s, 1288 KB] time for successor generation creation: 0.000069s
-[t=0.004502s, 1288 KB] Variables: 7
-[t=0.004512s, 1288 KB] FactPairs: 37
-[t=0.004522s, 1288 KB] Bytes per state: 4
-[t=0.004574s, 1288 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
-[t=0.004647s, 1288 KB] New best heuristic value for lmcut: 17
-[t=0.004659s, 1288 KB] g=0, 1 evaluated, 0 expanded
-[t=0.004671s, 1288 KB] f = 17, 1 evaluated, 0 expanded
-[t=0.004688s, 1288 KB] Initial heuristic value for lmcut: 17
-[t=0.004699s, 1288 KB] pruning method: none
-[t=0.004740s, 1288 KB] New best heuristic value for lmcut: 16
-[t=0.004751s, 1288 KB] g=1, 2 evaluated, 1 expanded
-[t=0.004786s, 1288 KB] New best heuristic value for lmcut: 15
-[t=0.004797s, 1288 KB] g=2, 3 evaluated, 2 expanded
-[t=0.004830s, 1288 KB] New best heuristic value for lmcut: 14
-[t=0.004840s, 1288 KB] g=3, 4 evaluated, 3 expanded
-[t=0.004933s, 1288 KB] New best heuristic value for lmcut: 13
-[t=0.004944s, 1288 KB] g=4, 8 evaluated, 4 expanded
-[t=0.005019s, 1288 KB] f = 18, 11 evaluated, 6 expanded
-[t=0.005076s, 1288 KB] f = 19, 13 evaluated, 8 expanded
-[t=0.005239s, 1288 KB] New best heuristic value for lmcut: 12
-[t=0.005252s, 1288 KB] g=7, 20 evaluated, 12 expanded
-[t=0.005297s, 1288 KB] New best heuristic value for lmcut: 11
-[t=0.005308s, 1288 KB] g=8, 22 evaluated, 13 expanded
-[t=0.005353s, 1288 KB] New best heuristic value for lmcut: 10
-[t=0.005364s, 1288 KB] g=9, 24 evaluated, 14 expanded
-[t=0.005391s, 1288 KB] New best heuristic value for lmcut: 9
-[t=0.005402s, 1288 KB] g=10, 25 evaluated, 15 expanded
-[t=0.005429s, 1288 KB] New best heuristic value for lmcut: 8
-[t=0.005440s, 1288 KB] g=11, 26 evaluated, 16 expanded
-[t=0.005493s, 1288 KB] New best heuristic value for lmcut: 7
-[t=0.005504s, 1288 KB] g=12, 29 evaluated, 17 expanded
-[t=0.005528s, 1288 KB] New best heuristic value for lmcut: 6
-[t=0.005539s, 1288 KB] g=13, 30 evaluated, 18 expanded
-[t=0.005577s, 1288 KB] New best heuristic value for lmcut: 5
-[t=0.005588s, 1288 KB] g=14, 32 evaluated, 19 expanded
-[t=0.005629s, 1288 KB] New best heuristic value for lmcut: 4
-[t=0.005640s, 1288 KB] g=15, 34 evaluated, 20 expanded
-[t=0.005662s, 1288 KB] New best heuristic value for lmcut: 3
-[t=0.005673s, 1288 KB] g=16, 35 evaluated, 21 expanded
-[t=0.005713s, 1288 KB] New best heuristic value for lmcut: 2
-[t=0.005724s, 1288 KB] g=17, 38 evaluated, 22 expanded
-[t=0.005743s, 1288 KB] New best heuristic value for lmcut: 1
-[t=0.005791s, 1288 KB] g=18, 39 evaluated, 23 expanded
-[t=0.005815s, 1288 KB] New best heuristic value for lmcut: 0
-[t=0.005826s, 1288 KB] g=19, 40 evaluated, 24 expanded
-[t=0.005855s, 1288 KB] Solution found!
-[t=0.005867s, 1288 KB] Actual search time: 0.001163s
-move-unsafe-copy-1 l-1-1 l-2-1 (1)
-move l-2-1 l-3-1 (1)
-collect r3 l-3-1 (1)
-move-unsafe-copy-1 l-3-1 l-4-1 (1)
-move l-4-1 l-5-1 (1)
-collect r5 l-5-1 (1)
-move-unsafe-copy-1 l-5-1 l-4-1 (1)
-move l-4-1 l-3-1 (1)
-move-unsafe-copy-1 l-3-1 l-3-2 (1)
-move l-3-2 l-3-3 (1)
-move-unsafe-copy-1 l-3-3 l-2-3 (1)
-move l-2-3 l-1-3 (1)
-collect r1 l-1-3 (1)
-move-unsafe-copy-1 l-1-3 l-1-4 (1)
-move l-1-4 l-1-5 (1)
-collect r2 l-1-5 (1)
-move-unsafe-copy-1 l-1-5 l-2-5 (1)
-move l-2-5 l-3-5 (1)
-collect r4 l-3-5 (1)
-[t=0.005878s, 1288 KB] Plan length: 19 step(s).
-[t=0.005878s, 1288 KB] Plan cost: 19
-[t=0.005878s, 1288 KB] Expanded 25 state(s).
-[t=0.005878s, 1288 KB] Reopened 0 state(s).
-[t=0.005878s, 1288 KB] Evaluated 42 state(s).
-[t=0.005878s, 1288 KB] Evaluations: 42
-[t=0.005878s, 1288 KB] Generated 65 state(s).
-[t=0.005878s, 1288 KB] Dead ends: 0 state(s).
-[t=0.005878s, 1288 KB] Expanded until last jump: 8 state(s).
-[t=0.005878s, 1288 KB] Reopened until last jump: 0 state(s).
-[t=0.005878s, 1288 KB] Evaluated until last jump: 13 state(s).
-[t=0.005878s, 1288 KB] Generated until last jump: 19 state(s).
-[t=0.005878s, 1288 KB] Number of registered states: 42
-[t=0.005878s, 1288 KB] Int hash set load factor: 42/64 = 0.656250
-[t=0.005878s, 1288 KB] Int hash set resizes: 6
-[t=0.005878s, 1288 KB] Search time: 0.001305s
-[t=0.005878s, 1288 KB] Total time: 0.005878s
-Solution found.
+[t=0.000305s, 964 KB] reading input...
+[t=0.001304s, 984 KB] done reading input!
+[t=0.004369s, 1304 KB] Initializing landmark cut heuristic...
+[t=0.004430s, 1304 KB] Building successor generator...done!
+[t=0.004500s, 1304 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.004511s, 1304 KB] time for successor generation creation: 0.000046s
+[t=0.004527s, 1304 KB] Variables: 10
+[t=0.004538s, 1304 KB] FactPairs: 43
+[t=0.004547s, 1304 KB] Bytes per state: 4
+[t=0.004597s, 1304 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.004644s, 1304 KB] Initial state is a dead end.
+[t=0.004656s, 1304 KB] Initial heuristic value for lmcut: infinity
+[t=0.004666s, 1304 KB] pruning method: none
+[t=0.004676s, 1304 KB] Completely explored state space -- no solution!
+[t=0.004686s, 1304 KB] Actual search time: 0.000015s
+[t=0.004697s, 1304 KB] Expanded 0 state(s).
+[t=0.004697s, 1304 KB] Reopened 0 state(s).
+[t=0.004697s, 1304 KB] Evaluated 1 state(s).
+[t=0.004697s, 1304 KB] Evaluations: 1
+[t=0.004697s, 1304 KB] Generated 0 state(s).
+[t=0.004697s, 1304 KB] Dead ends: 0 state(s).
+[t=0.004697s, 1304 KB] Number of registered states: 1
+[t=0.004697s, 1304 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.004697s, 1304 KB] Int hash set resizes: 0
+[t=0.004697s, 1304 KB] Search time: 0.000101s
+[t=0.004697s, 1304 KB] Total time: 0.004697s
+Search stopped without finding a solution.
+[t=0.000246s, 952 KB] reading input...
+[t=0.001657s, 976 KB] done reading input!
+[t=0.004757s, 1296 KB] Initializing landmark cut heuristic...
+[t=0.004831s, 1296 KB] Building successor generator...done!
+[t=0.004930s, 1296 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.004942s, 1296 KB] time for successor generation creation: 0.000075s
+[t=0.004961s, 1296 KB] Variables: 10
+[t=0.004972s, 1296 KB] FactPairs: 44
+[t=0.004982s, 1296 KB] Bytes per state: 4
+[t=0.005037s, 1296 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.005081s, 1296 KB] Initial state is a dead end.
+[t=0.005093s, 1296 KB] Initial heuristic value for lmcut: infinity
+[t=0.005103s, 1296 KB] pruning method: none
+[t=0.005113s, 1296 KB] Completely explored state space -- no solution!
+[t=0.005123s, 1296 KB] Actual search time: 0.000015s
+[t=0.005134s, 1296 KB] Expanded 0 state(s).
+[t=0.005134s, 1296 KB] Reopened 0 state(s).
+[t=0.005134s, 1296 KB] Evaluated 1 state(s).
+[t=0.005134s, 1296 KB] Evaluations: 1
+[t=0.005134s, 1296 KB] Generated 0 state(s).
+[t=0.005134s, 1296 KB] Dead ends: 0 state(s).
+[t=0.005134s, 1296 KB] Number of registered states: 1
+[t=0.005134s, 1296 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.005134s, 1296 KB] Int hash set resizes: 0
+[t=0.005134s, 1296 KB] Search time: 0.000098s
+[t=0.005134s, 1296 KB] Total time: 0.005134s
+Search stopped without finding a solution.
+[t=0.000247s, 952 KB] reading input...
+[t=0.001983s, 988 KB] done reading input!
+[t=0.005022s, 1324 KB] Initializing landmark cut heuristic...
+[t=0.005080s, 1324 KB] Building successor generator...done!
+[t=0.005180s, 1324 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.005191s, 1324 KB] time for successor generation creation: 0.000077s
+[t=0.005206s, 1324 KB] Variables: 10
+[t=0.005217s, 1324 KB] FactPairs: 45
+[t=0.005226s, 1324 KB] Bytes per state: 4
+[t=0.005272s, 1324 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.005310s, 1324 KB] Initial state is a dead end.
+[t=0.005322s, 1324 KB] Initial heuristic value for lmcut: infinity
+[t=0.005331s, 1324 KB] pruning method: none
+[t=0.005341s, 1324 KB] Completely explored state space -- no solution!
+[t=0.005350s, 1324 KB] Actual search time: 0.000013s
+[t=0.005360s, 1324 KB] Expanded 0 state(s).
+[t=0.005360s, 1324 KB] Reopened 0 state(s).
+[t=0.005360s, 1324 KB] Evaluated 1 state(s).
+[t=0.005360s, 1324 KB] Evaluations: 1
+[t=0.005360s, 1324 KB] Generated 0 state(s).
+[t=0.005360s, 1324 KB] Dead ends: 0 state(s).
+[t=0.005360s, 1324 KB] Number of registered states: 1
+[t=0.005360s, 1324 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.005360s, 1324 KB] Int hash set resizes: 0
+[t=0.005360s, 1324 KB] Search time: 0.000089s
+[t=0.005360s, 1324 KB] Total time: 0.005360s
+Search stopped without finding a solution.
+[t=0.000246s, 956 KB] reading input...
+[t=0.002441s, 996 KB] done reading input!
+[t=0.005480s, 1332 KB] Initializing landmark cut heuristic...
+[t=0.005540s, 1332 KB] Building successor generator...done!
+[t=0.005653s, 1332 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.005664s, 1332 KB] time for successor generation creation: 0.000092s
+[t=0.005699s, 1332 KB] Variables: 10
+[t=0.005716s, 1332 KB] FactPairs: 46
+[t=0.005740s, 1332 KB] Bytes per state: 4
+[t=0.005790s, 1332 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.005846s, 1332 KB] Initial state is a dead end.
+[t=0.005857s, 1332 KB] Initial heuristic value for lmcut: infinity
+[t=0.005867s, 1332 KB] pruning method: none
+[t=0.005877s, 1332 KB] Completely explored state space -- no solution!
+[t=0.005887s, 1332 KB] Actual search time: 0.000015s
+[t=0.005897s, 1332 KB] Expanded 0 state(s).
+[t=0.005897s, 1332 KB] Reopened 0 state(s).
+[t=0.005897s, 1332 KB] Evaluated 1 state(s).
+[t=0.005897s, 1332 KB] Evaluations: 1
+[t=0.005897s, 1332 KB] Generated 0 state(s).
+[t=0.005897s, 1332 KB] Dead ends: 0 state(s).
+[t=0.005897s, 1332 KB] Number of registered states: 1
+[t=0.005897s, 1332 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.005897s, 1332 KB] Int hash set resizes: 0
+[t=0.005897s, 1332 KB] Search time: 0.000108s
+[t=0.005897s, 1332 KB] Total time: 0.005897s
+Search stopped without finding a solution.
+[t=0.000252s, 956 KB] reading input...
+[t=0.002667s, 1008 KB] done reading input!
+[t=0.005794s, 1340 KB] Initializing landmark cut heuristic...
+[t=0.005861s, 1340 KB] Building successor generator...done!
+[t=0.005994s, 1340 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.006004s, 1340 KB] time for successor generation creation: 0.000111s
+[t=0.006023s, 1340 KB] Variables: 10
+[t=0.006033s, 1340 KB] FactPairs: 47
+[t=0.006042s, 1340 KB] Bytes per state: 4
+[t=0.006077s, 1340 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.006123s, 1340 KB] Initial state is a dead end.
+[t=0.006134s, 1340 KB] Initial heuristic value for lmcut: infinity
+[t=0.006144s, 1340 KB] pruning method: none
+[t=0.006153s, 1340 KB] Completely explored state space -- no solution!
+[t=0.006162s, 1340 KB] Actual search time: 0.000013s
+[t=0.006173s, 1340 KB] Expanded 0 state(s).
+[t=0.006173s, 1340 KB] Reopened 0 state(s).
+[t=0.006173s, 1340 KB] Evaluated 1 state(s).
+[t=0.006173s, 1340 KB] Evaluations: 1
+[t=0.006173s, 1340 KB] Generated 0 state(s).
+[t=0.006173s, 1340 KB] Dead ends: 0 state(s).
+[t=0.006173s, 1340 KB] Number of registered states: 1
+[t=0.006173s, 1340 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.006173s, 1340 KB] Int hash set resizes: 0
+[t=0.006173s, 1340 KB] Search time: 0.000096s
+[t=0.006173s, 1340 KB] Total time: 0.006173s
+Search stopped without finding a solution.
+[t=0.000276s, 948 KB] reading input...
+[t=0.003125s, 1004 KB] done reading input!
+[t=0.006110s, 1320 KB] Initializing landmark cut heuristic...
+[t=0.006169s, 1320 KB] Building successor generator...done!
+[t=0.006317s, 1320 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.006328s, 1320 KB] time for successor generation creation: 0.000125s
+[t=0.006343s, 1320 KB] Variables: 10
+[t=0.006353s, 1320 KB] FactPairs: 48
+[t=0.006363s, 1320 KB] Bytes per state: 4
+[t=0.006387s, 1320 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.006422s, 1320 KB] Initial state is a dead end.
+[t=0.006433s, 1320 KB] Initial heuristic value for lmcut: infinity
+[t=0.006442s, 1320 KB] pruning method: none
+[t=0.006452s, 1320 KB] Completely explored state space -- no solution!
+[t=0.006461s, 1320 KB] Actual search time: 0.000013s
+[t=0.006472s, 1320 KB] Expanded 0 state(s).
+[t=0.006472s, 1320 KB] Reopened 0 state(s).
+[t=0.006472s, 1320 KB] Evaluated 1 state(s).
+[t=0.006472s, 1320 KB] Evaluations: 1
+[t=0.006472s, 1320 KB] Generated 0 state(s).
+[t=0.006472s, 1320 KB] Dead ends: 0 state(s).
+[t=0.006472s, 1320 KB] Number of registered states: 1
+[t=0.006472s, 1320 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.006472s, 1320 KB] Int hash set resizes: 0
+[t=0.006472s, 1320 KB] Search time: 0.000086s
+[t=0.006472s, 1320 KB] Total time: 0.006472s
+Search stopped without finding a solution.
+[t=0.000318s, 956 KB] reading input...
+[t=0.003472s, 1016 KB] done reading input!
+[t=0.006511s, 1348 KB] Initializing landmark cut heuristic...
+[t=0.006565s, 1348 KB] Building successor generator...done!
+[t=0.006727s, 1348 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.006738s, 1348 KB] time for successor generation creation: 0.000140s
+[t=0.006753s, 1348 KB] Variables: 10
+[t=0.006763s, 1348 KB] FactPairs: 49
+[t=0.006773s, 1348 KB] Bytes per state: 4
+[t=0.006796s, 1348 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.006837s, 1348 KB] Initial state is a dead end.
+[t=0.006848s, 1348 KB] Initial heuristic value for lmcut: infinity
+[t=0.006857s, 1348 KB] pruning method: none
+[t=0.006867s, 1348 KB] Completely explored state space -- no solution!
+[t=0.006876s, 1348 KB] Actual search time: 0.000014s
+[t=0.006887s, 1348 KB] Expanded 0 state(s).
+[t=0.006887s, 1348 KB] Reopened 0 state(s).
+[t=0.006887s, 1348 KB] Evaluated 1 state(s).
+[t=0.006887s, 1348 KB] Evaluations: 1
+[t=0.006887s, 1348 KB] Generated 0 state(s).
+[t=0.006887s, 1348 KB] Dead ends: 0 state(s).
+[t=0.006887s, 1348 KB] Number of registered states: 1
+[t=0.006887s, 1348 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.006887s, 1348 KB] Int hash set resizes: 0
+[t=0.006887s, 1348 KB] Search time: 0.000091s
+[t=0.006887s, 1348 KB] Total time: 0.006887s
+Search stopped without finding a solution.
+[t=0.000388s, 944 KB] reading input...
+[t=0.007732s, 1016 KB] done reading input!
+[t=0.012752s, 1332 KB] Initializing landmark cut heuristic...
+[t=0.012888s, 1332 KB] Building successor generator...done!
+[t=0.013278s, 1332 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.013304s, 1332 KB] time for successor generation creation: 0.000343s
+[t=0.013341s, 1332 KB] Variables: 10
+[t=0.013365s, 1332 KB] FactPairs: 50
+[t=0.013383s, 1332 KB] Bytes per state: 4
+[t=0.013437s, 1332 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.013520s, 1332 KB] Initial state is a dead end.
+[t=0.013614s, 1332 KB] Initial heuristic value for lmcut: infinity
+[t=0.013642s, 1332 KB] pruning method: none
+[t=0.013664s, 1332 KB] Completely explored state space -- no solution!
+[t=0.013683s, 1332 KB] Actual search time: 0.000031s
+[t=0.013707s, 1332 KB] Expanded 0 state(s).
+[t=0.013707s, 1332 KB] Reopened 0 state(s).
+[t=0.013707s, 1332 KB] Evaluated 1 state(s).
+[t=0.013707s, 1332 KB] Evaluations: 1
+[t=0.013707s, 1332 KB] Generated 0 state(s).
+[t=0.013707s, 1332 KB] Dead ends: 0 state(s).
+[t=0.013707s, 1332 KB] Number of registered states: 1
+[t=0.013707s, 1332 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.013707s, 1332 KB] Int hash set resizes: 0
+[t=0.013707s, 1332 KB] Search time: 0.000272s
+[t=0.013707s, 1332 KB] Total time: 0.013707s
+Search stopped without finding a solution.
+[t=0.000267s, 960 KB] reading input...
+[t=0.004187s, 1044 KB] done reading input!
+[t=0.007376s, 1368 KB] Initializing landmark cut heuristic...
+[t=0.007439s, 1368 KB] Building successor generator...done!
+[t=0.007632s, 1368 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.007644s, 1368 KB] time for successor generation creation: 0.000170s
+[t=0.007659s, 1368 KB] Variables: 10
+[t=0.007670s, 1368 KB] FactPairs: 51
+[t=0.007679s, 1368 KB] Bytes per state: 4
+[t=0.007705s, 1368 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.007748s, 1368 KB] Initial state is a dead end.
+[t=0.007759s, 1368 KB] Initial heuristic value for lmcut: infinity
+[t=0.007769s, 1368 KB] pruning method: none
+[t=0.007778s, 1368 KB] Completely explored state space -- no solution!
+[t=0.007787s, 1368 KB] Actual search time: 0.000014s
+[t=0.007798s, 1368 KB] Expanded 0 state(s).
+[t=0.007798s, 1368 KB] Reopened 0 state(s).
+[t=0.007798s, 1368 KB] Evaluated 1 state(s).
+[t=0.007798s, 1368 KB] Evaluations: 1
+[t=0.007798s, 1368 KB] Generated 0 state(s).
+[t=0.007798s, 1368 KB] Dead ends: 0 state(s).
+[t=0.007798s, 1368 KB] Number of registered states: 1
+[t=0.007798s, 1368 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.007798s, 1368 KB] Int hash set resizes: 0
+[t=0.007798s, 1368 KB] Search time: 0.000093s
+[t=0.007798s, 1368 KB] Total time: 0.007798s
+Search stopped without finding a solution.
+[t=0.000374s, 956 KB] reading input...
+[t=0.004630s, 1044 KB] done reading input!
+[t=0.007800s, 1360 KB] Initializing landmark cut heuristic...
+[t=0.007855s, 1360 KB] Building successor generator...done!
+[t=0.008051s, 1360 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.008084s, 1360 KB] time for successor generation creation: 0.000174s
+[t=0.008115s, 1360 KB] Variables: 10
+[t=0.008126s, 1360 KB] FactPairs: 52
+[t=0.008136s, 1360 KB] Bytes per state: 4
+[t=0.008186s, 1360 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.008234s, 1360 KB] Initial state is a dead end.
+[t=0.008245s, 1360 KB] Initial heuristic value for lmcut: infinity
+[t=0.008255s, 1360 KB] pruning method: none
+[t=0.008264s, 1360 KB] Completely explored state space -- no solution!
+[t=0.008273s, 1360 KB] Actual search time: 0.000013s
+[t=0.008283s, 1360 KB] Expanded 0 state(s).
+[t=0.008283s, 1360 KB] Reopened 0 state(s).
+[t=0.008283s, 1360 KB] Evaluated 1 state(s).
+[t=0.008283s, 1360 KB] Evaluations: 1
+[t=0.008283s, 1360 KB] Generated 0 state(s).
+[t=0.008283s, 1360 KB] Dead ends: 0 state(s).
+[t=0.008283s, 1360 KB] Number of registered states: 1
+[t=0.008283s, 1360 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.008283s, 1360 KB] Int hash set resizes: 0
+[t=0.008283s, 1360 KB] Search time: 0.000097s
+[t=0.008283s, 1360 KB] Total time: 0.008283s
+Search stopped without finding a solution.
+[t=0.000246s, 956 KB] reading input...
+[t=0.004939s, 1052 KB] done reading input!
+[t=0.008113s, 1376 KB] Initializing landmark cut heuristic...
+[t=0.008170s, 1376 KB] Building successor generator...done!
+[t=0.008387s, 1376 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.008399s, 1376 KB] time for successor generation creation: 0.000194s
+[t=0.008502s, 1376 KB] Variables: 10
+[t=0.008518s, 1376 KB] FactPairs: 53
+[t=0.008542s, 1376 KB] Bytes per state: 4
+[t=0.008571s, 1376 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.008616s, 1376 KB] Initial state is a dead end.
+[t=0.008628s, 1376 KB] Initial heuristic value for lmcut: infinity
+[t=0.008638s, 1376 KB] pruning method: none
+[t=0.008648s, 1376 KB] Completely explored state space -- no solution!
+[t=0.008657s, 1376 KB] Actual search time: 0.000014s
+[t=0.008668s, 1376 KB] Expanded 0 state(s).
+[t=0.008668s, 1376 KB] Reopened 0 state(s).
+[t=0.008668s, 1376 KB] Evaluated 1 state(s).
+[t=0.008668s, 1376 KB] Evaluations: 1
+[t=0.008668s, 1376 KB] Generated 0 state(s).
+[t=0.008668s, 1376 KB] Dead ends: 0 state(s).
+[t=0.008668s, 1376 KB] Number of registered states: 1
+[t=0.008668s, 1376 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.008668s, 1376 KB] Int hash set resizes: 0
+[t=0.008668s, 1376 KB] Search time: 0.000098s
+[t=0.008668s, 1376 KB] Total time: 0.008668s
+Search stopped without finding a solution.
+[t=0.000301s, 956 KB] reading input...
+[t=0.005211s, 1056 KB] done reading input!
+[t=0.008589s, 1396 KB] Initializing landmark cut heuristic...
+[t=0.008647s, 1396 KB] Building successor generator...done!
+[t=0.008885s, 1396 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.008896s, 1396 KB] time for successor generation creation: 0.000215s
+[t=0.008912s, 1396 KB] Variables: 10
+[t=0.008923s, 1396 KB] FactPairs: 54
+[t=0.008933s, 1396 KB] Bytes per state: 4
+[t=0.008954s, 1396 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.008993s, 1396 KB] Initial state is a dead end.
+[t=0.009005s, 1396 KB] Initial heuristic value for lmcut: infinity
+[t=0.009014s, 1396 KB] pruning method: none
+[t=0.009024s, 1396 KB] Completely explored state space -- no solution!
+[t=0.009033s, 1396 KB] Actual search time: 0.000014s
+[t=0.009044s, 1396 KB] Expanded 0 state(s).
+[t=0.009044s, 1396 KB] Reopened 0 state(s).
+[t=0.009044s, 1396 KB] Evaluated 1 state(s).
+[t=0.009044s, 1396 KB] Evaluations: 1
+[t=0.009044s, 1396 KB] Generated 0 state(s).
+[t=0.009044s, 1396 KB] Dead ends: 0 state(s).
+[t=0.009044s, 1396 KB] Number of registered states: 1
+[t=0.009044s, 1396 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.009044s, 1396 KB] Int hash set resizes: 0
+[t=0.009044s, 1396 KB] Search time: 0.000091s
+[t=0.009044s, 1396 KB] Total time: 0.009044s
+Search stopped without finding a solution.
+[t=0.000249s, 956 KB] reading input...
+[t=0.005584s, 1060 KB] done reading input!
+[t=0.008886s, 1384 KB] Initializing landmark cut heuristic...
+[t=0.008945s, 1384 KB] Building successor generator...done!
+[t=0.009193s, 1384 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.009204s, 1384 KB] time for successor generation creation: 0.000224s
+[t=0.009220s, 1384 KB] Variables: 10
+[t=0.009230s, 1384 KB] FactPairs: 55
+[t=0.009240s, 1384 KB] Bytes per state: 4
+[t=0.009260s, 1384 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.009302s, 1384 KB] Initial state is a dead end.
+[t=0.009312s, 1384 KB] Initial heuristic value for lmcut: infinity
+[t=0.009322s, 1384 KB] pruning method: none
+[t=0.009331s, 1384 KB] Completely explored state space -- no solution!
+[t=0.009340s, 1384 KB] Actual search time: 0.000014s
+[t=0.009351s, 1384 KB] Expanded 0 state(s).
+[t=0.009351s, 1384 KB] Reopened 0 state(s).
+[t=0.009351s, 1384 KB] Evaluated 1 state(s).
+[t=0.009351s, 1384 KB] Evaluations: 1
+[t=0.009351s, 1384 KB] Generated 0 state(s).
+[t=0.009351s, 1384 KB] Dead ends: 0 state(s).
+[t=0.009351s, 1384 KB] Number of registered states: 1
+[t=0.009351s, 1384 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.009351s, 1384 KB] Int hash set resizes: 0
+[t=0.009351s, 1384 KB] Search time: 0.000092s
+[t=0.009351s, 1384 KB] Total time: 0.009351s
+Search stopped without finding a solution.
+[t=0.000249s, 952 KB] reading input...
+[t=0.006188s, 1068 KB] done reading input!
+[t=0.009644s, 1396 KB] Initializing landmark cut heuristic...
+[t=0.009702s, 1396 KB] Building successor generator...done!
+[t=0.009968s, 1396 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.009979s, 1396 KB] time for successor generation creation: 0.000243s
+[t=0.009995s, 1396 KB] Variables: 10
+[t=0.010006s, 1396 KB] FactPairs: 56
+[t=0.010015s, 1396 KB] Bytes per state: 4
+[t=0.010036s, 1396 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.010076s, 1396 KB] Initial state is a dead end.
+[t=0.010087s, 1396 KB] Initial heuristic value for lmcut: infinity
+[t=0.010097s, 1396 KB] pruning method: none
+[t=0.010106s, 1396 KB] Completely explored state space -- no solution!
+[t=0.010115s, 1396 KB] Actual search time: 0.000013s
+[t=0.010126s, 1396 KB] Expanded 0 state(s).
+[t=0.010126s, 1396 KB] Reopened 0 state(s).
+[t=0.010126s, 1396 KB] Evaluated 1 state(s).
+[t=0.010126s, 1396 KB] Evaluations: 1
+[t=0.010126s, 1396 KB] Generated 0 state(s).
+[t=0.010126s, 1396 KB] Dead ends: 0 state(s).
+[t=0.010126s, 1396 KB] Number of registered states: 1
+[t=0.010126s, 1396 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.010126s, 1396 KB] Int hash set resizes: 0
+[t=0.010126s, 1396 KB] Search time: 0.000090s
+[t=0.010126s, 1396 KB] Total time: 0.010126s
+Search stopped without finding a solution.
+[t=0.000264s, 956 KB] reading input...
+[t=0.006615s, 1068 KB] done reading input!
+[t=0.010857s, 1396 KB] Initializing landmark cut heuristic...
+[t=0.010957s, 1396 KB] Building successor generator...done!
+[t=0.011453s, 1396 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.011538s, 1396 KB] time for successor generation creation: 0.000457s
+[t=0.011566s, 1396 KB] Variables: 10
+[t=0.011583s, 1396 KB] FactPairs: 57
+[t=0.011599s, 1396 KB] Bytes per state: 4
+[t=0.011642s, 1396 KB] Conducting best first search with reopening closed nodes, (real) bound = 2147483647
+[t=0.011721s, 1396 KB] Initial state is a dead end.
+[t=0.011743s, 1396 KB] Initial heuristic value for lmcut: infinity
+[t=0.011760s, 1396 KB] pruning method: none
+[t=0.011785s, 1396 KB] Completely explored state space -- no solution!
+[t=0.011802s, 1396 KB] Actual search time: 0.000025s
+[t=0.011820s, 1396 KB] Expanded 0 state(s).
+[t=0.011820s, 1396 KB] Reopened 0 state(s).
+[t=0.011820s, 1396 KB] Evaluated 1 state(s).
+[t=0.011820s, 1396 KB] Evaluations: 1
+[t=0.011820s, 1396 KB] Generated 0 state(s).
+[t=0.011820s, 1396 KB] Dead ends: 0 state(s).
+[t=0.011820s, 1396 KB] Number of registered states: 1
+[t=0.011820s, 1396 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.011820s, 1396 KB] Int hash set resizes: 0
+[t=0.011820s, 1396 KB] Search time: 0.000179s
+[t=0.011820s, 1396 KB] Total time: 0.011820s
+Search stopped without finding a solution.
