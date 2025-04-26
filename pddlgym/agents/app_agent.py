@@ -2,7 +2,7 @@ from pddlgym.pddlgym_planners.fd import FD
 from pddlgym.structs import Anti, LiteralConjunction
 import copy
 class APPAgent:
-    def __init__(self, env):
+    def __init__(self, env, domain_filepath, problem_filepath, safe_states_filepath):
         self.env = env
         self.domain = self.env.domain
         self.space = self.env.action_space
@@ -24,7 +24,7 @@ class APPAgent:
             # Attempt to find safe sequence if it is not empty
             if self.safe_sequence and \
                     self.is_action_applicable(self.safe_sequence[0], state) and \
-                    self.is_state_safe(self.simulate_action(state, self.safe_sequence[0])):
+                    self.is_state_safe(self.simulate_action(state, self.safe_sequence[0]))[0]:
 
                 selected_action = self.safe_sequence.pop(0)
                 self.current_plan_index += 1

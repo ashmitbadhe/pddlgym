@@ -1,5 +1,7 @@
+import random
 from abc import ABC, abstractmethod
 from pddlgym.structs import Anti
+import random
 class BaseNature(ABC):
     def __init__(self, state, environment):
         self.state = state
@@ -26,7 +28,7 @@ class IndependentEvents(BaseNature):
         # this number is the position of nth action from selectable applicable events
         # 0 stands for noop event, and it is used for termination
 
-        while (event_order := self.space.np_random.choice(len(selectable))) != 0:
+        while (event_order := random.randint(0, len(selectable))) != 0:
             effect_index = 0
             current_order = 0
             while (current_order != event_order):
@@ -42,7 +44,7 @@ class IndependentEvents(BaseNature):
             if self.is_pairwise_independent(event, selected_events):
                 selected_events.append(event)
             else:
-                selectable.pop(event_order)
+                selectable.pop(effect_index)
 
         #apply selected events to state
         if len(selected_events) != 0:

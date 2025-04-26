@@ -41,9 +41,8 @@ class LIMITAgent:
                 if self.plan:
                     self.plan_found = True
                     self.current_plan_index = 0
-                    print(f"Plan with unsafe flags: {self.plan}")
-                    self.plan = self.retranslate_plan()
                     print(f"Generated plan with limit {limit}: {self.plan}")
+                    self.plan = self.retranslate_plan()
                 else:
                     print(f"Planning failed at limit {limit}")
 
@@ -52,7 +51,7 @@ class LIMITAgent:
             # Attempt to find safe sequence if it is not empty
             if self.safe_sequence and \
                     self.is_action_applicable(self.safe_sequence[0], state) and \
-                    self.is_state_safe(self.simulate_action(state, self.safe_sequence[0])):
+                    self.is_state_safe(self.simulate_action(state, self.safe_sequence[0]))[0]:
 
                 selected_action = self.safe_sequence.pop(0)
                 self.current_plan_index += 1
@@ -139,14 +138,13 @@ class LIMITAgent:
             # Update p_plus and p_minus per Proposition 3
             action_effects = self.space._ground_action_to_effects[action]
             for eff in action_effects:
-                print(eff)
                 if eff.is_negative:
                     p_plus.discard(eff.atom)
                 else:
                     p_minus.discard(eff)
 
             for e in applicable_events:
-                for eff in self.space._ground_action_to_effects.get(e, []):
+                for eff in self.space._ground_action_to_effects[e]:
                     if eff.is_negative:
                         p_minus.add(eff.atom)
                     else:
@@ -180,21 +178,13 @@ class LIMITAgent:
         applicable_events = self.applicable_events(all_event_literals, state)
         for event in applicable_events:
             effects = self.space._ground_action_to_effects[event]
-            # if str(event) == "shrink-small-agent(l-2-1:location,l1:lvl)":
-            #     print(effects)
             for effect in effects:
                 if Anti(effect) in state.goal.literals:
                     return False, effect
         return True,None
 
-
-
-
     def simulate_action(self, state, action):
-        # Make a deep copy of the environment to avoid changing the real one
-        sim_env = copy.deepcopy(self.env)
-        sim_env.set_state(state)
-        next_deterministic_state, _, _, _, _ = sim_env.step(action)
+        next_deterministic_state = self.env.simulate_events(action, state, False)
         return next_deterministic_state
 
     def applicable_events(self, all_event_literals, state):
@@ -242,13 +232,11 @@ class LIMITAgent:
             plan = plan_file.readlines()
 
         # Parse the plan if needed (you may need to adjust this based on your format)
-        parsed_plan = [action.strip() for action in plan]
+        parsed_plan = [action.strip() for action in plan[:-1]]
 
         return parsed_plan
 
     def retranslate_plan(self):
-        print("Plan retranslating started.")
-
         try:
             # Read the content of the plan file
             with open(self.plan_file, 'r') as plan_file:
@@ -264,7 +252,6 @@ class LIMITAgent:
             with open(self.plan_file, 'w') as original_plan_file:
                 original_plan_file.write(plan_content)
 
-            print("Plan retranslating ended.")
             # Parse the plan from the output file
             return self.parse_plan(self.plan_file)
         except Exception as e:
