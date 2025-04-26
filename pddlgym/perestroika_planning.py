@@ -2,6 +2,7 @@ import pddlgym
 from pddlgym.utils import run_demo
 from agents.app_agent import APPAgent
 from agents.limit_agent import LIMITAgent
+from agents.fond_agent import FONDAgent
 
 
 
@@ -14,7 +15,7 @@ def demo_random_perestroika():
     domain_filepath ="pddlgym/pddl/auv.pddl"
     problem_filepath = "pddlgym/pddl/auv/problem1.pddl"
     safe_states_filepath = "pddlgym/pddl/auv/safe1.txt"
-    policy = LIMITAgent(env, domain_filepath, problem_filepath, safe_states_filepath)
+    policy = FONDAgent(env, domain_filepath, problem_filepath)
 
     # Specify video output path
     video_path = "perestroika_limit_agent.mp4"
