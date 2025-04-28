@@ -89,7 +89,8 @@ if __name__ == '__main__':
     inst = instantiate.explore(task)
 
     inst_actions = [a for a in inst[2] if a.name.split(' ')[0][1:] in action_names]
-    inst_events = [a for a in inst[2] if a.name.split(' ')[0][1:] in event_names]
+    inst_events = [a for a in inst[3] if a.name.split(' ')[0][1:] in event_names]
+
 
     task.actions = actions
 

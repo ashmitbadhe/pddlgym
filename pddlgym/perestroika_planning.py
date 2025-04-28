@@ -8,20 +8,20 @@ from agents.fond_agent import FONDAgent
 
 def demo_random_perestroika():
     # Create the Sokoban environment
-    env = pddlgym.make("PDDLEnvAuv-v0")
+    env = pddlgym.make("PDDLEnvPerestroika-v0")
 
     # Fix the problem index (optional for reproducibility)
     env.fix_problem_index(0)
-    domain_filepath ="pddlgym/pddl/auv.pddl"
-    problem_filepath = "pddlgym/pddl/auv/problem1.pddl"
-    safe_states_filepath = "pddlgym/pddl/auv/safe1.txt"
+    domain_filepath ="pddlgym/pddl/perestroika.pddl"
+    problem_filepath = "pddlgym/pddl/perestroika/problem1.pddl"
+    safe_states_filepath = "pddlgym/pddl/perestroika/safe1.txt"
     policy = FONDAgent(env, domain_filepath, problem_filepath)
 
     # Specify video output path
     video_path = "perestroika_limit_agent.mp4"
 
     # Run the demo for exactly 5 steps with rendering
-    run_demo(env, policy, nature_type="IndependentEvents", max_num_steps=50, render=True, video_path=video_path, fps=10, verbose=True)
+    run_demo(env, policy, nature_type="IndependentEvents", max_num_steps=20, render=True, video_path=video_path, fps=3, verbose=True)
 
     print(f"Video saved to {video_path}")
 
