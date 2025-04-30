@@ -11,7 +11,6 @@ Action = namedtuple("Action", ["name", "pre", "add", "delete", "ceff"])
 Event = namedtuple("Event", ["name", "pre", "add", "delete", "ceff"])
 ConditionalEffect = namedtuple("ConditionalEffect", ["condition", "effects"])
 
-
 def enabler(action, event):
     return action.add & event.pre
 
@@ -58,7 +57,7 @@ if __name__ == '__main__':
 
     limit = None;
     output_domain_and_problem = []
-    if len(sys.argv) > 5:
+    if len(sys.argv) > 4:
         limit = int(sys.argv[4])
         output_domain_and_problem.append(sys.argv[5])
         output_domain_and_problem.append(sys.argv[6])
@@ -201,6 +200,11 @@ if __name__ == '__main__':
         delete = {f'(selected-{e.name[1:-1]})'}
         add = {f'(notsel-{e.name[1:-1]})'}
         noop_events.append(Action(f'({e.name[1:-1]}-noop)', pre, add, delete, []))
+
+    #save fond-generated actions and events
+    with open("pddlgym/FONDfiles/ground_data.txt", 'w') as f_problem:
+        for a in ground_actions:
+            f_problem.write(a.name)
 
     typed_objects = {}
     for o in task.objects:

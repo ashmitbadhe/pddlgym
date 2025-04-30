@@ -1,10 +1,12 @@
 import os
+import tempfile
 import shutil
 import time
 import subprocess
 from pathlib import Path
 import re
 from pddlgym.structs import Anti, Literal, Predicate, TypedEntity, Type
+from pddlgym.downward_translate.pddl.conditions import Atom, NegatedAtom
 
 class FONDAgent:
     def __init__(self, env, domain_file, problem_file, safe_states_file=None, unsafety_limit=10):
@@ -28,6 +30,7 @@ class FONDAgent:
         self.preprocess_time = 0
         self.number_of_noops = 0
         self.plan = {}
+        self.ground_actions = None
 
         self.data_dir.mkdir(parents=True, exist_ok=True)
 
@@ -43,7 +46,6 @@ class FONDAgent:
 
         self.translate_to_fond(domain_file, problem_file)
         self.find_policy()
-        self.load_fond_problem()
         self.translate_strategy()
 
         end = time.time()
@@ -83,12 +85,11 @@ class FONDAgent:
         # print(contents)
         shutil.copy("policy.out","pddlgym/FONDfiles/policy.out")
 
-    def load_fond_problem(self):
-        # Dummy: in reality, you'd load the problem's variables and actions from SAS
-        self.fond_problem_vars = {}
-        return True
-
     def translate_strategy(self):
+        with open('pddlgym/FONDfiles/ground_data.txt', 'r') as file:
+            # Read the content of the file and store it in a variable
+            self.ground_actions = list(filter(None, re.split(r'[()]', file.read())))
+
         with open("output.sas", 'r') as f:
             file_content = f.read()
         variable_mapping = self.parse_variables(file_content)
@@ -104,7 +105,7 @@ class FONDAgent:
             if "Execute:" in line:
                 action = line.split("Execute:")[1].strip().split(" ")[0]  # Extract action
                 # Skip lines with "selector" or "goal"
-                if action not in ["selector", "goal"]:
+                if action in self.ground_actions:
                     self.plan[action] = []
 
                     # Look for the line before that contains "If holds:"
@@ -117,7 +118,7 @@ class FONDAgent:
                             if var in variable_mapping:
                                 if variable_mapping[var][int(value)] != "act-turn":
                                     self.plan[action].append(variable_mapping[var][int(value)])
-
+        print(self.plan)
         return True
 
     def find_action(self, current_state):
@@ -125,11 +126,17 @@ class FONDAgent:
         for action, conditions in self.plan.items():  # iterate through the actions and their conditions
             # Iterate over each condition in the action
             for condition in conditions:
+                negated = False
+                if condition[:4] == "not ":
+                    negated = True
                 condition = self.to_Literal(condition)
+                if negated:
+                    if condition in current_state.literals:
+                        break
+                else:
+                    if condition not in current_state.literals:
+                        break
 
-                # Check if the condition is in the current_state literals
-                if condition not in current_state.literals:
-                    break  # If any condition fails, break and move to the next action
             else:
                 # If all conditions passed (i.e., no `break` happened), set the action as best action yet
                 best_action = action
@@ -143,8 +150,13 @@ class FONDAgent:
             return None  # No-op if no action is found
 
     def to_Literal(self, string):
-        string =  f"({string.replace('_', ' ')})"
-        str_stripped = string[1:-1]
+        if "not " in string:
+            nn_string = string[4:]
+        else:
+            nn_string = string
+
+        nn_string =  f"({nn_string.replace('_', ' ')})"
+        str_stripped = nn_string[1:-1]
         vars = list(str_stripped.split(" ")[1:])
         for i in range(len(vars)):
             if vars[i] in self.objects:
@@ -205,23 +217,18 @@ class FONDAgent:
                     match = re.match(r"(Atom|NegatedAtom) (.+)\(\)", atom_line)
                     if match:
                         atom_type, atom_name = match.groups()
-                        atoms.append(atom_name)
-                var_mapping[var_name] = atoms
+                        if atom_name.split("_")[0] in self.domain.predicates:
+                            if atom_type == "Atom":
+                                atoms.append(atom_name)
+                            else:  # NegatedAtom
+                                atoms.append("not "+ atom_name)
+                if atoms != []:
+                    var_mapping[var_name] = atoms
                 i += 4 + domain_size  # move past this variable
             else:
                 i += 1
         return var_mapping
 
-
-
-    def is_action_applicable(self, current_state, line):
-        # Dummy check: Match state features with policy line
-        return True
-
-    def extract_action_from_line(self, line):
-        # Extract action name
-        action_name = line.strip().split()[1]
-        return f"({action_name.replace('_', ' ')})"
 
     def show_statistics(self, actions_taken, total_time):
         print("Statistics:")

@@ -1,5 +1,6 @@
 import pddlgym
 from pddlgym.utils import run_demo
+import sys
 from agents.app_agent import APPAgent
 from agents.limit_agent import LIMITAgent
 from agents.fond_agent import FONDAgent
@@ -8,13 +9,14 @@ from agents.fond_agent import FONDAgent
 
 def demo_random_perestroika():
     # Create the Sokoban environment
-    env = pddlgym.make("PDDLEnvPerestroika-v0")
+    env = pddlgym.make("PDDLEnvAuv-v0")
 
     # Fix the problem index (optional for reproducibility)
     env.fix_problem_index(0)
-    domain_filepath ="pddlgym/pddl/perestroika.pddl"
-    problem_filepath = "pddlgym/pddl/perestroika/problem1.pddl"
-    safe_states_filepath = "pddlgym/pddl/perestroika/safe1.txt"
+    domain_filepath = sys.argv[1]
+    problem_filepath = sys.argv[2]
+    safe_states_filepath = sys.argv[3]
+    unsafeness_limit = sys.argv[4]
     policy = FONDAgent(env, domain_filepath, problem_filepath)
 
     # Specify video output path

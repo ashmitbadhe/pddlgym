@@ -1,462 +1,1386 @@
 
-If holds: var2:0 var19:0
+If holds: var2:0 var40:0 var41:0
 Execute: goal / SC / d=0
 
-If holds: var3:0 var0:0 var2:1 var19:0
+If holds: var3:0 var0:0 var2:1 var40:0 var41:0
 Execute: move_a_l-1-3_l-1-2  / SC / d=1
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:0 var0:2 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
 Execute: resort  / SC / d=2
 
-If holds: var21:0 var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / SC / d=3
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:0 var56:0 var3:0 var50:1 var53:1 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / SC / d=2
 
-If holds: var20:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / SC / d=3
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:0 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / SC / d=2
 
-If holds: var22:0 var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / SC / d=3
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:0 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / SC / d=2
 
-If holds: var25:0 var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / SC / d=3
-
-If holds: var27:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / SC / d=3
-
-If holds: var26:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / SC / d=3
-
-If holds: var24:0 var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / SC / d=3
-
-If holds: var23:0 var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:0 var0:2 var2:1 var19:0
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var16:0 var0:2 var2:1 var40:0 var41:0
 Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / SC / d=3
 
-If holds: var3:0 var0:1 var2:1 var19:0
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var3:0 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var25:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-1_l-2-2  / SC / d=3
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var18:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / SC / d=3
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var20:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / SC / d=3
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var19:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / SC / d=3
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var14:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / SC / d=3
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var13:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / SC / d=3
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var15:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / SC / d=3
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var17:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / SC / d=3
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:0 var50:1 var53:1 var26:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-1  / SC / d=3
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var10:1 var54:1 var3:0 var50:1 var53:1 var27:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-3  / SC / d=3
+
+If holds: var3:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=2
 
-If holds: var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var16:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=2
 
-If holds: var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var3:0 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var25:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=2
 
-If holds: var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:0 var0:1 var2:1 var19:0
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var18:0 var51:1 var52:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=2
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var20:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=2
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:0 var0:1 var2:1 var19:0
+If holds: var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var19:0 var51:1 var52:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=2
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var14:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=2
 
-If holds: var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var13:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=2
 
-If holds: var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var15:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=2
 
-If holds: var3:1 var5:0 var0:0 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var50:1 var53:1 var51:1 var52:1 var17:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=2
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:0 var50:1 var53:1 var26:0 var5:1 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=2
+
+If holds: var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var10:1 var54:1 var3:0 var50:1 var53:1 var27:0 var5:1 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=2
+
+If holds: var11:1 var3:1 var6:0 var0:0 var2:1 var40:0 var41:0
 Execute: move_a_l-2-3_l-1-3  / NSC / d=3
 
-If holds: var3:1 var5:0 var0:1 var2:1 var19:0
+If holds: var11:0 var3:1 var6:0 var0:0 var2:1 var40:0 var41:0
+Execute: move_a_l-2-3_l-1-3  / NSC / d=3
+
+If holds: var11:1 var3:1 var6:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=4
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:2 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
 Execute: resort  / NSC / d=4
 
-If holds: var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var16:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=4
 
-If holds: var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:0 var57:1 var54:1 var55:0 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:0 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / NSC / d=4
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var11:1 var56:1 var3:1 var53:1 var4:1 var6:0 var31:1 var51:1 var25:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=4
 
-If holds: var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:1 var2:1 var19:0
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var18:0 var51:1 var52:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=4
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var5:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var20:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=4
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var5:0 var0:1 var2:1 var19:0
+If holds: var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var19:0 var51:1 var52:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=4
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var5:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var14:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=4
 
-If holds: var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var13:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=4
 
-If holds: var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var15:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=4
 
-If holds: var3:1 var8:0 var10:0 var0:0 var2:1 var19:0
+If holds: var11:1 var3:1 var9:0 var31:0 var0:0 var2:1 var40:0 var41:0
 Execute: move_a_l-3-3_l-2-3  / NSC / d=5
 
-If holds: var21:0 var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=5
-
-If holds: var20:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=5
-
-If holds: var22:0 var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=5
-
-If holds: var25:0 var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var5:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=5
-
-If holds: var27:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var5:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=5
-
-If holds: var26:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var5:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=5
-
-If holds: var24:0 var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=5
-
-If holds: var23:0 var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var5:0 var0:2 var2:1 var19:0
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var16:0 var0:2 var2:1 var40:0 var41:0
 Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=5
 
-If holds: var3:1 var8:0 var10:0 var0:1 var2:1 var19:0
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var56:1 var3:1 var53:1 var4:1 var6:0 var31:1 var51:1 var25:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-1_l-2-2  / NSC / d=5
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var18:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=5
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var20:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=5
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var19:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=5
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var14:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=5
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var13:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=5
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var50:1 var53:1 var6:0 var51:1 var52:1 var15:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=5
+
+If holds: var11:1 var3:1 var9:0 var31:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=6
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:2 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
 Execute: resort  / NSC / d=6
 
-If holds: var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=6
 
-If holds: var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:0 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / NSC / d=6
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var11:1 var3:1 var9:0 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=6
 
-If holds: var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:1 var2:1 var19:0
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=6
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=6
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:0 var10:0 var0:1 var2:1 var19:0
+If holds: var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=6
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:0 var10:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=6
 
-If holds: var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=6
 
-If holds: var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=6
 
-If holds: var3:1 var8:1 var10:0 var7:0 var0:0 var2:1 var19:0
+If holds: var11:1 var3:1 var9:1 var8:0 var31:0 var0:0 var2:1 var40:0 var41:0
 Execute: move_a_l-3-2_l-3-3  / NSC / d=7
 
-If holds: var21:0 var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=7
-
-If holds: var20:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=7
-
-If holds: var22:0 var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=7
-
-If holds: var25:0 var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=7
-
-If holds: var27:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:0 var10:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=7
-
-If holds: var26:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:0 var10:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=7
-
-If holds: var24:0 var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=7
-
-If holds: var23:0 var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:0 var10:0 var0:2 var2:1 var19:0
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:2 var2:1 var40:0 var41:0
 Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=7
 
-If holds: var3:1 var8:1 var10:0 var7:0 var0:1 var2:1 var19:0
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-1  / NSC / d=7
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=7
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=7
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=7
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=7
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=7
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=7
+
+If holds: var11:1 var3:1 var9:1 var8:0 var31:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=8
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1 var19:0
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var5:1 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=8
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=8
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=8
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=8
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var10:1 var57:1 var54:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var31:0 var26:0 var27:0 var5:1 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=8
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=8
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=8
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=8
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
 Execute: resort  / NSC / d=8
 
-If holds: var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=8
 
-If holds: var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:0 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / NSC / d=8
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var11:1 var3:1 var9:1 var8:0 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=8
 
-If holds: var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1 var19:0
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=8
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=8
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1 var19:0
+If holds: var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=8
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=8
 
-If holds: var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=8
 
-If holds: var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1 var19:0
+If holds: var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=8
 
-If holds: var3:1 var8:1 var10:0 var7:0 var0:0 var2:1
+If holds: var11:1 var3:1 var9:1 var8:0 var31:0 var0:0 var2:1 var40:0
 Execute: sample_a_r1_l-3-2  / NSC / d=9
 
-If holds: var21:0 var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=9
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var5:1 var0:0 var2:1 var40:0 var41:0
+Execute: noop  / NSC / d=9
 
-If holds: var20:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=9
-
-If holds: var22:0 var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1 var19:0
-Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=9
-
-If holds: var25:0 var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=9
-
-If holds: var27:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=9
-
-If holds: var26:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=9
-
-If holds: var24:0 var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1 var19:0
-Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=9
-
-If holds: var23:0 var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1 var19:0
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:2 var2:1 var40:0 var41:0
 Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=9
 
-If holds: var3:1 var8:1 var10:0 var7:0 var0:1 var2:1
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-1  / NSC / d=9
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=9
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=9
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=9
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=9
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=9
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=9
+
+If holds: var11:1 var3:1 var9:1 var8:0 var31:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=10
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:0 var56:0 var3:1 var9:0 var50:1 var53:1 var31:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0 var41:0
 Execute: resort  / NSC / d=10
 
-If holds: var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / NSC / d=10
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var5:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=10
 
-If holds: var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=10
 
-If holds: var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=10
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=10
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var10:1 var57:1 var54:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var31:0 var26:0 var27:0 var5:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=10
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=10
 
-If holds: var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=10
 
-If holds: var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=10
 
-If holds: var3:1 var8:1 var10:0 var7:1 var6:0 var0:0 var2:1
-Execute: move_a_l-3-1_l-3-2  / NSC / d=11
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=10
 
-If holds: var21:0 var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=11
+If holds: var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=10
 
-If holds: var20:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=11
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:0 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=10
 
-If holds: var22:0 var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=11
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var11:1 var3:1 var9:1 var8:0 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=10
 
-If holds: var25:0 var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=11
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=10
 
-If holds: var27:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=11
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=10
 
-If holds: var26:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=11
+If holds: var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=10
 
-If holds: var24:0 var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=11
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=10
 
-If holds: var23:0 var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:0 var0:2 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=10
+
+If holds: var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=10
+
+If holds: var11:1 var3:1 var9:0 var8:1 var31:0 var0:0 var2:1 var40:0
+Execute: move_a_l-3-3_l-3-2  / NSC / d=11
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var3:1 var9:0 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-1_l-2-2  / NSC / d=11
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:2 var2:1 var40:0 var41:0
 Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=11
 
-If holds: var3:1 var8:1 var10:0 var7:1 var6:0 var0:1 var2:1
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=11
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=11
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:0 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-3_l-2-2  / NSC / d=11
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=11
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=11
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=11
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var5:1 var0:0 var2:1 var40:0 var41:0
+Execute: noop  / NSC / d=11
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=11
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1  / NSC / d=11
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=11
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=11
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=11
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=11
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=11
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=11
+
+If holds: var11:1 var3:1 var9:0 var8:1 var31:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=12
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:2 var2:1
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:0 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=12
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=12
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=12
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=12
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=12
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=12
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=12
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
+Execute: selector  / NSC / d=12
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:0 var56:0 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0 var41:0
 Execute: resort  / NSC / d=12
 
-If holds: var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / NSC / d=12
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var5:1 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=12
 
-If holds: var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=12
 
-If holds: var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=12
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=12
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var10:1 var57:1 var54:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var31:0 var26:0 var27:0 var5:1 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=12
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=12
 
-If holds: var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=12
 
-If holds: var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=12
 
-If holds: var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:0 var2:1
-Execute: move_a_l-2-1_l-3-1  / NSC / d=13
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=12
 
-If holds: var21:0 var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=13
+If holds: var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=12
 
-If holds: var20:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=13
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:0 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=12
 
-If holds: var22:0 var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=13
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var11:1 var3:1 var9:0 var8:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=12
 
-If holds: var25:0 var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=13
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=12
 
-If holds: var27:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=13
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=12
 
-If holds: var26:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=13
+If holds: var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=12
 
-If holds: var24:0 var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=13
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=12
 
-If holds: var23:0 var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:0 var0:2 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=12
+
+If holds: var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=12
+
+If holds: var11:1 var3:1 var9:1 var8:1 var6:0 var0:0 var2:1 var40:0
+Execute: move_a_l-2-3_l-3-3  / NSC / d=13
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:0 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:0 var2:1 var40:0 var41:0
+Execute: noop  / NSC / d=13
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var3:1 var9:1 var8:0 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-1_l-2-2  / NSC / d=13
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:2 var2:1 var40:0 var41:0
 Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=13
 
-If holds: var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:1 var2:1
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=13
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=13
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:1 var8:0 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-3_l-2-2  / NSC / d=13
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=13
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=13
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=13
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var5:1 var0:0 var2:1 var40:0
+Execute: noop  / NSC / d=13
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=13
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1  / NSC / d=13
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=13
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=13
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=13
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=13
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=13
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=13
+
+If holds: var11:1 var3:1 var9:1 var8:1 var6:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=14
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:2 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:0 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0 var41:0
 Execute: resort  / NSC / d=14
 
-If holds: var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / NSC / d=14
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:1 var8:0 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=14
 
-If holds: var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=14
 
-If holds: var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=14
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=14
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=14
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=14
 
-If holds: var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=14
 
-If holds: var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:1 var2:1 var40:0 var41:0
 Execute: selector  / NSC / d=14
 
-If holds: var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:0 var2:1
-Execute: move_a_l-1-1_l-2-1  / NSC / d=15
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:0 var56:0 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=14
 
-If holds: var21:0 var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=15
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=14
 
-If holds: var20:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=15
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
 
-If holds: var22:0 var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=15
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
 
-If holds: var25:0 var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=15
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
 
-If holds: var27:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=15
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
 
-If holds: var26:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=15
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var10:1 var57:1 var54:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var31:0 var26:0 var27:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
 
-If holds: var24:0 var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=15
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
 
-If holds: var23:0 var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var3:1 var8:1 var10:0 var7:1 var6:1 var4:0 var0:2 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=14
+
+If holds: var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var11:1 var56:1 var3:1 var9:1 var8:1 var53:1 var4:1 var6:0 var31:1 var51:1 var5:1 var25:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var18:0 var51:1 var52:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var20:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var19:0 var51:1 var52:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var14:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var15:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=14
+
+If holds: var11:1 var3:0 var9:1 var8:1 var31:0 var0:0 var2:1 var40:0
+Execute: move_a_l-1-3_l-2-3  / NSC / d=15
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var10:1 var54:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var27:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-3  / NSC / d=15
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:2 var2:1 var40:0 var41:0
 Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=15
 
-If holds: var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:1 var2:1
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=15
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=15
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=15
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=15
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=15
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=15
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:1 var8:0 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:0 var2:1 var40:0 var41:0
+Execute: noop  / NSC / d=15
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var3:1 var9:1 var8:0 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2  / NSC / d=15
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=15
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=15
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=15
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:1 var8:0 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2  / NSC / d=15
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=15
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=15
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=15
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:0 var2:1 var40:0
+Execute: noop  / NSC / d=15
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=15
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var18:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=15
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var20:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=15
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var19:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=15
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var14:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=15
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=15
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:1 var15:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=15
+
+If holds: var11:1 var3:0 var9:1 var8:1 var31:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=16
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:2 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:0 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0 var41:0
 Execute: resort  / NSC / d=16
 
-If holds: var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: resort  / NSC / d=16
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:1 var8:0 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=16
 
-If holds: var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=16
 
-If holds: var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=16
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=16
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=16
 
-If holds: var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=16
 
-If holds: var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=16
 
-If holds: var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:1 var2:1
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:1 var2:1 var40:0
 Execute: selector  / NSC / d=16
 
-If holds: var1:1 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:0 var2:0
-Execute: move_a_l-1-2_l-1-1  / NSC / d=17
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:0 var56:0 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=16
 
-If holds: var21:0 var11:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=17
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=16
 
-If holds: var20:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=17
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:0 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=16
 
-If holds: var22:0 var11:0 var12:0 var14:0 var15:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:2 var2:1
-Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=17
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=16
 
-If holds: var25:0 var11:0 var12:0 var13:0 var14:0 var15:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=17
+If holds: var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=16
 
-If holds: var27:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var17:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=17
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var11:1 var3:0 var9:1 var8:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=16
 
-If holds: var26:0 var11:0 var12:0 var13:0 var14:0 var15:0 var16:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:2 var2:1
-Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=17
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=16
 
-If holds: var24:0 var11:0 var12:0 var13:0 var14:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:2 var2:1
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=16
+
+If holds: var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=16
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=16
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=16
+
+If holds: var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=16
+
+If holds: var11:1 var3:1 var9:1 var8:1 var31:0 var0:0 var2:0 var40:0
+Execute: move_a_l-1-2_l-1-3  / NSC / d=17
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var10:1 var54:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var27:0 var5:1 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-3  / NSC / d=17
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=17
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:2 var2:1 var40:0 var41:0
 Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=17
 
-If holds: var23:0 var11:0 var12:0 var13:0 var15:0 var16:0 var17:0 var18:0 var1:0 var3:1 var8:1 var10:0 var7:1 var6:1 var9:0 var0:2 var2:1
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=17
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=17
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=17
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=17
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:2 var2:1 var40:0 var41:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=17
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:1 var8:0 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:0 var2:1 var40:0
+Execute: noop  / NSC / d=17
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var3:1 var9:0 var8:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2  / NSC / d=17
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:2 var2:1 var40:0
 Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=17
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=17
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=17
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:0 var8:1 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2  / NSC / d=17
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=17
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=17
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=17
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1  / NSC / d=17
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=17
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var18:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=17
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var20:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=17
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var19:0 var51:1 var52:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=17
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var14:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=17
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=17
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var15:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=17
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:1 var54:0 var55:1 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var0:2 var2:0 var40:0
+Execute: resort  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:0 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=18
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:0 var8:1 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var10:1 var57:1 var54:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var31:0 var26:0 var27:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=18
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:2 var2:0 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1  / NSC / d=19
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var10:1 var54:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var27:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3  / NSC / d=19
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=19
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=19
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=19
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=19
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=19
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=19
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:1 var8:0 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=19
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:1 var9:0 var8:1 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:0 var2:1 var40:0
+Execute: noop  / NSC / d=19
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var11:0 var57:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var26:0 var5:1 var0:0 var2:1 var40:0
+Execute: move_a_l-2-3_l-1-3  / NSC / d=19
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:0 var2:1 var40:0
+Execute: noop  / NSC / d=19
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:0 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var11:0 var57:1 var54:1 var55:0 var56:1 var3:1 var9:1 var8:1 var50:1 var53:1 var6:0 var51:1 var52:0 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:0 var56:0 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var10:1 var57:1 var54:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var31:0 var26:0 var27:0 var5:1 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=20
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=20
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:0 var2:1 var40:0
+Execute: move_a_l-1-1_l-1-2  / NSC / d=21
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var10:1 var54:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var27:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3  / NSC / d=21
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=21
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=21
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=21
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=21
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=21
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=21
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:1 var9:0 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=21
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var56:1 var3:1 var9:1 var8:1 var53:1 var4:1 var6:0 var31:1 var51:1 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2  / NSC / d=21
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=21
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=21
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=21
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:0 var9:1 var8:1 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2  / NSC / d=21
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=21
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=21
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=21
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var3:0 var9:1 var8:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2  / NSC / d=21
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:0 var9:1 var8:1 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:0 var56:0 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=22
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var26:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var10:1 var57:1 var54:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var6:1 var29:0 var31:0 var26:0 var27:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=22
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var5:1 var0:0 var2:0 var40:0
+Execute: move_a_l-1-2_l-1-1  / NSC / d=23
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var3:0 var9:1 var8:1 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:0 var2:1 var40:0
+Execute: noop  / NSC / d=23
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=23
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=23
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var1:0 var3:1 var9:1 var8:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2  / NSC / d=23
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=23
+
+If holds: var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var11:0 var57:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var31:0 var5:1 var0:0 var2:1 var40:0
+Execute: move_a_l-2-1_l-1-1  / NSC / d=23
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=23
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=23
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=23
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:0 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var0:2 var2:0 var40:0
+Execute: resort  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:0 var56:0 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var51:1 var52:1 var5:1 var0:2 var2:0 var40:0
+Execute: resort  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var1:0 var3:1 var9:1 var8:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var18:0 var51:1 var52:1 var5:1 var25:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var20:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var19:0 var51:1 var52:1 var5:1 var25:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var14:0 var5:1 var25:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var15:0 var5:1 var25:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=24
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var11:0 var57:1 var54:1 var55:1 var56:0 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var31:0 var51:0 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=24
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var10:1 var54:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var27:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3  / NSC / d=25
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=25
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=25
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=25
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=25
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=25
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=25
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var3:0 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=25
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var16:0 var0:2 var2:0 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=25
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var17:0 var0:2 var2:0 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=25
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var20:0 var0:2 var2:0 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=25
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var1:1 var3:1 var9:1 var8:1 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:0 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2  / NSC / d=25
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var14:0 var5:1 var0:2 var2:0 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=25
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var5:1 var13:0 var0:2 var2:0 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=25
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var31:0 var26:0 var51:1 var52:1 var15:0 var5:1 var0:2 var2:0 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=25
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var12:1 var1:0 var3:1 var9:1 var8:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:0 var2:1 var40:0
+Execute: noop  / NSC / d=25
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var55:1 var1:1 var3:1 var9:1 var8:1 var50:1 var4:0 var6:1 var29:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2  / NSC / d=25
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var1:1 var3:1 var9:1 var8:1 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:1 var2:0 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:0 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=26
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var55:1 var1:1 var3:1 var9:1 var8:1 var50:1 var4:0 var6:1 var29:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var5:1 var28:0 var16:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var5:1 var28:0 var17:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var18:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var19:0 var51:1 var52:1 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var14:0 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var5:1 var28:0 var13:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var15:0 var5:1 var28:0 var0:1 var2:1 var40:0
+Execute: selector  / NSC / d=26
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var1:1 var3:1 var9:1 var8:1 var50:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:0 var2:0 var40:0
+Execute: noop  / NSC / d=27
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var26:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1  / NSC / d=27
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=27
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var18:0 var51:1 var52:1 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=27
+
+If holds: var49:0 var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var20:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-3_l-2-2-noop  / NSC / d=27
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var19:0 var51:1 var52:1 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=27
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var14:0 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=27
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var5:1 var25:0 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=27
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var12:1 var57:1 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var31:0 var51:1 var52:1 var15:0 var5:1 var25:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=27
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var55:1 var1:0 var3:1 var9:1 var8:1 var50:1 var6:1 var29:0 var52:1 var5:1 var28:0 var0:0 var2:1 var40:0
+Execute: move_a_l-1-1_l-2-1  / NSC / d=27
+
+If holds: var38:0 var37:0 var35:0 var34:0 var33:0 var36:0 var32:0 var55:1 var1:1 var3:1 var9:1 var8:1 var50:1 var4:0 var6:1 var29:1 var52:1 var5:1 var28:0 var0:0 var2:1 var40:0
+Execute: noop  / NSC / d=27
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:0 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var0:2 var2:0 var40:0
+Execute: resort  / NSC / d=28
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:0 var40:0
+Execute: resort  / NSC / d=28
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var11:1 var57:0 var54:1 var55:1 var56:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var6:1 var29:0 var51:1 var52:1 var5:1 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=28
+
+If holds: var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: resort  / NSC / d=28
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var10:1 var54:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var27:0 var5:1 var0:2 var2:0 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3  / NSC / d=29
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var16:0 var0:2 var2:0 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=29
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var17:0 var0:2 var2:0 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=29
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var18:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:0 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=29
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var19:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:0 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=29
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var14:0 var5:1 var28:0 var0:2 var2:0 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=29
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var5:1 var28:0 var13:0 var0:2 var2:0 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=29
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:1 var6:1 var29:0 var51:1 var52:1 var15:0 var5:1 var28:0 var0:2 var2:0 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=29
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var10:1 var54:1 var1:0 var3:1 var9:1 var8:1 var50:1 var53:1 var6:1 var29:0 var27:0 var5:1 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3  / NSC / d=29
+
+If holds: var45:0 var38:0 var37:0 var39:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var5:1 var28:0 var16:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-3_l-2-2_a-noop  / NSC / d=29
+
+If holds: var46:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var5:1 var28:0 var17:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-1_l-2-2-noop  / NSC / d=29
+
+If holds: var47:0 var38:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var18:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-1-noop  / NSC / d=29
+
+If holds: var48:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var19:0 var51:1 var52:1 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-free_s1_l-2-2_l-2-3-noop  / NSC / d=29
+
+If holds: var43:0 var38:0 var37:0 var39:0 var35:0 var34:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var14:0 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-1_a-noop  / NSC / d=29
+
+If holds: var42:0 var38:0 var37:0 var39:0 var35:0 var34:0 var33:0 var36:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var5:1 var28:0 var13:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-1_l-2-2_a-noop  / NSC / d=29
+
+If holds: var44:0 var38:0 var37:0 var39:0 var35:0 var33:0 var36:0 var32:0 var57:1 var54:1 var55:1 var56:1 var1:1 var3:1 var9:1 var8:1 var50:1 var53:1 var4:0 var6:1 var29:1 var51:1 var52:1 var15:0 var5:1 var28:0 var0:2 var2:1 var40:0
+Execute: move-ship-auv_s1_l-2-2_l-2-3_a-noop  / NSC / d=29
