@@ -9,7 +9,7 @@ from pddlgym.structs import Anti, Literal, Predicate, TypedEntity, Type
 from pddlgym.downward_translate.pddl.conditions import Atom, NegatedAtom
 
 class FONDAgent:
-    def __init__(self, env, domain_file, problem_file, safe_states_file=None, unsafety_limit=10):
+    def __init__(self, env, domain_file, problem_file, safe_states_file=None, unsafety_limit=20):
         self.timestamp_id = int(time.time())
         self.data_dir = Path("pddlgym/FONDfiles/")
 
@@ -61,24 +61,24 @@ class FONDAgent:
         result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         # # Print stdout and stderr for debugging
-        print("STDOUT:")
-        print(result.stdout)
-        #
-        print("STDERR:")
-        print(result.stderr)
+        # print("STDOUT:")
+        # print(result.stdout)
+        # #
+        # print("STDERR:")
+        # print(result.stderr)
 
     def find_policy(self):
         self.fond_problem = Path(self.fond_problem).as_posix()
         self.fond_domain = Path(self.fond_domain).as_posix()
-        command = f"bash pddlgym/planner-for-relevant-policies/src/prp {self.fond_domain} {self.fond_problem} --dump-policy {2}"
+        command = f"bash pddlgym/planner-for-relevant-policies/src/prp {self.fond_domain} {self.fond_problem} --dump-policy {2} --detect-deadends {1}"
 
         result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        # # Print stdout and stderr for debugging
-        # print("STDOUT:")
-        # print(result.stdout)
-        #
-        # print("STDERR:")
-        # print(result.stderr)
+        # Print stdout and stderr for debugging
+        print("STDOUT:")
+        print(result.stdout)
+
+        print("STDERR:")
+        print(result.stderr)
         # with open(self.policy_file, 'r') as file:
         #     contents = file.read()
         #
@@ -93,6 +93,9 @@ class FONDAgent:
         with open("output.sas", 'r') as f:
             file_content = f.read()
         variable_mapping = self.parse_variables(file_content)
+
+        for var in variable_mapping:
+            print(var, variable_mapping[var])
 
         with open(self.policy_file, 'r') as f:
             lines = f.readlines()

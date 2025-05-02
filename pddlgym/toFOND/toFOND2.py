@@ -124,7 +124,7 @@ if __name__ == '__main__':
     print('Group sizes: ', [len(g) for g in groups.values()])
 
     sets = list(itertools.product(*groups.values()))
-
+    print(f"Limit: {limit}")
     indep_sets = set()
     for s in sets:
         for s2 in powerset(s, limit):
@@ -161,7 +161,7 @@ if __name__ == '__main__':
                 # print(a.name, "is an enabler of", e.name, a.add, e.pre)
                 a.ceff.append(ConditionalEffect(missing_precond(a, e),
                                                 [f"(enab-{e.name[1:-1]})", f"(not (disab-{e.name[1:-1]}))"]))
-                # print("\t missing preconditions:", missing_precond(a, e))
+                # print(f"{a.name, e.name}\t missing preconditions:", missing_precond(a, e))
             if disabler(a, e):
                 a.delete.add(f"(enab-{e.name[1:-1]})")
                 a.add.add(f"(disab-{e.name[1:-1]})")

@@ -8,31 +8,35 @@ end_metric
 begin_variable
 var0
 -1
-3
+4
 Atom act-turn()
 Atom ev-turn()
 Atom ev-turn2()
+<none of those>
 end_variable
 begin_variable
 var1
 -1
-2
+3
 Atom at_a_l-1-1()
 Atom free_l-1-1()
+<none of those>
 end_variable
 begin_variable
 var2
 -1
-2
+3
 Atom at_a_l-1-2()
 Atom free_l-1-2()
+<none of those>
 end_variable
 begin_variable
 var3
 -1
-2
+3
 Atom at_a_l-1-3()
 Atom free_l-1-3()
+<none of those>
 end_variable
 begin_variable
 var4
@@ -58,23 +62,26 @@ end_variable
 begin_variable
 var7
 -1
-2
+3
 Atom at_a_l-3-1()
 Atom free_l-3-1()
+<none of those>
 end_variable
 begin_variable
 var8
 -1
-2
+3
 Atom at_a_l-3-2()
 Atom free_l-3-2()
+<none of those>
 end_variable
 begin_variable
 var9
 -1
-2
+3
 Atom at_a_l-3-3()
 Atom free_l-3-3()
+<none of those>
 end_variable
 begin_variable
 var10
@@ -412,7 +419,7 @@ var57
 Atom wenab-move-ship-free_s1_l-2-3_l-2-2()
 NegatedAtom wenab-move-ship-free_s1_l-2-3_l-2-2()
 end_variable
-7
+58
 begin_mutex_group
 3
 0 0
@@ -448,6 +455,210 @@ begin_mutex_group
 2
 9 0
 9 1
+end_mutex_group
+begin_mutex_group
+1
+40 0
+end_mutex_group
+begin_mutex_group
+1
+53 0
+end_mutex_group
+begin_mutex_group
+1
+32 0
+end_mutex_group
+begin_mutex_group
+1
+11 0
+end_mutex_group
+begin_mutex_group
+1
+35 0
+end_mutex_group
+begin_mutex_group
+1
+33 0
+end_mutex_group
+begin_mutex_group
+1
+42 0
+end_mutex_group
+begin_mutex_group
+1
+34 0
+end_mutex_group
+begin_mutex_group
+1
+13 0
+end_mutex_group
+begin_mutex_group
+1
+46 0
+end_mutex_group
+begin_mutex_group
+1
+55 0
+end_mutex_group
+begin_mutex_group
+1
+31 0
+end_mutex_group
+begin_mutex_group
+1
+22 0
+end_mutex_group
+begin_mutex_group
+1
+45 0
+end_mutex_group
+begin_mutex_group
+1
+43 0
+end_mutex_group
+begin_mutex_group
+1
+18 0
+end_mutex_group
+begin_mutex_group
+1
+52 0
+end_mutex_group
+begin_mutex_group
+1
+28 0
+end_mutex_group
+begin_mutex_group
+1
+16 0
+end_mutex_group
+begin_mutex_group
+1
+21 0
+end_mutex_group
+begin_mutex_group
+1
+24 0
+end_mutex_group
+begin_mutex_group
+1
+56 0
+end_mutex_group
+begin_mutex_group
+1
+50 0
+end_mutex_group
+begin_mutex_group
+1
+29 0
+end_mutex_group
+begin_mutex_group
+1
+51 0
+end_mutex_group
+begin_mutex_group
+1
+5 0
+end_mutex_group
+begin_mutex_group
+1
+26 0
+end_mutex_group
+begin_mutex_group
+1
+57 0
+end_mutex_group
+begin_mutex_group
+1
+49 0
+end_mutex_group
+begin_mutex_group
+1
+54 0
+end_mutex_group
+begin_mutex_group
+1
+30 0
+end_mutex_group
+begin_mutex_group
+1
+37 0
+end_mutex_group
+begin_mutex_group
+1
+47 0
+end_mutex_group
+begin_mutex_group
+1
+12 0
+end_mutex_group
+begin_mutex_group
+1
+6 0
+end_mutex_group
+begin_mutex_group
+1
+10 0
+end_mutex_group
+begin_mutex_group
+1
+27 0
+end_mutex_group
+begin_mutex_group
+1
+25 0
+end_mutex_group
+begin_mutex_group
+1
+41 0
+end_mutex_group
+begin_mutex_group
+1
+4 0
+end_mutex_group
+begin_mutex_group
+1
+19 0
+end_mutex_group
+begin_mutex_group
+1
+36 0
+end_mutex_group
+begin_mutex_group
+1
+44 0
+end_mutex_group
+begin_mutex_group
+1
+17 0
+end_mutex_group
+begin_mutex_group
+1
+38 0
+end_mutex_group
+begin_mutex_group
+1
+20 0
+end_mutex_group
+begin_mutex_group
+1
+14 0
+end_mutex_group
+begin_mutex_group
+1
+23 0
+end_mutex_group
+begin_mutex_group
+1
+15 0
+end_mutex_group
+begin_mutex_group
+1
+39 0
+end_mutex_group
+begin_mutex_group
+1
+48 0
 end_mutex_group
 begin_state
 0
@@ -1276,48 +1487,12 @@ selector_DETDUP_1
 0
 3
 0 0 1 2
-0 34 -1 1
-0 44 -1 0
-0
-end_operator
-begin_operator
-selector_DETDUP_2 
-0
-3
-0 0 1 2
 0 32 -1 1
 0 42 -1 0
 0
 end_operator
 begin_operator
-selector_DETDUP_3 
-0
-3
-0 0 1 2
-0 33 -1 1
-0 43 -1 0
-0
-end_operator
-begin_operator
-selector_DETDUP_4 
-0
-3
-0 0 1 2
-0 38 -1 1
-0 48 -1 0
-0
-end_operator
-begin_operator
-selector_DETDUP_5 
-0
-3
-0 0 1 2
-0 39 -1 1
-0 49 -1 0
-0
-end_operator
-begin_operator
-selector_DETDUP_6 
+selector_DETDUP_2 
 0
 3
 0 0 1 2
@@ -1326,7 +1501,16 @@ selector_DETDUP_6
 0
 end_operator
 begin_operator
-selector_DETDUP_7 
+selector_DETDUP_3 
+0
+3
+0 0 1 2
+0 39 -1 1
+0 49 -1 0
+0
+end_operator
+begin_operator
+selector_DETDUP_4 
 0
 3
 0 0 1 2
@@ -1335,12 +1519,39 @@ selector_DETDUP_7
 0
 end_operator
 begin_operator
-selector_DETDUP_8 
+selector_DETDUP_5 
+0
+3
+0 0 1 2
+0 34 -1 1
+0 44 -1 0
+0
+end_operator
+begin_operator
+selector_DETDUP_6 
 0
 3
 0 0 1 2
 0 35 -1 1
 0 45 -1 0
+0
+end_operator
+begin_operator
+selector_DETDUP_7 
+0
+3
+0 0 1 2
+0 38 -1 1
+0 48 -1 0
+0
+end_operator
+begin_operator
+selector_DETDUP_8 
+0
+3
+0 0 1 2
+0 33 -1 1
+0 43 -1 0
 0
 end_operator
 0
