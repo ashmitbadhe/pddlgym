@@ -1,0 +1,10 @@
+usage: translator.py [-h] [--translate-events-action]
+                     [--add-events-as-operators] [--relaxed] [--full-encoding]
+                     [--invariant-generation-max-candidates INVARIANT_GENERATION_MAX_CANDIDATES]
+                     [--invariant-generation-max-time INVARIANT_GENERATION_MAX_TIME]
+                     [--add-implied-preconditions] [--keep-unreachable-facts]
+                     [--skip-variable-reordering]
+                     [--keep-unimportant-variables] [--dump-task]
+                     [--layer-strategy {min,max}]
+                     domain task safe_states_file unsafety_limit
+translator.py: error: the following arguments are required: safe_states_file, unsafety_limit

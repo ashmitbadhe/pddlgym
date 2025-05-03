@@ -522,8 +522,8 @@ def unsolvable_sas_task(msg):
 
 def pddl_to_sas(task):
     with timers.timing("Instantiating", block=True):
-        (relaxed_reachable, atoms, actions, events, axioms,
-         reachable_action_params, reachable_event_params) = instantiate.explore(task)
+        (relaxed_reachable, atoms, actions, axioms,
+         reachable_action_params) = instantiate.explore(task)
 
     if not relaxed_reachable:
         return unsolvable_sas_task("No relaxed solution")

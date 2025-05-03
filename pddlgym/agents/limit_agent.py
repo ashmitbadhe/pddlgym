@@ -14,7 +14,7 @@ class LIMITAgent:
         self.problem_filepath = problem_filepath
         self.objects = self.get_objects_from_problem()
         self.safe_states_filepath = safe_states_filepath
-        self.plan_file = "pddlgym/unsafeness_limit_finder/plan.txt"
+        self.plan_file = "pddlgym/unsafeness_limit_translator/plan.txt"
         self.space = self.env.action_space
         self.planner = FD()
         self.plan = None
@@ -74,7 +74,7 @@ class LIMITAgent:
     def generate_limited_domain(self, domain_obj, limit):
         command = [
             "python",
-            "pddlgym/unsafeness_limit_finder/translator.py",
+            "pddlgym/unsafeness_limit_translator/translator.py",
             "--add-events-as-operators",
             self.domain_filepath,
             self.problem_filepath,
@@ -82,7 +82,7 @@ class LIMITAgent:
             str(limit)
         ]
 
-        log_filepath = os.path.join("pddlgym/unsafeness_limit_finder/", "translation.log")
+        log_filepath = os.path.join("pddlgym/unsafeness_limit_translator/", "translation.log")
         # Run the translation and log output
         with open(log_filepath, "a") as log_file:
             result = subprocess.run(command, stdout=log_file, stderr=log_file)
@@ -90,7 +90,7 @@ class LIMITAgent:
         if result.returncode != 0:
             raise Exception("Error generating SAS file. Check logs.")
 
-        return "pddlgym/unsafeness_limit_finder/output.sas"
+        return "pddlgym/unsafeness_limit_translator/output.sas"
 
     def find_safe_sequence(self, current_state):
         """
@@ -211,7 +211,7 @@ class LIMITAgent:
             "--internal-plan-file", self.plan_file
         ]
 
-        log_filepath = os.path.join("pddlgym/unsafeness_limit_finder/", "fd_log.txt")
+        log_filepath = os.path.join("pddlgym/unsafeness_limit_translator/", "fd_log.txt")
         with open(log_filepath, "a") as log_file, open(sas_filepath, "rb") as sas_file:
             result = subprocess.run(
                 command,

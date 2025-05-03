@@ -43,12 +43,10 @@ def instantiate(task, model):
     type_to_objects = get_objects_by_type(task.objects, task.types)
 
     instantiated_actions = []
-    instantiated_events = []
     instantiated_axioms = []
     reachable_action_parameters = defaultdict(list)
-    reachable_event_parameters = defaultdict(list)
     for atom in model:
-        if isinstance(atom.predicate, pddl.Action):
+        if isinstance(atom.predicate, pddl.Action) or isinstance(atom.predicate, pddl.Event):
             action = atom.predicate
             parameters = action.parameters
             inst_parameters = atom.args[:len(parameters)]
@@ -66,24 +64,6 @@ def instantiate(task, model):
                 task.use_min_cost_metric)
             if inst_action:
                 instantiated_actions.append(inst_action)
-        elif isinstance(atom.predicate, pddl.Event):
-            event = atom.predicate
-            parameters = event.parameters
-            inst_parameters = atom.args[:len(parameters)]
-            # Note: It's important that we use the event object
-            # itself as the key in reachable_event_parameters (rather
-            # than event.name) since we can have multiple different
-            # events with the same name after normalization, and we
-            # want to distinguish their instantiations.
-            reachable_event_parameters[event].append(inst_parameters)
-            variable_mapping = {par.name: arg
-                                for par, arg in zip(parameters, atom.args)}
-            inst_event = event.instantiate(
-                variable_mapping, init_facts, init_assignments,
-                fluent_facts, type_to_objects,
-                task.use_min_cost_metric)
-            if inst_event:
-                instantiated_events.append(inst_event)
         elif isinstance(atom.predicate, pddl.Axiom):
             axiom = atom.predicate
             variable_mapping = {par.name: arg
@@ -93,8 +73,8 @@ def instantiate(task, model):
                 instantiated_axioms.append(inst_axiom)
         elif atom.predicate == "@goal-reachable":
             relaxed_reachable = True
-    return (relaxed_reachable, fluent_facts, instantiated_actions, instantiated_events,
-            sorted(instantiated_axioms), reachable_action_parameters, reachable_event_parameters)
+    return (relaxed_reachable, fluent_facts, instantiated_actions,
+            sorted(instantiated_axioms), reachable_action_parameters)
 
 def explore(task):
     prog = pddl_to_prolog.translate(task)
