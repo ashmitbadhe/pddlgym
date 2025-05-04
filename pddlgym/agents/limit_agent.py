@@ -24,6 +24,7 @@ class LIMITAgent:
         self.unsafeness_start = unsafeness_start
         self.unsafeness_limit = unsafeness_limit
         self.plan_found = False
+        self.useful_event = None
 
     def __call__(self, state):
         if self.plan is None:
@@ -34,13 +35,12 @@ class LIMITAgent:
                 limit += 1
                 print(f"Trying to generate a plan with unsafeness limit {limit}...")
 
-                sas_filepath = self.generate_limited_domain(self.domain, limit)
+                sas_filepath = self.generate_limited_domain(limit)
                 # Run FastDownward to generate the plan
                 self.plan = self.run_fastdownward(sas_filepath)
 
                 if self.plan:
                     self.plan_found = True
-                    self.current_plan_index = 0
                     print(f"Generated plan with limit {limit}: {self.plan}")
                     self.plan = self.retranslate_plan()
                 else:
@@ -50,11 +50,10 @@ class LIMITAgent:
         if self.plan:
             # Attempt to find safe sequence if it is not empty
             if self.safe_sequence and \
-                    self.is_action_applicable(self.safe_sequence[0], state) and \
-                    self.is_state_safe(self.simulate_action(state, self.safe_sequence[0]))[0]:
+                    self.is_action_applicable(self.safe_sequence[0], state):
 
                 selected_action = self.safe_sequence.pop(0)
-                self.current_plan_index += 1
+                self.plan.pop(0)
                 print(f"Selected action from safe sequence: {selected_action}")
             else:
                 # Find a new safe sequence from the current state
@@ -64,14 +63,15 @@ class LIMITAgent:
                     self.noops_performed += 1
                 else:
                     selected_action = self.safe_sequence.pop(0)
-                    self.current_plan_index +=1
-                    print(f"New safe sequence of length {len(self.safe_sequence)}", self.safe_sequence)
+                    self.plan.pop(0)
+                    print(f"Selected action from safe sequence: {selected_action}")
+
         #
             return selected_action
         else:
             raise Exception("Plan is empty. No more actions to take.")
 
-    def generate_limited_domain(self, domain_obj, limit):
+    def generate_limited_domain(self, limit):
         command = [
             "python",
             "pddlgym/unsafeness_limit_translator/translator.py",
@@ -100,10 +100,10 @@ class LIMITAgent:
         state = current_state
         self.safe_sequence.clear()
 
-        p_plus = set()  # Initially empty per Proposition 3
+        p_plus = set()  # Initially empty
         p_minus = set()
 
-        for i in range(self.current_plan_index, len(self.plan)):
+        for i in range(0, len(self.plan)):
             action = self.to_Literal(self.plan[i])
             print(f"\n[STEP {i}] Considering action: {action}")
 
@@ -113,45 +113,52 @@ class LIMITAgent:
 
             # Get positive preconditions
             pos_preconds = self.space._ground_action_to_pos_preconds[action]
-
-            # Check robustness: preconditions must not intersect with p_minus
-            if pos_preconds & p_minus:
-                print(f"  ❌ Action preconditions {pos_preconds} intersect with p_minus {p_minus}")
-                break  # not robust
+            neg_preconds = self.space._ground_action_to_neg_preconds[action]
 
             # Simulate the action
             next_state = self.simulate_action(state, action)
 
-            # Check if next state is goal-violating
-            safe, unsafe_literal = self.is_state_safe(next_state)
-            if not safe:
-                print(f"  ⚠️ Unsafe due to anti-goal literal {unsafe_literal}")
-                break
+            # Compute next Ei, p_plus, p_minus
+            applicable_events = self.applicable_events(self.space.event_literals, next_state, p_plus, p_minus)
+
+            # Update p_plus and p_minus
+            for event in applicable_events:
+                add_effects, del_effects = self.get_add_del_effects(event, next_state)
+                p_plus.update(add_effects)
+                p_minus.update(del_effects)
+
+            # Check robustness: preconditions must not intersect with p_minus
+            if pos_preconds & p_minus:
+                print(f"  ⚠️ UNSAFE ACTION: positive preconditions {pos_preconds} intersect with p_minus {p_minus}")
+                break  # not robust
+            elif neg_preconds & p_plus:
+                print(f"  ⚠️ UNSAFE ACTION: negative preconditions {pos_preconds} intersect with p_plus {p_minus}")
+                break  # not robust
+
 
             # Append the action to safe sequence
             self.safe_sequence.append(action)
             print(f"  ✅ Action added to safe sequence.")
 
-            # Compute next Ei, p_plus, p_minus
-            applicable_events = self.applicable_events(self.space.event_literals, next_state)
 
-            # Update p_plus and p_minus per Proposition 3
-            action_effects = self.space._ground_action_to_effects[action]
-            for eff in action_effects:
-                if eff.is_negative:
-                    p_plus.discard(eff.atom)
-                else:
-                    p_minus.discard(eff)
-
-            for e in applicable_events:
-                for eff in self.space._ground_action_to_effects[e]:
-                    if eff.is_negative:
-                        p_minus.add(eff.atom)
-                    else:
-                        p_plus.add(eff)
 
             # Move to the next state
             state = next_state
+
+    def get_add_del_effects(self, action, state):
+        self.space._update_objects_from_state(state)
+        add_effects = set()
+        del_effects = set()
+        all_effects = self.space._ground_action_to_effects[action]
+        for effect in all_effects:
+            if "Anti" in str(effect):
+                del_effects.add(Anti(effect))
+            else:
+                add_effects.add(effect)
+
+        return add_effects, del_effects
+
+
 
     def to_Literal(self, action_str):
         action_str_stripped = action_str[1:-1]
@@ -173,31 +180,30 @@ class LIMITAgent:
             return False
         return True
 
-    def is_state_safe(self, state):
-        all_event_literals = self.space.event_literals
-        applicable_events = self.applicable_events(all_event_literals, state)
-        for event in applicable_events:
-            effects = self.space._ground_action_to_effects[event]
-            for effect in effects:
-                if Anti(effect) in state.goal.literals:
-                    return False, effect
-        return True,None
-
     def simulate_action(self, state, action):
         next_deterministic_state = self.env.simulate_events(action, state, False)
         return next_deterministic_state
 
-    def applicable_events(self, all_event_literals, state):
+    def applicable_events(self, all_event_literals, state, p_plus=None, p_minus=None):
         self.space._update_objects_from_state(state)
+
+        if p_plus is None:
+            p_plus = set()
+        if p_minus is None:
+            p_minus = set()
+
+        optimistic_state = state.literals | p_plus
+        pessimistic_state = state.literals - p_minus
+
         valid_literals = set()
+
         for event_literal in all_event_literals:
             pos_preconds = self.space._ground_action_to_pos_preconds[event_literal]
-            if not pos_preconds.issubset(state.literals):
-                continue
             neg_preconds = self.space._ground_action_to_neg_preconds[event_literal]
-            if len(neg_preconds & state.literals) > 0:
-                continue
-            valid_literals.add(event_literal)
+
+            if pos_preconds.issubset(optimistic_state) and neg_preconds.isdisjoint(pessimistic_state):
+                valid_literals.add(event_literal)
+
         return list(valid_literals)
 
     def get_noops_count(self):
@@ -207,7 +213,7 @@ class LIMITAgent:
         # Run FastDownward on the generated SAS file
         command = [
             "pddlgym/pddlgym_planners/FD/builds/release/bin/downward.exe",
-            "--search", "astar(lmcut())",
+            "--search", "lazy_greedy([ff()], preferred=[ff()])",
             "--internal-plan-file", self.plan_file
         ]
 
@@ -232,7 +238,7 @@ class LIMITAgent:
             plan = plan_file.readlines()
 
         # Parse the plan if needed (you may need to adjust this based on your format)
-        parsed_plan = [action.strip() for action in plan[:-1]]
+        parsed_plan = [action.strip() for action in plan]
 
         return parsed_plan
 
@@ -242,11 +248,19 @@ class LIMITAgent:
             with open(self.plan_file, 'r') as plan_file:
                 plan_content = plan_file.read()
 
-            # Remove events and comments using regex
-            plan_content = re.sub(r';.*$', '', plan_content, flags=re.MULTILINE)  # Remove comments
-            plan_content = re.sub(r'\(events[^\)]*\)', '', plan_content)  # Remove events section
-            plan_content = re.sub(r'event-action-[^\s]+', '', plan_content)  # Remove event actions
-            plan_content = re.sub(r'-unsafe-copy-[0-9]+\s', ' ', plan_content)  # Remove unsafe-copy digits
+            # Step 1: Remove comments
+            plan_content = re.sub(r';.*$', '', plan_content, flags=re.MULTILINE)
+
+            # Step 2: Remove suffixes like -inc-copy-0-1 or -constrained-zeroing-copy from action names
+            plan_content = re.sub(r'\((\S+?)(?:-inc-copy-\d+-\d+|-constrained-zeroing-copy|-constrained-inc-copy|-unsafe-copy-\d)',
+                                  r'(\1',
+                                  plan_content)
+
+            # Step 3: remove event-action lines
+            plan_content = re.sub(r'^.*event-action-[^\s]+.*\n?', '', plan_content, flags=re.MULTILINE)
+
+            # Strip trailing whitespace
+            plan_content = plan_content.strip()
 
             # Write the modified content to the original plan file
             with open(self.plan_file, 'w') as original_plan_file:

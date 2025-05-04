@@ -1,6 +1,0 @@
-[t=0.000314s, 956 KB] reading input...
-Failed to match magic word 'begin_version'.
-Got ''.
-Possible cause: you are running the planner on a translator output file from 
-an older version.
-Usage error occurred.
