@@ -46,7 +46,6 @@ class APPAgent:
                 self.current_plan_index += 1
                 print(f"Selected action from safe sequence: {selected_action}")
             else:
-                print(self.current_plan_index)
                 # Find a new safe sequence from the current state
                 self.find_safe_sequence(state)
                 if not self.safe_sequence:
