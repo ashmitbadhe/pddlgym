@@ -62,7 +62,7 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
         action = policy(obs)
 
         if verbose:
-            print("Act:", action)
+            print(f"Act {t}:", action)
 
         obs, reward, done, _, _ = env.step(action)
         if render:
@@ -70,11 +70,14 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
         if verbose:
             print("Rew:", reward)
 
+        completion = (sum(lit in obs.literals for lit in obs.goal.literals)/len(obs.goal.literals))*100
+        print(f"{completion:.2f}% Completed")
+
         if done:
             break
 
         for literal in obs.literals:
-            if "operational" not in str(literal):
+            if "alive" not in str(literal):
                 break
 
         #apply nature to environment if applicable

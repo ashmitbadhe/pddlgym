@@ -1,12 +1,14 @@
 import math
 import random
 from collections import defaultdict
+from dataclasses import replace
 
 from pddlgym.structs import Anti, Literal, LiteralConjunction
 from pddlgym.prolog_interface import PrologInterface
+from pddlgym.pddlgym_planners.fd import FD  # FastDownward
 
 class MCTSAgent:
-    def __init__(self, env, num_simulations=100, exploration_const=1.41, max_depth=10):
+    def __init__(self, env, num_simulations=100, exploration_const=1.41, max_depth=20):
         self.env = env
         self.num_simulations = num_simulations
         self.exploration_const = exploration_const
@@ -14,27 +16,49 @@ class MCTSAgent:
         self.Q = defaultdict(float)     # Q-values: (state, action) -> value
         self.N = defaultdict(int)       # Visit counts: (state, action) -> count
         self.Ns = defaultdict(int)      # State visit counts: state -> count
+        self.RAVE = defaultdict(float)  # RAVE action-value estimates (state, action) -> aggregated value
+        self.RAVE_N = defaultdict(int)  # Number of visits for each action across all parent nodes
         self.actions = set()
+        self.parent_map = {}  # Maps child_state -> (parent_state, action)
+        self.planner = FD(alias_flag="--alias seq-opt-lmcut")
+        self.reference_plan = None
+        self.reference_plan_indices = {}
 
     def __call__(self, obs):
-        self.actions = set(self.env.action_space.all_ground_literals(obs))
+        self.actions = self.env.action_space.all_ground_literals(obs) | {None}
+
+        # Compute reference plan only once
+        if self.reference_plan is None:
+            try:
+                print("Generating reference plan using Fast Downward...")
+                plan = self.planner(self.env.domain, obs)
+                self.reference_plan = plan
+                self.reference_plan_indices = {
+                    action: i for i, action in enumerate(self.reference_plan)
+                }
+                print(f"Reference plan length {len(plan)}")
+            except:
+                self.reference_plan = []
+                print("generating reference plan failed or took too long, proceeding with Random Play simulation ")
+
+
         for _ in range(self.num_simulations):
             self._simulate(obs, depth=0)
-
-        for action in self.actions:
-            print(action, self.Q[obs, action])
 
         # Choose best action
         if self.actions:
             best_action = max(
                 self.actions,
-                key=lambda a: self.Q[(obs, a)] / self.N[(obs, a)] if self.N[(obs, a)] > 0 else float('-inf')
+                key=lambda a: self.Q[(obs, a)] if self.N[(obs, a)] > 0 else float('-inf')
             )
         else:
             return None
         return best_action
 
-    def _simulate(self, obs, depth):
+    def _simulate(self, obs, depth, simulation_path=None):
+        if simulation_path is None:
+            simulation_path = []
+
         if depth >= self.max_depth:
             return 0
 
@@ -45,52 +69,156 @@ class MCTSAgent:
         # Select action using UCB1
         best_score = float('-inf')
         best_action = None
-        actions = set(self.env.action_space.all_ground_literals(obs))
+        actions = self.env.action_space.all_ground_literals(obs)
         for action in actions:
             q = self.Q[(obs, action)]
             n = self.N[(obs, action)]
             ns = self.Ns[obs]
-            ucb = q / (n + 1e-4) + self.exploration_const * math.sqrt(math.log(ns + 1) / (n + 1e-4))
-            if ucb > best_score:
-                best_score = ucb
+            ucb_classical = q / (n + 1e-4) + self.exploration_const * math.sqrt(math.log(ns + 1) / (n + 1e-4))
+
+            rave_q = self.RAVE[(obs, action)]
+            rave_n = self.RAVE_N[(obs, action)]
+            ucb_rave = rave_q / (rave_n + 1e-4) + self.exploration_const * math.sqrt(math.log(ns + 1) / (rave_n + 1e-4))
+
+            ucb_combined = ucb_classical + ucb_rave
+
+            if ucb_combined > best_score:
+                best_score = ucb_combined
                 best_action = action
 
-        # Simulate the environment
-        action_applied_state = self.env.simulate_events(best_action, obs)
-        event_applied_state = self.env.simulate_events(self.select_event(self.env.action_space.event_literals, action_applied_state), action_applied_state)
-        reward, done = self.calculate_reward(action_applied_state, event_applied_state)
-        # Recursively simulate
+        # Simulate environment
+        action_applied_state = self.apply_action(best_action, obs)
+        event_applied_state = self.apply_action(
+            self.select_event(self.env.action_space.event_literals, action_applied_state), action_applied_state)
+
+        # Record parent-child transition
+        self.parent_map[event_applied_state] = (obs, best_action)
+
+        reward, done = self.calculate_reward(event_applied_state, depth)
+
+        # Add current step to simulation path
+        simulation_path.append((obs, best_action))
+
+        # Recursive simulation
         total_reward = reward
         if not done:
-            total_reward += self._simulate(event_applied_state, depth + 1)
+            total_reward += self._simulate(event_applied_state, depth + 1, simulation_path)
 
-        # Backpropagate
+        # Backpropagate Q and visit counts
         self.N[(obs, best_action)] += 1
         self.Ns[obs] += 1
-        self.Q[(obs, best_action)] += total_reward
+        self.Q[(obs, best_action)] = (
+                (self.Q[(obs, best_action)] * (self.N[(obs, best_action)] - 1) + total_reward)
+                / self.N[(obs, best_action)]
+        )
+
+        # RAVE update for the full path
+        for past_state, past_action in simulation_path:
+            self.RAVE_N[(past_state, past_action)] += 1
+            self.RAVE[(past_state, past_action)] = (
+                    (self.RAVE[(past_state, past_action)] * (self.RAVE_N[(past_state, past_action)] - 1) + total_reward)
+                    / self.RAVE_N[(past_state, past_action)]
+            )
+
 
         return total_reward
+
+    def get_parent_states(self, state):
+        parents = []
+        if state in self.parent_map:
+            parent, action = self.parent_map[state]
+            parents.append(parent)
+        return parents
+
+    def get_best_heuristic(self, actions, previous_heuristic):
+        best_action = None
+        best_distance = float("inf")
+        best_value = float("-inf")  # Track best known plan index
+
+        for action in actions:
+            value = self.reference_plan_indices.get(action, float("-inf"))
+
+            # Case 1: First time choosing heuristic-guided action
+            if previous_heuristic is None:
+                # Prefer any action in the reference plan
+                if value > best_value:
+                    best_value = value
+                    best_action = action
+            else:
+                # Compute distance safely
+                if value == float("-inf"):
+                    distance = float("inf")  # Not in plan
+                else:
+                    if value != previous_heuristic:
+                        distance = value - previous_heuristic
+                    else:
+                        distance = float("inf")
+
+                # Choose the one with the smallest forward distance
+                if distance < best_distance:
+                    best_distance = distance
+                    best_value = value
+                    best_action = action
+
+        # If all actions were -inf and best_action is still None, fallback to random
+        if best_action is None and actions:
+            best_action = random.choice(list(actions))
+            best_value = float("-inf")  # Indicates no reference match
+
+        return best_action, best_value
 
     def _rollout(self, obs, depth):
         # Random rollout
         current_obs = obs
         total_reward = 0
+        heuristic = None
+
         for _ in range(self.max_depth - depth):
-            applicable_actions = set(self.env.action_space.all_ground_literals(obs))
-            if len(applicable_actions) != 0:
-                action = list(applicable_actions).pop(0)
+            applicable_actions = self.env.action_space.all_ground_literals(current_obs)
+            if len(applicable_actions) == 0:
+                break
+
+            # Stronger bias toward goal-oriented actions later in rollouts
+
+            if random.random() < 0.5:
+                action, heuristic = self.get_best_heuristic(applicable_actions, heuristic)
             else:
-                action = None
-            if action != None:
-                self.N[obs, action] += 1
-            action_applied_state = self.env.simulate_events(action, current_obs)
-            event_applied_state = self.env.simulate_events(self.select_event(self.env.action_space.event_literals, action_applied_state), action_applied_state)
-            reward, done = self.calculate_reward(action_applied_state, event_applied_state)
+                action = random.choice(list(applicable_actions))
+
+            self.N[obs, action] += 1
+
+            action_applied_state = self.apply_action(action, current_obs)
+
+            # Record the transition
+            self.parent_map[action_applied_state] = (obs, action)
+
+            reward, done = self.calculate_reward(action_applied_state, _)
             total_reward += reward
             if done:
                 break
+            current_obs = action_applied_state
         self.Ns[obs] +=1
         return total_reward
+
+    def apply_action(self, action, state):
+        if action is None:
+            return state
+
+        self.env.action_space._update_objects_from_state(state)
+        state_literals = set(state.literals)
+        all_effects = self.env.action_space._ground_action_to_effects[action]
+        for effect in all_effects:
+            if "Anti" in str(effect):
+                if Anti(effect) in state.literals:
+                    state_literals.remove(Anti(effect))
+                else:
+                    state_literals.add(effect)
+            else:
+                state_literals.add(effect)
+        new_state = state.with_literals(frozenset(state_literals))
+        return new_state
+
+
 
     def select_event(self, event_literals, state):
         self.env.action_space._update_objects_from_state(state)
@@ -112,18 +240,19 @@ class MCTSAgent:
         else:
             return None
 
-    def calculate_reward(self, pre_event_state, post_event_state):
-        if all(self.check_goal(pre_event_state, lit) for lit in pre_event_state.goal.literals):
-            print("found goal")
+    def calculate_reward(self, state, depth):
+        if all(self.check_goal(state, lit) for lit in state.goal.literals):
+            print("found_goal")
             return 1.0, True
-        elif any(lit in pre_event_state.literals and lit not in post_event_state.literals for lit in post_event_state.goal.literals):
-            return 0.0, True
-        elif any(lit in pre_event_state.literals for lit in post_event_state.goal.literals):
-            encouraging_literals = post_event_state.literals & set(post_event_state.goal.literals)
-            reward = len(encouraging_literals) / len(post_event_state.goal.literals)
+        elif any(lit not in state.literals for lit in state.goal.literals):
+            missing_literals = set(state.goal.literals) - state.literals
+            total_literals = len(state.goal.literals)
+            num_missing = len(missing_literals)
+
+            reward = (total_literals / num_missing) / 100.0
             return reward, False
         else:
-            return 0.5, False, None
+            return 0.0, False
     def check_goal(self, state, goal):
         if isinstance(goal, Literal):
             if goal.is_negative and goal.positive in state.literals:

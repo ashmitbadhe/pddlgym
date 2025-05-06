@@ -61,7 +61,7 @@
 :parameters (?l - location ?lmin - lvl)
 :precondition (and (level-min ?lmin)
                    (level ?l ?lmin)
-                   ;(not (at-agent ?l))
+                   (not (at-agent ?l))
                    (free ?l)
                    (accessible ?l)
               )
