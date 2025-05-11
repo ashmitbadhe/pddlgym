@@ -7,6 +7,7 @@ import os
 import sys
 import subprocess
 import tempfile
+import pygetwindow as gw
 from pddlgym.pddlgym_planners.pddl_planner import PDDLPlanner
 from pddlgym.pddlgym_planners.planner import PlanningFailure
 

@@ -33,8 +33,8 @@ class PDDLPlanner(Planner):
             domain.domain_name, state.goal, fast_downward_order=True)
         if translate_separately:
             # TODO: don't ignore timeout during translate phase
-            from pddlgym.pddlgym_planners.FD.src.translate.translate import main as downward_translate
-            from pddlgym.pddlgym_planners.FD.src.translate.pddl_parser import open as downward_open
+            from pddlgym.pddlgym_planners.FD.builds.release.bin.translate.translate import main as downward_translate
+            from pddlgym.pddlgym_planners.FD.builds.release.bin.translate.pddl_parser import open as downward_open
             task = downward_open(domain_filename=dom_file, task_filename=prob_file)
             sas_file = tempfile.NamedTemporaryFile(delete=False).name
             with nostdout():
@@ -66,7 +66,7 @@ class PDDLPlanner(Planner):
         if remove_files:
             os.remove(dom_file)
             os.remove(prob_file)
-        self._cleanup()
+        #self._cleanup()
         if time.time()-start_time > timeout:
             raise PlanningTimeout("Planning timed out!")
         pddl_plan = self._output_to_plan(output)
