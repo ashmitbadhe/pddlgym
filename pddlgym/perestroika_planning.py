@@ -5,6 +5,7 @@ from agents.app_agent import APPAgent
 from agents.limit_agent import LIMITAgent
 from agents.fond_agent import FONDAgent
 from agents.mcts_agent import MCTSAgent
+from agents.LinearExecutionAgent import LinearExecutionAgent
 
 
 
@@ -27,7 +28,7 @@ def demo_random_perestroika():
 
 
 
-    policy = FONDAgent(env, domain_filepath, problem_filepath)
+    policy = LinearExecutionAgent(env, domain_filepath, problem_filepath)
 
     # Specify video output path
     video_path = "perestroika_limit_agent.mp4"
