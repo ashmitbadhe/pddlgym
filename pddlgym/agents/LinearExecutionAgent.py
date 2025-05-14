@@ -21,13 +21,14 @@ class LinearExecutionAgent:
         self.problem = SimpleSTRIPSProblem(env)
 
         # Create the DTG
-        self.dtg = DTG(self.problem, env.observation_space._all_ground_literals)
-        self.dtg.BuildDTGs()
+        # self.dtg = DTG(self.problem, env.observation_space._all_ground_literals)
+        # self.dtg.BuildDTGs()
         #self.dtg.outputDTGInfo()
 
     def generate_initial_plan(self, obs):
         # Generate initial plan using the planner
         self.plan = self.planner(self.domain, obs)
+        print(len(self.plan))
         self.compute_waitfor_conditions(obs)
 
     def compute_waitfor_conditions(self, initial_state):
@@ -43,8 +44,7 @@ class LinearExecutionAgent:
             pos_preconds = self.env.action_space._ground_action_to_pos_preconds[action]
             add_effects = set(
                 e for e in self.env.action_space._ground_action_to_effects[action] if "Anti" not in str(e))
-            del_effects = set(
-                Anti(e) for e in self.env.action_space._ground_action_to_effects[action] if "Anti" in str(e))
+            #del_effects = set(Anti(e) for e in self.env.action_space._ground_action_to_effects[action] if "Anti" in str(e))
 
             # Step 2: Regress G_{i+1} through a_i to get G_i
             G_i = (G_next - add_effects) | pos_preconds
@@ -52,27 +52,11 @@ class LinearExecutionAgent:
             # Step 1: Compute W_i
             waitfor = set()
 
-            # Add literals from G_i that are preconditions of the action (G_i ∩ pre(a_i))
-            #waitfor |= G_i & pos_preconds
-
-            # Now add those literals in G_i for which no interfering event exists
-            # for literal in G_i:
-            #     relevant_event_found = False
-            #     for event in self.env.action_space.event_literals:
-            #         e_pos_preconds = self.env.action_space._ground_action_to_pos_preconds[event]
-            #         e_add_effects = set(
-            #             e for e in self.env.action_space._ground_action_to_effects[event] if "Anti" not in str(e))
-            #         if literal in e_add_effects and e_pos_preconds & add_effects:
-            #             relevant_event_found = True
-            #             break
-            #     if not relevant_event_found:
-            #         waitfor.add(literal)
-
             for g in G_i:
                 for event in self.env.action_space.event_literals:
                     e_pos_preconds = self.env.action_space._ground_action_to_pos_preconds[event]
-                    e_add_effects = set(
-                        e for e in self.env.action_space._ground_action_to_effects[event] if "Anti" not in str(e))
+                    # e_add_effects = set(
+                    #     e for e in self.env.action_space._ground_action_to_effects[event] if "Anti" not in str(e))
                     e_del_effects = set(
                         Anti(e) for e in self.env.action_space._ground_action_to_effects[event] if "Anti" in str(e))
 
@@ -83,7 +67,7 @@ class LinearExecutionAgent:
                             waitfor.update({Anti(p) for p in e_pos_preconds if p not in pos_preconds and p.predicate not in self.problem.static_predicates})
             self.plan_with_waitfor.insert(0, (frozenset(waitfor), action))
             G_next = G_i  # prepare for next step in regression
-            print(self.plan_with_waitfor[0])
+            #print(self.plan_with_waitfor[0])
 
 
     def is_applicable(self, state, action):
@@ -122,10 +106,6 @@ class LinearExecutionAgent:
                 state_literals.add(effect)  # Apply add effect
         return state.with_literals(frozenset(state_literals))
 
-    def replanning(self):
-        print("Replanning...")
-        #self.generate_initial_plan(self.current_state)
-
     def is_waitfor_alive(self, waitfor, current_state):
         # Check if the wait-for conditions are alive in the DTG
         for lit in waitfor:
@@ -151,7 +131,6 @@ class LinearExecutionAgent:
             # First, check if action is applicable
             if not self.is_applicable(self.current_state, action):
                 print("Action no longer applicable — replanning.")
-                self.replanning()
                 return None
 
             # Then, check if wait-for conditions are ALIVE (safe to proceed)

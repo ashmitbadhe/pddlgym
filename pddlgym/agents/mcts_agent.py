@@ -8,7 +8,7 @@ from pddlgym.prolog_interface import PrologInterface
 from pddlgym.pddlgym_planners.fd import FD  # FastDownward
 
 class MCTSAgent:
-    def __init__(self, env, num_simulations=100, exploration_const=1.41, max_depth=20):
+    def __init__(self, env, num_simulations=100, exploration_const=1.41, max_depth=5):
         self.env = env
         self.num_simulations = num_simulations
         self.exploration_const = exploration_const
@@ -52,8 +52,8 @@ class MCTSAgent:
                 key=lambda a: self.Q[(obs, a)] if self.N[(obs, a)] > 0 else float('-inf')
             )
             print(self.Q[(obs,best_action)])
-            # if self.Q[(obs,best_action)] < 0.1:
-            #     return None
+            if self.Q[(obs,best_action)] < 0.1:
+                return None
         else:
             return None
         return best_action

@@ -84,7 +84,7 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
             step_count+=t
             break
 
-        still_alive = False
+        # still_alive = False
         # for literal in obs.literals:
         #     if str(literal) == "alive()" :
         #         still_alive = True

@@ -1,3 +1,4 @@
+PERESTROIKA_______________________________________________________
 [APP] --------------
 Problem1
  Average number of noops: 10.57
@@ -72,7 +73,52 @@ Problem2
  Average number of noops:
  Success rate:
  Average Execution Steps:
-[LEV] -------------- 
+
+AUV ______________________________________________________________
+
+Problem1
+[APP] --------------
+ Average number of noops: 6.1
+ Success rate: 1.0 
+ Average Execution Steps: 15.1
+
+Problem2
+ Average number of noops: 2.1
+ Success rate: 1.0 
+ Average Execution Steps: 9.1
+[APP] -------------- 
+ Average number of noops: 6.2
+ Success rate: 0.7 
+ Average Execution Steps: 29.3
+[APP] -------------- 
+ Average number of noops: 30.4
+ Success rate: 1.0 
+ Average Execution Steps: 47.4
+[APP] -------------- 
  Average number of noops: 0.0
- Success rate: 0.0 
- Average Execution Steps: 0.0
+ Success rate: 1.0 
+ Average Execution Steps: 19.2
+[APP] -------------- 
+ Average number of noops: 0.0
+ Success rate: 1.0 
+ Average Execution Steps: 16.7
+[APP] -------------- 
+ Average number of noops: 0.0
+ Success rate: 1.0 
+ Average Execution Steps: 41.8
+[APP] -------------- 
+ Average number of noops: 10.1
+ Success rate: 1.0 
+ Average Execution Steps: 19.1
+[APP] -------------- 
+ Average number of noops: 1.3
+ Success rate: 0.8 
+ Average Execution Steps: 6.9
+[APP] -------------- 
+ Average number of noops: 0.8
+ Success rate: 1.0 
+ Average Execution Steps: 7.8
+[APP] -------------- 
+ Average number of noops: 1.09
+ Success rate: 0.9 
+ Average Execution Steps: 7.39

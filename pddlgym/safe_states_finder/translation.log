@@ -1,68 +1,26 @@
-Parsing...
-Parsing: [0.000s CPU, 0.011s wall-clock]
-Normalizing task... [0.000s CPU, 0.000s wall-clock]
-Instantiating...
-Generating Datalog program... [0.016s CPU, 0.003s wall-clock]
-Normalizing Datalog program...
-Normalizing Datalog program: [0.000s CPU, 0.006s wall-clock]
-Preparing model... [0.000s CPU, 0.006s wall-clock]
-Generated 61 rules.
-Computing model... [0.062s CPU, 0.057s wall-clock]
-1767 relevant atoms
-2399 auxiliary atoms
-4166 final queue length
-5252 total queue pushes
-Completing instantiation... [0.016s CPU, 0.015s wall-clock]
-Instantiating: [0.094s CPU, 0.088s wall-clock]
-Computing fact groups...
-Finding invariants...
-15 initial candidates
-Finding invariants: [0.000s CPU, 0.002s wall-clock]
-Checking invariant weight... [0.000s CPU, 0.001s wall-clock]
-Instantiating groups... [0.016s CPU, 0.005s wall-clock]
-Collecting mutex groups... [0.000s CPU, 0.001s wall-clock]
-Choosing groups...
-161 uncovered facts
-Choosing groups: [0.000s CPU, 0.000s wall-clock]
-Building translation key... [0.000s CPU, 0.001s wall-clock]
-Computing fact groups: [0.016s CPU, 0.011s wall-clock]
-Building STRIPS to SAS dictionary... [0.000s CPU, 0.001s wall-clock]
-Building dictionary for full mutex groups... [0.000s CPU, 0.000s wall-clock]
-Building mutex information...
-Building mutex information: [0.000s CPU, 0.000s wall-clock]
-Translating task...
-Processing axioms...
-Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
-Translator axioms removed by simplifying: 0
-Computing negative axioms... [0.000s CPU, 0.000s wall-clock]
-Processing axioms: [0.000s CPU, 0.002s wall-clock]
-Translating task: [0.141s CPU, 0.149s wall-clock]
-3322 effect conditions simplified
-0 implied preconditions added
-Detecting unreachable propositions...
-37 operators removed
-0 axioms removed
-171 propositions removed
-Detecting unreachable propositions: [0.062s CPU, 0.054s wall-clock]
-Reordering and filtering variables...
-156 of 200 variables necessary.
-37 of 76 mutex groups necessary.
-3444 of 3444 operators necessary.
-0 of 0 axiom rules necessary.
-Reordering and filtering variables: [0.031s CPU, 0.031s wall-clock]
-Translator variables: 156
-Translator derived variables: 0
-Translator facts: 470
-Translator goal facts: 44
-Translator mutex groups: 37
-Translator total mutex groups size: 74
-Translator operators: 3444
-Translator axioms: 0
-Translator task size: 23908
-warning: could not determine peak memory
-0 events were filtered out and marked as irreversible due to -1 in precondition.
-37 irreversible events found.
-3076 are likely reversible.
-Validation done.
-Writing output... [0.250s CPU, 0.251s wall-clock]
-Done!
+Traceback (most recent call last):
+  File "C:\pddlgym\pddlgym\safe_states_finder\translator.py", line 10, in <module>
+    from pddlgym.downward_translate.pddl.actions import Action
+  File "C:\pddlgym\pddlgym\__init__.py", line 10, in <module>
+    from pddlgym.rendering import *
+  File "C:\pddlgym\pddlgym\rendering\__init__.py", line 1, in <module>
+    from .minecraft import render as minecraft_render
+  File "C:\pddlgym\pddlgym\rendering\minecraft.py", line 1, in <module>
+    from .utils import get_asset_path, render_from_layout
+  File "C:\pddlgym\pddlgym\rendering\utils.py", line 5, in <module>
+    import matplotlib.pyplot as plt
+  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\pyplot.py", line 66, in <module>
+    from matplotlib.figure import Figure, FigureBase, figaspect
+  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\figure.py", line 40, in <module>
+    from matplotlib import _blocking_input, backend_bases, _docstring, projections
+  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\projections\__init__.py", line 55, in <module>
+    from .. import axes, _docstring
+  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\axes\__init__.py", line 2, in <module>
+    from ._axes import Axes  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\axes\_axes.py", line 66, in <module>
+    class Axes(_AxesBase):
+  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\axes\_axes.py", line 7826, in Axes
+    @_docstring.dedent_interpd
+     ^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

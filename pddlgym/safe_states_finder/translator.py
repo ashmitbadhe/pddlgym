@@ -238,38 +238,38 @@ def find_reversible_events(sas_task: SASTask) -> Tuple[
     event_reachable_predicates = set((i, value) for i, value in enumerate(sas_task.init.values))
     event_reachable_predicates |= set(
         (var, post) for var, pre, post, cond in event.pre_post for event, _, _ in reversible_events_with_states)
-    # for irreversible_event in irreversible_events:
-    #     preconditions = set(
-    #         irreversible_event.prevail + [(var, pre) for (var, pre, post, cond) in irreversible_event.pre_post])
-    #     if preconditions.issubset(event_reachable_predicates):
-    #         return None, None, None
-    #
-    # for e, v, s in reversible_events_with_states:
-    #     for e_prime, v_prime, s_prime in reversible_events_with_states:
-    #         if e is not e_prime:
-    #             if v not in set(var for var, pre, post, cond in e_prime.pre_post):
-    #                 if is_cloberrer(e_prime, e):
-    #                     return None, None, None
+    for irreversible_event in irreversible_events:
+        preconditions = set(
+            irreversible_event.prevail + [(var, pre) for (var, pre, post, cond) in irreversible_event.pre_post])
+        if preconditions.issubset(event_reachable_predicates):
+            return None, None, None
+
+    for e, v, s in reversible_events_with_states:
+        for e_prime, v_prime, s_prime in reversible_events_with_states:
+            if e is not e_prime:
+                if v not in set(var for var, pre, post, cond in e_prime.pre_post):
+                    if is_cloberrer(e_prime, e):
+                        return None, None, None
 
     reversible_events: Set[SASOperator] = set(e for e, v, s in reversible_events_with_states)
 
-    # for e, v, s in reversible_events_with_states:
-    #     graph = eoDTG(v, sas_task.variables, list(reversible_events))
-    #     for node in graph.nodes:
-    #         x = node.value
-    #         y = sas_task.init.values[v]
-    #         for path in dfs_all_paths_search(graph, y, x):
-    #             for e_prime, v_prime, s_prime in reversible_events_with_states:
-    #                 if v == v_prime:
-    #                     for edge in graph.nodes[x].edges:
-    #                         if edge.operator is e_prime:
-    #                             gamma_state = sas_task.init.values.copy()
-    #                             for path_edge in path.path:
-    #                                 for var, pre, post, cond in path_edge.operator.pre_post:
-    #                                     gamma_state[var] = post
-    #                             gamma_state = set((v, val) for v, val in enumerate(gamma_state))
-    #                             if not holds_in(s_prime, gamma_state):
-    #                                 return None, None, None
+    for e, v, s in reversible_events_with_states:
+        graph = eoDTG(v, sas_task.variables, list(reversible_events))
+        for node in graph.nodes:
+            x = node.value
+            y = sas_task.init.values[v]
+            for path in dfs_all_paths_search(graph, y, x):
+                for e_prime, v_prime, s_prime in reversible_events_with_states:
+                    if v == v_prime:
+                        for edge in graph.nodes[x].edges:
+                            if edge.operator is e_prime:
+                                gamma_state = sas_task.init.values.copy()
+                                for path_edge in path.path:
+                                    for var, pre, post, cond in path_edge.operator.pre_post:
+                                        gamma_state[var] = post
+                                gamma_state = set((v, val) for v, val in enumerate(gamma_state))
+                                if not holds_in(s_prime, gamma_state):
+                                    return None, None, None
 
     print('Validation done.')
 

@@ -1,98 +1,148 @@
-import subprocess
 import time
-from collections import defaultdict, deque
-import tempfile
-import os
-import shutil
-from pddlgym.pddlgym_planners.fd import FD  # FastDownward
+from pddlgym import make
+import re
+from pddlgym.pddlgym_planners.fd import FD
+from pddlgym.structs import Anti
+from pddlgym.safe_states_finder.strips_problem_wrapper import SimpleSTRIPSProblem
+from pddlgym.safe_states_finder.DTG import DTG
 
-class SGPAgent:
-    def __init__(self, env, domain_path, problem_path):
+class NextGenAgent:
+    def __init__(self, env, domain_file, problem_file):
         self.env = env
-        self.domain_path = domain_path
+        self.domain_file = domain_file
         self.domain = env.domain
-        self.problem_path = problem_path
-        self.safe_states = self.compute_safe_state_envelope()
-        self.event_model = EventModel()
-        self.goal_predicates = set(lit.predicate for lit in env._state.goal.literals)
-
+        self.problem_file = problem_file
         self.planner = FD(alias_flag="--alias seq-opt-lmcut")
+        self.plan = []
+        self.plan_with_waitfor = []
+        self.current_state = None
+        #self.dtg = dtg  # Pass in DTG instance
 
-    def compute_safe_state_envelope(self):
-        safe = set()
-        visited = set()
-        self.env.reset()
-        queue = deque([self.env._state])
-        while queue:
-            state = queue.popleft()
-            if state in visited:
+        self.problem = SimpleSTRIPSProblem(env)
+
+        # Create the DTG
+        self.dtg = DTG(self.problem, env.observation_space._all_ground_literals)
+        self.dtg.BuildDTGs()
+        #self.dtg.outputDTGInfo()
+
+    def generate_initial_plan(self, obs):
+        # Generate initial plan using the planner
+        self.plan = self.planner(self.domain, obs)
+        self.compute_waitfor_conditions(obs)
+
+    def compute_waitfor_conditions(self, initial_state):
+        self.env.action_space._update_objects_from_state(initial_state)
+        self.plan_with_waitfor = []
+
+        # Initialize goal literals G_{n+1}
+        goal_literals = set(initial_state.goal.literals)
+        G_next = goal_literals
+
+        for index in reversed(range(len(self.plan))):
+            action = self.plan[index]
+            pos_preconds = self.env.action_space._ground_action_to_pos_preconds[action]
+            add_effects = set(
+                e for e in self.env.action_space._ground_action_to_effects[action] if "Anti" not in str(e))
+            del_effects = set(
+                Anti(e) for e in self.env.action_space._ground_action_to_effects[action] if "Anti" in str(e))
+
+            # Step 2: Regress G_{i+1} through a_i to get G_i
+            G_i = (G_next - add_effects) | pos_preconds
+
+            # Step 1: Compute W_i
+            waitfor = set()
+
+            for g in G_i:
+                for event in self.env.action_space.event_literals:
+                    e_pos_preconds = self.env.action_space._ground_action_to_pos_preconds[event]
+                    e_add_effects = set(
+                        e for e in self.env.action_space._ground_action_to_effects[event] if "Anti" not in str(e))
+                    e_del_effects = set(
+                        Anti(e) for e in self.env.action_space._ground_action_to_effects[event] if "Anti" in str(e))
+
+                    # Event can delete a goal literal
+                    if g in e_del_effects:
+                        if e_pos_preconds & add_effects:
+                            # Add its preconditions to waitfor
+                            waitfor.update({Anti(p) for p in e_pos_preconds if p not in pos_preconds and p.predicate not in self.problem.static_predicates})
+            self.plan_with_waitfor.insert(0, (frozenset(waitfor), action))
+            G_next = G_i  # prepare for next step in regression
+            print(self.plan_with_waitfor[0])
+
+
+    def is_applicable(self, state, action):
+        self.env.action_space._update_objects_from_state(state)
+        pos_preconds = self.env.action_space._ground_action_to_pos_preconds[action]
+        if not pos_preconds.issubset(state.literals):
+            return False
+        neg_preconds = self.env.action_space._ground_action_to_neg_preconds[action]
+        if len(neg_preconds & state.literals) > 0:
+            return False
+        return True
+
+    def get_applicable(self, state, actions):
+        applicable = set()
+        for action in actions:
+            self.env.action_space._update_objects_from_state(state)
+            pos_preconds = self.env.action_space._ground_action_to_pos_preconds[action]
+            if not pos_preconds.issubset(state.literals):
                 continue
-            visited.add(state)
-            if self.is_safe(state):
-                safe.add(state)
-                for action in self.env.action_space.all_ground_literals():
-                    if self.env.check_applicable(state, action):
-                        try:
-                            next_state, _, _, _ = self.env.step(action)
-                            queue.append(next_state)
-                            self.env.set_state(state)  # reset for next try
-                        except:
-                            pass
-        print(safe)
-        return safe
+            neg_preconds = self.env.action_space._ground_action_to_neg_preconds[action]
+            if len(neg_preconds & state.literals) > 0:
+                continue
+            applicable.add(action)
+        return applicable
 
-    def is_safe(self, state):
-        literals = state.literals
-        return all("dead" not in str(l) for l in literals) and all("none" not in str(l) for l in literals)
+    def apply(self, state, action):
+        if action is None:
+            return state
+        self.env.action_space._update_objects_from_state(state)
+        state_literals = set(state.literals)
+        all_effects = self.env.action_space._ground_action_to_effects[action]
+        for effect in all_effects:
+            if "Anti" in str(effect):
+                state_literals.discard(effect.literal)  # Apply delete effect
+            else:
+                state_literals.add(effect)  # Apply add effect
+        return state.with_literals(frozenset(state_literals))
 
-    def is_high_risk(self, state):
-        risk_score = 0
-        for event in self.event_model.event_log:
-            t = self.event_model.predict_time_to_event(event)
-            risk_score += 1 / (t + 1)
-        return risk_score > 0.5 or state not in self.safe_states
-
-    def observe(self, state):
-        self.event_model.observe(state)
-
-    def find_safe_fallback(self, state):
-        for safe in self.safe_states:
-            if safe != state:
-                return safe  # naive fallback
-        return state
+    def is_waitfor_alive(self, waitfor, current_state):
+        # Check if the wait-for conditions are alive in the DTG
+        for lit in waitfor:
+            if "Anti" in str(lit):
+                if Anti(lit) in current_state.literals:
+                    return False
+            else:
+                if lit not in current_state.literals:
+                    return False
+        return True
 
     def __call__(self, state):
-        goal_predicates = self.goal_predicates
-        self.observe(state)
-        goal_state = self.find_safe_fallback(state) if self.is_high_risk(state) else goal_predicates
-        return self.plan_with_constraints(state).pop(0)
+        self.current_state = state
 
-    def plan_with_constraints(self, state):
-        plan = self.planner(self.domain, state)
-        return plan
+        if len(self.plan) == 0:
+            self.generate_initial_plan(state)
 
-    def extract_plan(self, output):
-        lines = output.splitlines()
-        plan = []
-        for line in lines:
-            if line.startswith("step"):
-                act = line.split(":")[1].strip().lower()
-                plan.append(act)
-        return plan
+        # Process the plan with wait-for conditions
+        while self.plan_with_waitfor:
+            waitfor, action = self.plan_with_waitfor[0]
+            print(action)
 
-class EventModel:
-    def __init__(self):
-        self.event_log = defaultdict(list)
+            # First, check if action is applicable
+            if not self.is_applicable(self.current_state, action):
+                print("Action no longer applicable — replanning.")
+                return None
 
-    def observe(self, state):
-        # You can improve this with actual change detection
-        for lit in state.literals:
-            if "level" in str(lit):
-                self.event_log["shrink"].append(time.time())
+            # Then, check if wait-for conditions are ALIVE (safe to proceed)
+            if self.is_waitfor_alive(waitfor, self.current_state):
+                print(f"Executing: {action}")
+                self.plan_with_waitfor.pop(0)
+                return action
+            else:
+                print(f"Waiting: Wait-for conditions for {action} are not alive.")
+                return None
 
-    def predict_time_to_event(self, event):
-        timestamps = self.event_log[event]
-        if len(timestamps) < 2:
-            return float('inf')
-        interval = (timestamps[-1] - timestamps[0]) / (len(timestamps) - 1)
-        return max(0, interval - (time.time() - timestamps[-1]))
+        # If no actions left
+        print("Plan exhausted.")
+        return None
+

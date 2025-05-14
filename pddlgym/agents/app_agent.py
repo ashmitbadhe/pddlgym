@@ -21,6 +21,7 @@ class APPAgent:
         self.noops_performed = 0  # Counter for no-ops
         self.unsafety_limit = unsafety_limit
         self.verbose = verbose
+        self.untranslated_plan = None
 
         self.plan_found = False
 
@@ -35,6 +36,7 @@ class APPAgent:
             if self.plan:
                 self.plan_found = True
                 self.plan = self.retranslate_plan()
+                #print(self.untranslated_plan)
             else:
                 print(f"Planning failed")
 
@@ -43,6 +45,7 @@ class APPAgent:
             # Attempt to find safe sequence if it is not empty
             if self.safe_sequence and self.is_action_applicable(self.safe_sequence[0], state):
                 selected_action = self.safe_sequence.pop(0)
+                self.untranslated_plan.pop(0)
                 self.plan.pop(0)
                 if self.verbose:
                     print(f"Selected action from safe sequence: {selected_action}")
@@ -55,6 +58,7 @@ class APPAgent:
                 else:
                     selected_action = self.safe_sequence.pop(0)
                     self.plan.pop(0)
+                    self.untranslated_plan.pop(0)
                     if self.verbose:
                         print(f"Selected action from safe sequence: {selected_action}")
         #
@@ -93,12 +97,17 @@ class APPAgent:
         p_plus = set()  # Initially empty
         p_minus = set()
 
+        safe_index = None
         for i in range(0, len(self.plan)):
             action = self.to_Literal(self.plan[i])
             if self.verbose:
                 print(f"\n[STEP {i}] Considering action: {action}")
 
             if not self.is_action_applicable(action, state):
+                if safe_index is None:
+                    self.safe_sequence.clear()
+                else:
+                    self.safe_sequence = self.safe_sequence[:safe_index+1]
                 if self.verbose:
                     print(f"  ❌ Action not applicable at this step.")
                 break
@@ -121,16 +130,26 @@ class APPAgent:
 
             # Check robustness: preconditions must not intersect with p_minus
             if pos_preconds & p_minus:
+                if safe_index is None:
+                    self.safe_sequence.clear()
+                else:
+                    self.safe_sequence = self.safe_sequence[:safe_index+1]
                 if self.verbose:
                     print(f"  ⚠️ UNSAFE ACTION: positive preconditions {pos_preconds} intersect with p_minus {p_minus}")
                 break  # not robust
             elif neg_preconds & p_plus:
+                if safe_index is None:
+                    self.safe_sequence.clear()
+                else:
+                    self.safe_sequence = self.safe_sequence[:safe_index+1]
                 if self.verbose:
                     print(f"  ⚠️ UNSAFE ACTION: negative preconditions {pos_preconds} intersect with p_plus {p_minus}")
                 break  # not robust
 
             # Append the action to safe sequence
             self.safe_sequence.append(action)
+            if self.plan[i] == self.untranslated_plan[i] or "zeroing" in str(self.untranslated_plan[i]):
+                safe_index = i
             if self.verbose:
                 print(f"  ✅ Action added to safe sequence.")
 
@@ -245,19 +264,30 @@ class APPAgent:
             # Step 1: Remove comments
             plan_content = re.sub(r';.*$', '', plan_content, flags=re.MULTILINE)
 
+            # Step 3: remove event-action lines
+            plan_content = re.sub(r'^.*event-action-[^\s]+.*\n?', '', plan_content, flags=re.MULTILINE)
+
+            partially_translated = plan_content.strip()
+
             # Step 2: Remove suffixes like -inc-copy-0-1 or -constrained-zeroing-copy from action names
             plan_content = re.sub(r'\((\S+?)(?:-inc-copy-\d+-\d+|-constrained-zeroing-copy|-constrained-inc-copy)', r'(\1',
                                         plan_content)
 
-            #Step 3: remove event-action lines
-            plan_content = re.sub(r'^.*event-action-[^\s]+.*\n?', '', plan_content, flags=re.MULTILINE)
+
 
             # Optional: strip trailing whitespace
             plan_content = plan_content.strip()
 
             # Write the modified content to the original plan file
             with open(self.plan_file, 'w') as original_plan_file:
+                original_plan_file.write(partially_translated)
+
+            self.untranslated_plan = self.parse_plan(self.plan_file)
+
+            # Write the modified content to the original plan file
+            with open(self.plan_file, 'w') as original_plan_file:
                 original_plan_file.write(plan_content)
+
 
             # Parse the plan from the output file
             return self.parse_plan(self.plan_file)
