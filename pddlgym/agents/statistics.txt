@@ -1,0 +1,78 @@
+[APP] --------------
+Problem1
+ Average number of noops: 10.57
+ Success rate: 0.86 
+ Average Execution Steps: 25.15
+
+Problem2
+ Average number of noops: 24.94
+ Success rate: 1.0 
+ Average Execution Steps: 64.94
+
+Problem3
+ Average number of noops: 48.3
+ Success rate: 1.0 
+ Average Execution Steps: 118.3
+
+Problem5
+ Average number of noops: 7.11
+ Success rate: 1.0 
+ Average Execution Steps: 40.11
+
+Problem6
+ Average number of noops: 7.3
+ Success rate: 1.0 
+ Average Execution Steps: 26.3
+
+Problem7
+ Average number of noops: 21.0
+ Success rate: 1.0
+ Average Execution Steps: 105.0
+
+Problem8
+ Average number of noops: 50.0
+ Success rate: 1.0
+ Average Execution Steps: 203.0
+
+[LIMIT] --------------
+Problem1
+ Average number of noops: 15.84
+ Success rate: 1.0 
+ Average Execution Steps: 34.84
+
+Problem2
+ Failed-ACT
+
+Problem3
+ Failed-ACT
+
+Problem4
+ Failed-ACT
+
+Problem5
+ Failed-ACT
+
+Problem6
+ Failed-PLAN
+
+Problem7
+ Failed-ACT
+
+Problem8
+ Failed-ACT
+
+
+[MCTS] --------------
+Problem1
+ Average number of noops: 6
+ Success rate: 1
+ Average Execution Steps: 82
+
+Problem2
+ Average number of noops:
+ Success rate:
+ Average Execution Steps:
+[LEV] -------------- 
+ Average number of noops: 0.0
+ Success rate: 0.0 
+ Average Execution Steps: 0.0

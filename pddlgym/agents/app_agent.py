@@ -7,19 +7,20 @@ import os
 import re
 
 class APPAgent:
-    def __init__(self, env, domain_filepath, problem_filepath, safe_states_filepath=None, unsafety_limit=None):
+    def __init__(self, env, domain_filepath, problem_filepath, safe_states_filepath=None, unsafety_limit=None, verbose=False):
         self.env = env
         self.domain = self.env.domain
         self.domain_filepath = domain_filepath
         self.problem_filepath = problem_filepath
         self.objects = self.get_objects_from_problem()
         self.safe_states_filepath = safe_states_filepath
-        self.plan_file = "pddlgym/safe_states_finder/plan.txt"
+        self.plan_file = "sas_plan"
         self.space = self.env.action_space
         self.plan = None
         self.safe_sequence = []  # Safe sequence for actions
         self.noops_performed = 0  # Counter for no-ops
         self.unsafety_limit = unsafety_limit
+        self.verbose = verbose
 
         self.plan_found = False
 
@@ -43,7 +44,8 @@ class APPAgent:
             if self.safe_sequence and self.is_action_applicable(self.safe_sequence[0], state):
                 selected_action = self.safe_sequence.pop(0)
                 self.plan.pop(0)
-                print(f"Selected action from safe sequence: {selected_action}")
+                if self.verbose:
+                    print(f"Selected action from safe sequence: {selected_action}")
             else:
                 # Find a new safe sequence from the current state
                 self.find_safe_sequence(state)
@@ -53,7 +55,8 @@ class APPAgent:
                 else:
                     selected_action = self.safe_sequence.pop(0)
                     self.plan.pop(0)
-                    print(f"Selected action from safe sequence: {selected_action}")
+                    if self.verbose:
+                        print(f"Selected action from safe sequence: {selected_action}")
         #
             return selected_action
         else:
@@ -71,7 +74,7 @@ class APPAgent:
 
         log_filepath = os.path.join("pddlgym/safe_states_finder/", "translation.log")
         # Run the translation and log output
-        with open(log_filepath, "a") as log_file:
+        with open(log_filepath, "w") as log_file:
             result = subprocess.run(command, stdout=log_file, stderr=log_file)
 
         if result.returncode != 0:
@@ -92,10 +95,12 @@ class APPAgent:
 
         for i in range(0, len(self.plan)):
             action = self.to_Literal(self.plan[i])
-            print(f"\n[STEP {i}] Considering action: {action}")
+            if self.verbose:
+                print(f"\n[STEP {i}] Considering action: {action}")
 
             if not self.is_action_applicable(action, state):
-                print(f"  ❌ Action not applicable at this step.")
+                if self.verbose:
+                    print(f"  ❌ Action not applicable at this step.")
                 break
 
             # Get positive preconditions
@@ -116,15 +121,18 @@ class APPAgent:
 
             # Check robustness: preconditions must not intersect with p_minus
             if pos_preconds & p_minus:
-                print(f"  ⚠️ UNSAFE ACTION: positive preconditions {pos_preconds} intersect with p_minus {p_minus}")
+                if self.verbose:
+                    print(f"  ⚠️ UNSAFE ACTION: positive preconditions {pos_preconds} intersect with p_minus {p_minus}")
                 break  # not robust
             elif neg_preconds & p_plus:
-                print(f"  ⚠️ UNSAFE ACTION: negative preconditions {pos_preconds} intersect with p_plus {p_minus}")
+                if self.verbose:
+                    print(f"  ⚠️ UNSAFE ACTION: negative preconditions {pos_preconds} intersect with p_plus {p_minus}")
                 break  # not robust
 
             # Append the action to safe sequence
             self.safe_sequence.append(action)
-            print(f"  ✅ Action added to safe sequence.")
+            if self.verbose:
+                print(f"  ✅ Action added to safe sequence.")
 
             # Move to the next state
             state = next_state
@@ -196,13 +204,14 @@ class APPAgent:
     def run_fastdownward(self, sas_filepath):
         # Run FastDownward on the generated SAS file
         command = [
-            "pddlgym/pddlgym_planners/FD/builds/release/bin/downward.exe",
-            "--search", "lazy_greedy([ff()], preferred=[ff()])",
-            "--internal-plan-file", self.plan_file
+            "python", "pddlgym/pddlgym_planners/FD/fast-downward.py",
+            "--search", "--alias", "lama-first",
+            "--sas-file", sas_filepath,
+            sas_filepath
         ]
 
         log_filepath = os.path.join("pddlgym/safe_states_finder/", "fd_log.txt")
-        with open(log_filepath, "a") as log_file, open(sas_filepath, "rb") as sas_file:
+        with open(log_filepath, "w") as log_file, open(sas_filepath, "rb") as sas_file:
             result = subprocess.run(
                 command,
                 stdin=sas_file,  # Feed SAS input via stdin

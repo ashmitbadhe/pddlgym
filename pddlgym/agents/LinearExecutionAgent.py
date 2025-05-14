@@ -1,76 +1,91 @@
 import time
-import os
 from pddlgym import make
-from pddlgym.pddlgym_planners.fd import FD  # FastDownward
-from pddlgym.structs import Anti, Literal, LiteralConjunction
-
+import re
+from pddlgym.pddlgym_planners.fd import FD
+from pddlgym.structs import Anti
+from pddlgym.safe_states_finder.strips_problem_wrapper import SimpleSTRIPSProblem
+from pddlgym.safe_states_finder.DTG import DTG
 
 class LinearExecutionAgent:
     def __init__(self, env, domain_file, problem_file):
-        # Load the environment using pddlgym
         self.env = env
         self.domain_file = domain_file
         self.domain = env.domain
         self.problem_file = problem_file
-        self.plan = []  # Will hold the plan (sequence of actions)
         self.planner = FD(alias_flag="--alias seq-opt-lmcut")
+        self.plan = []
+        self.plan_with_waitfor = []
         self.current_state = None
+        #self.dtg = dtg  # Pass in DTG instance
+
+        self.problem = SimpleSTRIPSProblem(env)
+
+        # Create the DTG
+        self.dtg = DTG(self.problem, env.observation_space._all_ground_literals)
+        self.dtg.BuildDTGs()
+        #self.dtg.outputDTGInfo()
 
     def generate_initial_plan(self, obs):
-        # Use Fast Downward to generate the initial plan
+        # Generate initial plan using the planner
         self.plan = self.planner(self.domain, obs)
+        self.compute_waitfor_conditions(obs)
 
-    def is_action_applicable(self, action, state):
-        # Check if an action is applicable given the current state
-        return self.env.is_action_applicable(action, state)
+    def compute_waitfor_conditions(self, initial_state):
+        self.env.action_space._update_objects_from_state(initial_state)
+        self.plan_with_waitfor = []
 
-    def execute_action(self, action):
-        # Execute the action in the environment
-        self.current_state, reward, done, _, _ = self.env.step(action)
-        return reward, done
+        # Initialize goal literals G_{n+1}
+        goal_literals = set(initial_state.goal.literals)
+        G_next = goal_literals
 
-    def verify_plan(self, state):
-        print("Verifying the plan...")
-        current_state = state
+        for index in reversed(range(len(self.plan))):
+            action = self.plan[index]
+            pos_preconds = self.env.action_space._ground_action_to_pos_preconds[action]
+            add_effects = set(
+                e for e in self.env.action_space._ground_action_to_effects[action] if "Anti" not in str(e))
+            del_effects = set(
+                Anti(e) for e in self.env.action_space._ground_action_to_effects[action] if "Anti" in str(e))
 
-        for action in self.plan:
-            print(f"Considering action {action}")
+            # Step 2: Regress G_{i+1} through a_i to get G_i
+            G_i = (G_next - add_effects) | pos_preconds
 
-            # Try direct applicability
-            if self.is_applicable(current_state, action):
-                print("Action directly applicable.")
-                current_state = self.apply(current_state, action)
-                continue
+            # Step 1: Compute W_i
+            waitfor = set()
 
-            # Try to make it applicable via events
-            print("Action not applicable, trying to apply events...")
-            event_helped = False
+            # Add literals from G_i that are preconditions of the action (G_i ∩ pre(a_i))
+            #waitfor |= G_i & pos_preconds
 
-            for _ in range(5):  # max 5 event steps
-                applicable_events = self.get_applicable(current_state, self.env.action_space.event_literals)
-                if not applicable_events:
-                    break  # no possible events
+            # Now add those literals in G_i for which no interfering event exists
+            # for literal in G_i:
+            #     relevant_event_found = False
+            #     for event in self.env.action_space.event_literals:
+            #         e_pos_preconds = self.env.action_space._ground_action_to_pos_preconds[event]
+            #         e_add_effects = set(
+            #             e for e in self.env.action_space._ground_action_to_effects[event] if "Anti" not in str(e))
+            #         if literal in e_add_effects and e_pos_preconds & add_effects:
+            #             relevant_event_found = True
+            #             break
+            #     if not relevant_event_found:
+            #         waitfor.add(literal)
 
-                for event in applicable_events:
-                    simulated_state = self.apply(current_state, event)
+            for g in G_i:
+                for event in self.env.action_space.event_literals:
+                    e_pos_preconds = self.env.action_space._ground_action_to_pos_preconds[event]
+                    e_add_effects = set(
+                        e for e in self.env.action_space._ground_action_to_effects[event] if "Anti" not in str(e))
+                    e_del_effects = set(
+                        Anti(e) for e in self.env.action_space._ground_action_to_effects[event] if "Anti" in str(e))
 
-                    if self.is_applicable(simulated_state, action):
-                        print(f"Event {event} made action applicable.")
-                        current_state = self.apply(simulated_state, action)
-                        event_helped = True
-                        break  # exit inner loop
+                    # Event can delete a goal literal
+                    if g in e_del_effects:
+                        if e_pos_preconds & add_effects:
+                            # Add its preconditions to waitfor
+                            waitfor.update({Anti(p) for p in e_pos_preconds if p not in pos_preconds and p.predicate not in self.problem.static_predicates})
+            self.plan_with_waitfor.insert(0, (frozenset(waitfor), action))
+            G_next = G_i  # prepare for next step in regression
+            print(self.plan_with_waitfor[0])
 
-                    current_state = simulated_state  # keep progressing
 
-                if event_helped:
-                    break  # go to next action
-
-            if not event_helped:
-                print("FAILURE: Action is not applicable and no events helped.")
-                return False
-
-        print("Plan verified successfully.")
-        return True
     def is_applicable(self, state, action):
         self.env.action_space._update_objects_from_state(state)
         pos_preconds = self.env.action_space._ground_action_to_pos_preconds[action]
@@ -97,50 +112,58 @@ class LinearExecutionAgent:
     def apply(self, state, action):
         if action is None:
             return state
-
         self.env.action_space._update_objects_from_state(state)
         state_literals = set(state.literals)
         all_effects = self.env.action_space._ground_action_to_effects[action]
         for effect in all_effects:
             if "Anti" in str(effect):
-                if Anti(effect) in state.literals:
-                    state_literals.remove(Anti(effect))
-                else:
-                    state_literals.add(effect)
+                state_literals.discard(effect.literal)  # Apply delete effect
             else:
-                state_literals.add(effect)
-        new_state = state.with_literals(frozenset(state_literals))
-        return new_state
-
+                state_literals.add(effect)  # Apply add effect
+        return state.with_literals(frozenset(state_literals))
 
     def replanning(self):
-        # Replan using Fast Downward (for simplicity, regenerating the entire plan)
         print("Replanning...")
-        self.generate_initial_plan(self.current_state)
-        self.verify_plan(self.current_state)
+        #self.generate_initial_plan(self.current_state)
+
+    def is_waitfor_alive(self, waitfor, current_state):
+        # Check if the wait-for conditions are alive in the DTG
+        for lit in waitfor:
+            if "Anti" in str(lit):
+                if Anti(lit) in current_state.literals:
+                    return False
+            else:
+                if lit not in current_state.literals:
+                    return False
+        return True
 
     def __call__(self, state):
         self.current_state = state
-        # Main loop for linear execution
-        start_time = time.time()
-        verification_result = True
+
         if len(self.plan) == 0:
             self.generate_initial_plan(state)
-            verification_result = self.verify_plan(state)
 
-        if len(self.plan) != 0:
-            if verification_result:
-                if self.is_applicable(self.current_state, self.plan[0]):
-                    print("Plan verified successfully")
-                    return self.plan.pop(0)
-                else:
-                    return None
-        else:
-            print("Plan verification failed. Replanning...")
-            self.replanning()
+        # Process the plan with wait-for conditions
+        while self.plan_with_waitfor:
+            waitfor, action = self.plan_with_waitfor[0]
+            print(action)
 
-        # Measure time elapsed
-        end_time = time.time()
-        elapsed_time = (end_time - start_time) * 1000  # Convert to milliseconds
-        print(f"Total execution time: {elapsed_time} ms")
+            # First, check if action is applicable
+            if not self.is_applicable(self.current_state, action):
+                print("Action no longer applicable — replanning.")
+                self.replanning()
+                return None
+
+            # Then, check if wait-for conditions are ALIVE (safe to proceed)
+            if self.is_waitfor_alive(waitfor, self.current_state):
+                print(f"Executing: {action}")
+                self.plan_with_waitfor.pop(0)
+                return action
+            else:
+                print(f"Waiting: Wait-for conditions for {action} are not alive.")
+                return None
+
+        # If no actions left
+        print("Plan exhausted.")
+        return None
 

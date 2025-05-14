@@ -23,6 +23,7 @@ class MCTSAgent:
         self.planner = FD(alias_flag="--alias seq-opt-lmcut")
         self.reference_plan = None
         self.reference_plan_indices = {}
+        self.action_uses = defaultdict(int)
 
     def __call__(self, obs):
         self.actions = self.env.action_space.all_ground_literals(obs) | {None}
@@ -38,7 +39,6 @@ class MCTSAgent:
                 }
                 print(f"Reference plan length {len(plan)}")
             except:
-                self.reference_plan = []
                 print("generating reference plan failed or took too long, proceeding with Random Play simulation ")
 
 
@@ -51,6 +51,9 @@ class MCTSAgent:
                 self.actions,
                 key=lambda a: self.Q[(obs, a)] if self.N[(obs, a)] > 0 else float('-inf')
             )
+            print(self.Q[(obs,best_action)])
+            # if self.Q[(obs,best_action)] < 0.1:
+            #     return None
         else:
             return None
         return best_action
@@ -94,7 +97,7 @@ class MCTSAgent:
         # Record parent-child transition
         self.parent_map[event_applied_state] = (obs, best_action)
 
-        reward, done = self.calculate_reward(event_applied_state, depth)
+        reward, done = self.calculate_reward(event_applied_state, best_action)
 
         # Add current step to simulation path
         simulation_path.append((obs, best_action))
@@ -192,7 +195,7 @@ class MCTSAgent:
             # Record the transition
             self.parent_map[action_applied_state] = (obs, action)
 
-            reward, done = self.calculate_reward(action_applied_state, _)
+            reward, done = self.calculate_reward(action_applied_state, action)
             total_reward += reward
             if done:
                 break
@@ -240,17 +243,23 @@ class MCTSAgent:
         else:
             return None
 
-    def calculate_reward(self, state, depth):
+    def calculate_reward(self, state, action):
+        self.action_uses[action] += 1
+        usage_penalty = 1 / math.sqrt(self.action_uses[action])  # smoother than 1 / x
+
         if all(self.check_goal(state, lit) for lit in state.goal.literals):
-            print("found_goal")
+            #print("found_goal")
             return 1.0, True
+
         elif any(lit not in state.literals for lit in state.goal.literals):
             missing_literals = set(state.goal.literals) - state.literals
             total_literals = len(state.goal.literals)
             num_missing = len(missing_literals)
 
-            reward = (total_literals / num_missing) / 100.0
+            progress = (total_literals - num_missing) / total_literals
+            reward = progress * 0.9 * usage_penalty
             return reward, False
+
         else:
             return 0.0, False
     def check_goal(self, state, goal):
