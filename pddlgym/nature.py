@@ -80,19 +80,12 @@ class IndependentEvents(BaseNature):
                 else:
                     add_effects_ei.add(effect)
 
-            # Condition 1: addEffect(ei) ∩ (precondition(ej) ∪ delEffect(ej)) = ∅
-            if add_effects_ei & (preconditions_ej | del_effects_ej):
-                return False
 
-            # Condition 2: delEffect(ei) ∩ (precondition(ej) ∪ addEffect(ej)) = ∅
+            # Condition 1: delEffect(ei) ∩ (precondition(ej) ∪ addEffect(ej)) = ∅
             if del_effects_ei & (preconditions_ej | add_effects_ej):
                 return False
 
-            # Condition 3: addEffect(ej) ∩ (precondition(ei) ∪ delEffect(ei)) = ∅
-            if add_effects_ej & (preconditions_ei | del_effects_ei):
-                return False
-
-            # Condition 4: delEffect(ej) ∩ (precondition(ei) ∪ addEffect(ei)) = ∅
+            # Condition 2: delEffect(ej) ∩ (precondition(ei) ∪ addEffect(ei)) = ∅
             if del_effects_ej & (preconditions_ei | add_effects_ei):
                 return False
 
