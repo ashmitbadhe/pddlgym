@@ -122,3 +122,55 @@ Problem2
  Average number of noops: 1.09
  Success rate: 0.9 
  Average Execution Steps: 7.39
+[APP] -------------- 
+ Average number of noops: 10.5
+ Success rate: 0.5 
+ Average Execution Steps: 22.0
+[APP] -------------- 
+ Average number of noops: 4.4
+ Success rate: 0.4 
+ Average Execution Steps: 13.0
+[APP] -------------- 
+ Average number of noops: 4.4
+ Success rate: 0.3 
+ Average Execution Steps: 11.9
+[APP] -------------- 
+ Average number of noops: 4.0
+ Success rate: 0.2 
+ Average Execution Steps: 9.0
+[APP] -------------- 
+ Average number of noops: 2.4
+ Success rate: 0.5 
+ Average Execution Steps: 10.9
+[APP] -------------- 
+ Average number of noops: 1.8
+ Success rate: 0.2 
+ Average Execution Steps: 5.2
+[APP] -------------- 
+ Average number of noops: 0.0
+ Success rate: 0.0 
+ Average Execution Steps: 0.0
+[APP] -------------- 
+ Average number of noops: 0.0
+ Success rate: 0.0 
+ Average Execution Steps: 0.0
+[APP] -------------- 
+ Average number of noops: 0.0
+ Success rate: 0.0 
+ Average Execution Steps: 0.0
+[APP] -------------- 
+ Average number of noops: 0.0
+ Success rate: 0.0 
+ Average Execution Steps: 0.0
+[APP] -------------- 
+ Average number of noops: 0.0
+ Success rate: 0.0 
+ Average Execution Steps: 0.0
+[APP] -------------- 
+ Average number of noops: 7.0
+ Success rate: 1.0 
+ Average Execution Steps: 24.0
+[APP] -------------- 
+ Average number of noops: 20.0
+ Success rate: 1.0 
+ Average Execution Steps: 52.0

@@ -1,26 +1,68 @@
-Traceback (most recent call last):
-  File "C:\pddlgym\pddlgym\safe_states_finder\translator.py", line 10, in <module>
-    from pddlgym.downward_translate.pddl.actions import Action
-  File "C:\pddlgym\pddlgym\__init__.py", line 10, in <module>
-    from pddlgym.rendering import *
-  File "C:\pddlgym\pddlgym\rendering\__init__.py", line 1, in <module>
-    from .minecraft import render as minecraft_render
-  File "C:\pddlgym\pddlgym\rendering\minecraft.py", line 1, in <module>
-    from .utils import get_asset_path, render_from_layout
-  File "C:\pddlgym\pddlgym\rendering\utils.py", line 5, in <module>
-    import matplotlib.pyplot as plt
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\pyplot.py", line 66, in <module>
-    from matplotlib.figure import Figure, FigureBase, figaspect
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\figure.py", line 40, in <module>
-    from matplotlib import _blocking_input, backend_bases, _docstring, projections
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\projections\__init__.py", line 55, in <module>
-    from .. import axes, _docstring
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\axes\__init__.py", line 2, in <module>
-    from ._axes import Axes  # noqa: F401
-    ^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\axes\_axes.py", line 66, in <module>
-    class Axes(_AxesBase):
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\site-packages\matplotlib\axes\_axes.py", line 7826, in Axes
-    @_docstring.dedent_interpd
-     ^^^^^^^^^^^^^^^^^^^^^^^^^
-KeyboardInterrupt
+Parsing...
+Parsing: [0.000s CPU, 0.004s wall-clock]
+Normalizing task... [0.000s CPU, 0.000s wall-clock]
+Instantiating...
+Generating Datalog program... [0.000s CPU, 0.001s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.016s CPU, 0.005s wall-clock]
+Preparing model... [0.000s CPU, 0.001s wall-clock]
+Generated 61 rules.
+Computing model... [0.000s CPU, 0.007s wall-clock]
+549 relevant atoms
+811 auxiliary atoms
+1360 final queue length
+1743 total queue pushes
+Completing instantiation... [0.016s CPU, 0.003s wall-clock]
+Instantiating: [0.031s CPU, 0.020s wall-clock]
+Computing fact groups...
+Finding invariants...
+15 initial candidates
+Finding invariants: [0.000s CPU, 0.003s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.001s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+49 uncovered facts
+Choosing groups: [0.000s CPU, 0.001s wall-clock]
+Building translation key... [0.000s CPU, 0.000s wall-clock]
+Computing fact groups: [0.000s CPU, 0.006s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.000s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.000s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Translator axioms removed by simplifying: 0
+Computing negative axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.000s CPU, 0.001s wall-clock]
+Translating task: [0.016s CPU, 0.019s wall-clock]
+496 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+16 operators removed
+0 axioms removed
+45 propositions removed
+Detecting unreachable propositions: [0.047s CPU, 0.042s wall-clock]
+Reordering and filtering variables...
+58 of 67 variables necessary.
+16 of 34 mutex groups necessary.
+535 of 535 operators necessary.
+0 of 0 axiom rules necessary.
+Reordering and filtering variables: [0.000s CPU, 0.006s wall-clock]
+Translator variables: 58
+Translator derived variables: 0
+Translator facts: 170
+Translator goal facts: 9
+Translator mutex groups: 16
+Translator total mutex groups size: 32
+Translator operators: 535
+Translator axioms: 0
+Translator task size: 3778
+warning: could not determine peak memory
+0 events were filtered out and marked as irreversible due to -1 in precondition.
+16 irreversible events found.
+431 are likely reversible.
+Validation done.
+Writing output... [0.047s CPU, 0.054s wall-clock]
+Done!

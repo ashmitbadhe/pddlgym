@@ -17,12 +17,12 @@ def demo_random_perestroika():
 
 
     # Create the Perestroika environment
-    env = pddlgym.make("PDDLEnvAuv-v0")
+    env = pddlgym.make("PDDLEnvPerestroika-v0")
 
 
     # Fix the problem index (optional for reproducibility)
     env.fix_problem_index(0)
-    sim_count = 100
+    sim_count = 1
 
     noop_count = 0
     success_count = 0
@@ -44,9 +44,9 @@ def demo_random_perestroika():
 
 
         # try:
-        #policy = APPAgent(env, domain_filepath, problem_filepath, safe_states_filepath, unsafeness_limit, verbose=False)
+        policy = APPAgent(env, domain_filepath, problem_filepath, safe_states_filepath, unsafeness_limit, verbose=False)
 
-        policy = LinearExecutionAgent(env, domain_filepath, problem_filepath)
+        #policy = NextGenAgent(env, domain_filepath, problem_filepath, safe_states_filepath, unsafeness_limit, verbose=True)
         # except:
         #     continue
         # Wrap the environment into a simple STRIPS problem
@@ -58,7 +58,7 @@ def demo_random_perestroika():
         video_path = "perestroika_limit_agent.mp4"
 
     #     # Run the demo for exactly 5 steps with rendering
-        noops, successes, steps = run_demo(env, policy, nature_type="IndependentEvents", max_num_steps=1000, render=False, video_path=video_path, fps=3, verbose=True)
+        noops, successes, steps = run_demo(env, policy, nature_type="IndependentEvents", max_num_steps=150, render=False, video_path=video_path, fps=3, verbose=True)
         #run_demo(env, policy, nature_type="IndependentEvents", max_num_steps=50, render=False, video_path=video_path, fps=3, verbose=True)
         #
         if successes == 0:
