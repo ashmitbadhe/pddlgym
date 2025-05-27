@@ -1,0 +1,12 @@
+C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py:102: SyntaxWarning: invalid escape sequence '\i'
+  1. for all v=val from l+:       (v=val \in eff(a)) or (v=val \in pre(a) and v does not change).
+Traceback (most recent call last):
+  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py", line 171, in <module>
+    translate(options.safe_state_filepath)
+  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py", line 34, in translate
+    safe_states: list = safe_state_parser.parse_safe_states(safe_states_file)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\safe_state_parser.py", line 9, in parse_safe_states
+    with open(safe_states_file) as file:
+         ^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'pddlgym/pddl/auv/safe1.txt'

@@ -32,11 +32,11 @@ def get_object_combinations(objects, arity, var_types=None,
         if not allow_duplicates and len(set(choice)) != len(choice):
             continue
         yield choice
+        yield choice
 
 def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=False,
              video_path=None, fps=3, verbose=False, seed=None,
              check_reward=False):
-
     images = []
 
     if seed is not None:
@@ -47,12 +47,10 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
     if seed is not None:
         env.action_space.seed(seed)
 
-    #Initialize event literals
-    event_literals = None
-
     #Create an instance of nature if applicable to domain
     if nature_type != "NoNature":
         nature_instance = create_nature(nature_type, obs, env)
+
 
     for t in range(max_num_steps):
         # if verbose:
@@ -62,13 +60,14 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
             images.append(env.render())
 
         action = policy(obs)
-        if action is None:
-            print("Act:", action)
-            break
+
         if verbose:
-            print("Act:", action)
+            print(f"Act {t}:", action)
 
         obs, reward, done, _, _ = env.step(action)
+        completion = (sum(lit in obs.literals for lit in obs.goal.literals) / len(obs.goal.literals)) * 100
+        print(f"{completion:.2f}% Completed")
+
         if render:
             images.append(env.render())
         if verbose:
@@ -80,8 +79,8 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
         #apply nature to environment if applicable
         if nature_type != "NoNature":
             obs, applied_events, event_literals = nature_instance.apply_nature(obs)
-            if verbose:
-                print("Events:", applied_events)
+            # if verbose:
+            #     print("Events:", applied_events)
 
 
     if verbose:

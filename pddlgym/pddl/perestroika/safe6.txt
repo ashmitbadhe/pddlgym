@@ -1,0 +1,6 @@
+(alive) (not (dead)) (at-agent l-1-1)
+(alive) (not (dead)) (at-agent l-2-1)
+(alive) (not (dead)) (at-agent l-2-3)
+(alive) (not (dead)) (at-agent l-2-4)
+(alive) (not (dead)) (at-agent l-3-2)
+(alive) (not (dead)) (at-agent l-5-1)
