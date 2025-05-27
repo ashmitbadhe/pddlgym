@@ -234,11 +234,12 @@ class LiteralActionSpace(LiteralSpace):
         # Call instantiator.
         task = downward_open(domain_fname, problem_fname)
         with nostdout():
-            _, _, actions, events, _, _, _ = downward_explore(task)
+            _, _, actions, _, _ = downward_explore(task)
         # Post-process to our representation.
         obj_name_to_obj = {obj.name: obj for obj in state.objects}
         action_ground_literals = set()
         for action in actions:
+            is_event = False
             name = action.name.strip().strip("()").split()
             pred_name, obj_names = name[0], name[1:]
             if len(set(obj_names)) != len(obj_names):
@@ -249,23 +250,18 @@ class LiteralActionSpace(LiteralSpace):
                     assert pred is None
                     pred = p
                     break
-            assert pred is not None
-            objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
-            action_ground_literals.add(pred(*objs))
-        for event in events:
-            name = event.name.strip().strip("()").split()
-            pred_name, obj_names = name[0], name[1:]
-            if len(set(obj_names)) != len(obj_names):
-                continue
-            pred = None
             for p in self.event_predicates:
                 if p.name == pred_name:
                     assert pred is None
                     pred = p
+                    is_event = True
                     break
             assert pred is not None
             objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
-            self.event_literals.append(pred(*objs))
+            if is_event:
+                self.event_literals.append(pred(*objs))
+            else:
+                action_ground_literals.add(pred(*objs))
         os.close(d_desc)
         return action_ground_literals
 
