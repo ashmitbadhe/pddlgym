@@ -23,6 +23,7 @@ from pddlgym.spaces import LiteralSpace, LiteralSetSpace, LiteralActionSpace
 import glob
 import os
 from itertools import product
+from collections.abc import Iterable
 
 import gym
 
@@ -561,6 +562,7 @@ class PDDLEnv(gym.Env):
             return self._render(self._state.literals, *args, **kwargs)
 
     def _handle_derived_literals(self, state):
+        return state
         # first remove any old derived literals since they're outdated
         to_remove = set()
         for lit in state.literals:
@@ -599,4 +601,25 @@ class PDDLEnv(gym.Env):
                 state = state.with_literals(state.literals | new_derived_literals)
             else:  # terminate
                 break
+        return state
+
+    def simulate_events(self, events, simulated_state=None, apply_bool=False):
+        if simulated_state is None:
+            state = self._state
+        else:
+            state = simulated_state
+
+        if not isinstance(events, Iterable) or isinstance(events, (str, bytes)):
+            events = [events]
+
+        for event in events:
+            state = get_successor_state(
+                state, event, self.domain,
+                inference_mode=self._inference_mode,
+                raise_error_on_invalid_action=self._raise_error_on_invalid_action
+            )
+
+        if apply_bool:
+            self.set_state(state)
+
         return state

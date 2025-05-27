@@ -119,6 +119,7 @@ class LiteralActionSpace(LiteralSpace):
                  type_hierarchy=None, type_to_parent_types=None):
         self.action_predicates = action_predicates
         self.event_predicates = event_predicates
+        self.event_literals = []
         self.domain = domain
         self._initial_state = None
         if not domain.operators_as_actions:
@@ -126,7 +127,6 @@ class LiteralActionSpace(LiteralSpace):
         # Validate and organize operators
         action_predicate_to_operators = {}
         event_predicate_to_operators = {}
-        operator_predicates = action_predicates + event_predicates
         for operator_name, operator in domain.operators.items():
             assert (len([p for p in action_predicates if p.name == operator_name]) == 1 or
             len([p for p in event_predicates if p.name == operator_name]) == 1)
@@ -143,7 +143,7 @@ class LiteralActionSpace(LiteralSpace):
                 assert isinstance(operator.preconds, Literal)
         self._action_predicate_to_operators = action_predicate_to_operators
         self._event_predicate_to_operators = event_predicate_to_operators
-        super().__init__(operator_predicates,
+        super().__init__(action_predicates+event_predicates,
             type_hierarchy=type_hierarchy,
             type_to_parent_types=type_to_parent_types)
 
@@ -164,13 +164,14 @@ class LiteralActionSpace(LiteralSpace):
         # Associate each ground action literal with ground preconditions
         self._ground_action_to_pos_preconds = {}
         self._ground_action_to_neg_preconds = {}
-        for ground_action in self._all_ground_literals:
+        self._ground_action_to_effects = {}
+        for ground_action in self._all_ground_literals+self.event_literals:
             if ground_action.predicate in self.action_predicates:
                 operator = self._action_predicate_to_operators[ground_action.predicate]
             else:
                 operator = self._event_predicate_to_operators[ground_action.predicate]
 
-
+            lifted_effects = operator.effects.literals
             if isinstance(operator.preconds, LiteralConjunction):
                 lifted_preconds = operator.preconds.literals
             else:
@@ -179,6 +180,7 @@ class LiteralActionSpace(LiteralSpace):
             subs = dict(zip(operator.params, ground_action.variables))
             subs.update(zip(self.domain.constants, self.domain.constants))
             preconds = [ground_literal(lit, subs) for lit in lifted_preconds]
+            effects = [ground_literal(lit, subs) for lit in lifted_effects]
             pos_preconds, neg_preconds = set(), set()
             for p in preconds:
                 if p.is_negative:
@@ -187,6 +189,7 @@ class LiteralActionSpace(LiteralSpace):
                     pos_preconds.add(p)
             self._ground_action_to_pos_preconds[ground_action] = pos_preconds
             self._ground_action_to_neg_preconds[ground_action] = neg_preconds
+            self._ground_action_to_effects[ground_action] = effects
 
     def sample_literal(self, state):
         valid_literals = self.all_ground_literals(state)
@@ -231,40 +234,36 @@ class LiteralActionSpace(LiteralSpace):
         # Call instantiator.
         task = downward_open(domain_fname, problem_fname)
         with nostdout():
-            _, _, actions, events, _, _, _ = downward_explore(task)
+            _, _, actions, _, _ = downward_explore(task)
         # Post-process to our representation.
         obj_name_to_obj = {obj.name: obj for obj in state.objects}
-        all_ground_literals = set()
+        action_ground_literals = set()
         for action in actions:
+            is_event = False
             name = action.name.strip().strip("()").split()
             pred_name, obj_names = name[0], name[1:]
             if len(set(obj_names)) != len(obj_names):
                 continue
             pred = None
-            for p in self.predicates:
+            for p in self.action_predicates:
                 if p.name == pred_name:
                     assert pred is None
                     pred = p
                     break
-            assert pred is not None
-            objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
-            all_ground_literals.add(pred(*objs))
-        for event in events:
-            name = event.name.strip().strip("()").split()
-            pred_name, obj_names = name[0], name[1:]
-            if len(set(obj_names)) != len(obj_names):
-                continue
-            pred = None
-            for p in self.predicates:
+            for p in self.event_predicates:
                 if p.name == pred_name:
                     assert pred is None
                     pred = p
+                    is_event = True
                     break
             assert pred is not None
             objs = [obj_name_to_obj[obj_name] for obj_name in obj_names]
-            all_ground_literals.add(pred(*objs))
+            if is_event:
+                self.event_literals.append(pred(*objs))
+            else:
+                action_ground_literals.add(pred(*objs))
         os.close(d_desc)
-        return all_ground_literals
+        return action_ground_literals
 
 
 class LiteralSetSpace(LiteralSpace):
