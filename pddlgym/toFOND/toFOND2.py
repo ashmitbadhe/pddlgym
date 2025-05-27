@@ -202,7 +202,7 @@ if __name__ == '__main__':
         noop_events.append(Action(f'({e.name[1:-1]}-noop)', pre, add, delete, []))
 
     #save fond-generated actions and events
-    with open("pddlgym/FONDfiles/ground_data.txt", 'w') as f_problem:
+    with open("pddlgym/toFOND/ground_data.txt", 'w') as f_problem:
         for a in ground_actions:
             f_problem.write(a.name)
 

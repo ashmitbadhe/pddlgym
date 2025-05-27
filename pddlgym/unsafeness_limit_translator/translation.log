@@ -1,99 +1,73 @@
 C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py:102: SyntaxWarning: invalid escape sequence '\i'
   1. for all v=val from l+:       (v=val \in eff(a)) or (v=val \in pre(a) and v does not change).
 Parsing...
-Parsing: [0.016s CPU, 0.053s wall-clock]
-Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Parsing: [0.000s CPU, 0.003s wall-clock]
+Normalizing task... [0.000s CPU, 0.000s wall-clock]
 Instantiating...
-Generating Datalog program... [0.016s CPU, 0.013s wall-clock]
+Generating Datalog program... [0.000s CPU, 0.000s wall-clock]
 Normalizing Datalog program...
-Normalizing Datalog program: [0.016s CPU, 0.008s wall-clock]
-Preparing model... [0.047s CPU, 0.166s wall-clock]
+Normalizing Datalog program: [0.000s CPU, 0.007s wall-clock]
+Preparing model... [0.000s CPU, 0.000s wall-clock]
 Generated 79 rules.
-Computing model... [0.156s CPU, 0.313s wall-clock]
-5630 relevant atoms
-9484 auxiliary atoms
-15114 final queue length
-19034 total queue pushes
-Completing instantiation... [0.156s CPU, 0.298s wall-clock]
-Instantiating: [0.422s CPU, 0.818s wall-clock]
+Computing model... [0.000s CPU, 0.001s wall-clock]
+124 relevant atoms
+224 auxiliary atoms
+348 final queue length
+424 total queue pushes
+Completing instantiation... [0.000s CPU, 0.001s wall-clock]
+Instantiating: [0.016s CPU, 0.011s wall-clock]
 Computing fact groups...
 Finding invariants...
 11 initial candidates
-Finding invariants: [0.000s CPU, 0.004s wall-clock]
-Checking invariant weight... [0.000s CPU, 0.008s wall-clock]
-Instantiating groups... [0.000s CPU, 0.011s wall-clock]
-Collecting mutex groups... [0.016s CPU, 0.006s wall-clock]
+Finding invariants: [0.000s CPU, 0.002s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
 Choosing groups...
-409 uncovered facts
-Choosing groups: [0.000s CPU, 0.002s wall-clock]
-Building translation key... [0.000s CPU, 0.003s wall-clock]
-Computing fact groups: [0.031s CPU, 0.045s wall-clock]
-Building STRIPS to SAS dictionary... [0.000s CPU, 0.001s wall-clock]
-Building dictionary for full mutex groups... [0.000s CPU, 0.006s wall-clock]
+11 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.000s wall-clock]
+Computing fact groups: [0.000s CPU, 0.002s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.000s wall-clock]
 Building mutex information...
-Building mutex information: [0.000s CPU, 0.002s wall-clock]
+Building mutex information: [0.000s CPU, 0.000s wall-clock]
 Translating task...
 Processing axioms...
 Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
 Translator axioms removed by simplifying: 0
-Computing negative axioms... [0.000s CPU, 0.000s wall-clock]
-Processing axioms: [0.016s CPU, 0.011s wall-clock]
-Translating task: [0.156s CPU, 0.599s wall-clock]
-1792 effect conditions simplified
+Computing negative axioms... [0.000s CPU, 0.001s wall-clock]
+Processing axioms: [0.000s CPU, 0.001s wall-clock]
+Translating task: [0.000s CPU, 0.002s wall-clock]
+32 effect conditions simplified
 0 implied preconditions added
 Detecting unreachable propositions...
 0 operators removed
 0 axioms removed
-26 propositions removed
-Detecting unreachable propositions: [0.062s CPU, 0.128s wall-clock]
+4 propositions removed
+Detecting unreachable propositions: [0.000s CPU, 0.001s wall-clock]
 Reordering and filtering variables...
-422 of 422 variables necessary.
-0 of 13 mutex groups necessary.
-1800 of 1800 operators necessary.
+13 of 13 variables necessary.
+0 of 2 mutex groups necessary.
+33 of 33 operators necessary.
 0 of 0 axiom rules necessary.
-Reordering and filtering variables: [0.078s CPU, 0.110s wall-clock]
-Translator variables: 422
+Reordering and filtering variables: [0.000s CPU, 0.000s wall-clock]
+Translator variables: 13
 Translator derived variables: 0
-Translator facts: 1298
-Translator goal facts: 10
+Translator facts: 34
+Translator goal facts: 3
 Translator mutex groups: 0
 Translator total mutex groups size: 0
-Translator operators: 1800
+Translator operators: 33
 Translator axioms: 0
-Translator task size: 14578
+Translator task size: 286
 warning: could not determine peak memory
-Translating operator number 40 of 1800.
-Translating operator number 80 of 1800.
-Translating operator number 120 of 1800.
-Translating operator number 160 of 1800.
-Translating operator number 200 of 1800.
-Translating operator number 240 of 1800.
-Translating operator number 280 of 1800.
-Translating operator number 320 of 1800.
-Translating operator number 360 of 1800.
-Translating operator number 400 of 1800.
-Translating operator number 440 of 1800.
-Translating operator number 480 of 1800.
-Translating operator number 520 of 1800.
-Translating operator number 560 of 1800.
-Traceback (most recent call last):
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py", line 171, in <module>
-    translate(options.safe_state_filepath)
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py", line 63, in translate
-    translate_operators(sas_task.operators, safe_states, sas_task, task)
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py", line 144, in translate_operators
-    if is_operator_safe(operator, safe_states, sas_task, pddl_task):
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py", line 97, in is_operator_safe
-    l_plus = set(predicate.find_sas_variable(sas_task, pddl_task) for predicate in safe_state if predicate.is_positive())
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py", line 97, in <genexpr>
-    l_plus = set(predicate.find_sas_variable(sas_task, pddl_task) for predicate in safe_state if predicate.is_positive())
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\mapping.py", line 54, in find_sas_variable
-    or self.negate().to_SAS_string() == sas_object.variables.value_names[i][j]:
-       ^^^^^^^^^^^^^
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\mapping.py", line 38, in negate
-    def negate(self):
-
-KeyboardInterrupt
+Translating operator number 6 of 33.
+Translating operator number 12 of 33.
+Translating operator number 18 of 33.
+Translating operator number 24 of 33.
+Translating operator number 30 of 33.
+Translating operator number 33 of 33.
+Operator translating done. 10 unsafe operators replaced with 10 copies, 15 safe operators persisted, 8 operators ignored
+Writing output... [0.000s CPU, 0.002s wall-clock]
+Done! [0.031s CPU, 0.037s wall-clock]

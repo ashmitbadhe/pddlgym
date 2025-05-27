@@ -37,9 +37,6 @@ def get_object_combinations(objects, arity, var_types=None,
 def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=False,
              video_path=None, fps=3, verbose=False, seed=None,
              check_reward=False):
-    noop_count = 0
-    successes = 0
-    step_count = 1
     images = []
 
     if seed is not None:
@@ -63,35 +60,21 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
             images.append(env.render())
 
         action = policy(obs)
-        if action is None:
-            noop_count += 1
 
         if verbose:
             print(f"Act {t}:", action)
 
         obs, reward, done, _, _ = env.step(action)
+        completion = (sum(lit in obs.literals for lit in obs.goal.literals) / len(obs.goal.literals)) * 100
+        print(f"{completion:.2f}% Completed")
 
         if render:
             images.append(env.render())
         if verbose:
             print("Rew:", reward)
 
-        completion = (sum(lit in obs.literals for lit in obs.goal.literals)/len(obs.goal.literals))*100
-        print(f"{completion:.2f}% Completed")
-
         if done:
-            successes+=1
-            step_count+=t
             break
-
-        still_alive = False
-        for literal in obs.literals:
-            if str(literal) == "alive()" :
-                still_alive = True
-        if not still_alive:
-            step_count+=t
-            break
-
 
         #apply nature to environment if applicable
         if nature_type != "NoNature":
@@ -112,10 +95,8 @@ def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=Fal
     env.close()
     if check_reward:
         assert tot_reward > 0
-    # if verbose:
-    #     input("press enter to continue to next problem")
-    print(f"Agent performed {noop_count} noops")
-    return noop_count, successes, step_count
+    if verbose:
+        input("press enter to continue to next problem")
 
 
 class DummyFile:
