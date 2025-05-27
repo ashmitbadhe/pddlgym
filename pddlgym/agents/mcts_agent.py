@@ -2,13 +2,14 @@ import math
 import random
 from collections import defaultdict
 from dataclasses import replace
+import gc
 
 from pddlgym.structs import Anti, Literal, LiteralConjunction
 from pddlgym.prolog_interface import PrologInterface
 from pddlgym.pddlgym_planners.fd import FD  # FastDownward
 
 class MCTSAgent:
-    def __init__(self, env, num_simulations=100, exploration_const=1.41, max_depth=5):
+    def __init__(self, env, num_simulations=50, exploration_const=1.41, max_depth=100):
         self.env = env
         self.num_simulations = num_simulations
         self.exploration_const = exploration_const
@@ -26,13 +27,13 @@ class MCTSAgent:
         self.action_uses = defaultdict(int)
 
     def __call__(self, obs):
-        self.actions = self.env.action_space.all_ground_literals(obs) | {None}
+        self.actions = self.env.action_space.all_ground_literals(obs)
 
         # Compute reference plan only once
         if self.reference_plan is None:
             try:
                 print("Generating reference plan using Fast Downward...")
-                plan = self.planner(self.env.domain, obs)
+                plan = self.planner(self.env.domain, obs, timeout=100)
                 self.reference_plan = plan
                 self.reference_plan_indices = {
                     action: i for i, action in enumerate(self.reference_plan)
@@ -43,16 +44,17 @@ class MCTSAgent:
 
 
         for _ in range(self.num_simulations):
+            self.action_uses.clear()
             self._simulate(obs, depth=0)
 
         # Choose best action
         if self.actions:
             best_action = max(
                 self.actions,
-                key=lambda a: self.Q[(obs, a)] if self.N[(obs, a)] > 0 else float('-inf')
+                key=lambda a: self.Q[(hash(frozenset(obs.literals)), a)] if self.N[(hash(frozenset(obs.literals)), a)] > 0 else float('-inf')
             )
-            print(self.Q[(obs,best_action)])
-            if self.Q[(obs,best_action)] < 0.1:
+            print(self.Q[(hash(frozenset(obs.literals)),best_action)])
+            if self.Q[(hash(frozenset(obs.literals)),best_action)] < 0.001:
                 return None
         else:
             return None
@@ -65,7 +67,7 @@ class MCTSAgent:
         if depth >= self.max_depth:
             return 0
 
-        if self.Ns[obs] == 0:
+        if self.Ns[hash(frozenset(obs.literals))] == 0:
             # First visit: expand and return rollout value
             return self._rollout(obs, depth)
 
@@ -74,13 +76,13 @@ class MCTSAgent:
         best_action = None
         actions = self.env.action_space.all_ground_literals(obs)
         for action in actions:
-            q = self.Q[(obs, action)]
-            n = self.N[(obs, action)]
-            ns = self.Ns[obs]
+            q = self.Q[(hash(frozenset(obs.literals)), action)]
+            n = self.N[(hash(frozenset(obs.literals)), action)]
+            ns = self.Ns[hash(frozenset(obs.literals))]
             ucb_classical = q / (n + 1e-4) + self.exploration_const * math.sqrt(math.log(ns + 1) / (n + 1e-4))
 
-            rave_q = self.RAVE[(obs, action)]
-            rave_n = self.RAVE_N[(obs, action)]
+            rave_q = self.RAVE[(hash(frozenset(obs.literals)), action)]
+            rave_n = self.RAVE_N[(hash(frozenset(obs.literals)), action)]
             ucb_rave = rave_q / (rave_n + 1e-4) + self.exploration_const * math.sqrt(math.log(ns + 1) / (rave_n + 1e-4))
 
             ucb_combined = ucb_classical + ucb_rave
@@ -95,7 +97,7 @@ class MCTSAgent:
             self.select_event(self.env.action_space.event_literals, action_applied_state), action_applied_state)
 
         # Record parent-child transition
-        self.parent_map[event_applied_state] = (obs, best_action)
+        self.parent_map[event_applied_state] = (hash(frozenset(obs.literals)), best_action)
 
         reward, done = self.calculate_reward(event_applied_state, best_action)
 
@@ -108,28 +110,25 @@ class MCTSAgent:
             total_reward += self._simulate(event_applied_state, depth + 1, simulation_path)
 
         # Backpropagate Q and visit counts
-        self.N[(obs, best_action)] += 1
-        self.Ns[obs] += 1
-        self.Q[(obs, best_action)] = (
-                (self.Q[(obs, best_action)] * (self.N[(obs, best_action)] - 1) + total_reward)
-                / self.N[(obs, best_action)]
-        )
+        self.N[(hash(frozenset(obs.literals)), best_action)] += 1
+        self.Ns[hash(frozenset(obs.literals))] += 1
+        self.Q[(hash(frozenset(obs.literals)), best_action)] += (total_reward - self.Q[(hash(frozenset(obs.literals)), best_action)]) / self.N[(hash(frozenset(obs.literals)), best_action)]
 
         # RAVE update for the full path
         for past_state, past_action in simulation_path:
-            self.RAVE_N[(past_state, past_action)] += 1
-            self.RAVE[(past_state, past_action)] = (
-                    (self.RAVE[(past_state, past_action)] * (self.RAVE_N[(past_state, past_action)] - 1) + total_reward)
-                    / self.RAVE_N[(past_state, past_action)]
+            self.RAVE_N[(frozenset(past_state.literals), past_action)] += 1
+            self.RAVE[(frozenset(past_state.literals), past_action)] += (
+                    (total_reward - self.RAVE[(frozenset(past_state.literals), past_action)]) / self.RAVE_N[(frozenset(past_state.literals), past_action)]
             )
 
-
+        # if depth % 10 == 0:
+        #     gc.collect()
         return total_reward
 
     def get_parent_states(self, state):
         parents = []
-        if state in self.parent_map:
-            parent, action = self.parent_map[state]
+        if hash(frozenset(state.literals)) in self.parent_map:
+            parent, action = self.parent_map[hash(frozenset(state.literals))]
             parents.append(parent)
         return parents
 
@@ -188,19 +187,19 @@ class MCTSAgent:
             else:
                 action = random.choice(list(applicable_actions))
 
-            self.N[obs, action] += 1
+            self.N[hash(frozenset(obs.literals)), action] += 1
 
             action_applied_state = self.apply_action(action, current_obs)
 
             # Record the transition
-            self.parent_map[action_applied_state] = (obs, action)
+            self.parent_map[hash(frozenset(action_applied_state.literals))] = (hash(frozenset(obs.literals)), action)
 
             reward, done = self.calculate_reward(action_applied_state, action)
             total_reward += reward
             if done:
                 break
             current_obs = action_applied_state
-        self.Ns[obs] +=1
+        self.Ns[hash(frozenset(obs.literals))] +=1
         return total_reward
 
     def apply_action(self, action, state):
@@ -245,23 +244,22 @@ class MCTSAgent:
 
     def calculate_reward(self, state, action):
         self.action_uses[action] += 1
-        usage_penalty = 1 / math.sqrt(self.action_uses[action])  # smoother than 1 / x
+        usage_factor = 1 / math.sqrt(self.action_uses[action])  # smoother than 1 / x
 
         if all(self.check_goal(state, lit) for lit in state.goal.literals):
             #print("found_goal")
             return 1.0, True
 
-        elif any(lit not in state.literals for lit in state.goal.literals):
-            missing_literals = set(state.goal.literals) - state.literals
-            total_literals = len(state.goal.literals)
-            num_missing = len(missing_literals)
-
-            progress = (total_literals - num_missing) / total_literals
-            reward = progress * 0.9 * usage_penalty
-            return reward, False
-
+        # elif any(lit not in state.literals for lit in state.goal.literals):
+        #     missing_literals = set(state.goal.literals) - state.literals
+        #     total_literals = len(state.goal.literals)
+        #     num_missing = len(missing_literals)
+        #
+        #     progress = (total_literals - num_missing) / total_literals
+        #     reward = progress * 0.9 * usage_penalty
+        #     return reward, False
         else:
-            return 0.0, False
+            return 0.5*usage_factor, False
     def check_goal(self, state, goal):
         if isinstance(goal, Literal):
             if goal.is_negative and goal.positive in state.literals:

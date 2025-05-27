@@ -6,82 +6,50 @@ INFO     search stdin: 'pddlgym\unsafeness_limit_translator\output.sas'
 INFO     search time limit: None
 INFO     search memory limit: None
 INFO     search command line string: 'C:\pddlgym\pddlgym\pddlgym_planners\FD\builds\release\bin\downward.exe' --search 'let(hlm,landmark_sum(lm_factory=lm_reasonable_orders_hps(lm_rhw()),transform=adapt_costs(one),pref=false),let(hff,ff(transform=adapt_costs(one)),lazy_greedy([hff,hlm],preferred=[hff,hlm],cost_type=one,reopen_closed=false)))' --internal-plan-file sas_plan < ''"'"'pddlgym\unsafeness_limit_translator\output.sas'"'"''
-[t=0.000260s, 944 KB] reading input...
-[t=0.004537s, 1020 KB] done reading input!
-[t=0.009730s, 1356 KB] Initializing landmark sum heuristic...
-[t=0.009760s, 1356 KB] Generating landmark graph...
-[t=0.009892s, 1356 KB] Building a landmark graph with reasonable orders.
-[t=0.009989s, 1356 KB] Initializing Exploration...
-[t=0.010436s, 1356 KB] Generating landmarks using the RPG/SAS+ approach
-[t=0.012544s, 1356 KB] Landmarks generation time: 0.002643s
-[t=0.012567s, 1356 KB] Discovered 15 landmarks, of which 1 are disjunctive and 0 are conjunctive.
-[t=0.012580s, 1356 KB] 21 edges
-[t=0.012593s, 1356 KB] approx. reasonable orders
-[t=0.012870s, 1356 KB] Landmarks generation time: 0.003105s
-[t=0.012887s, 1356 KB] Discovered 15 landmarks, of which 1 are disjunctive and 0 are conjunctive.
-[t=0.012900s, 1356 KB] 24 edges
-[t=0.012911s, 1356 KB] Landmark graph generation time: 0.003157s
-[t=0.012923s, 1356 KB] Landmark graph contains 15 landmarks, of which 1 are disjunctive and 0 are conjunctive.
-[t=0.012936s, 1356 KB] Landmark graph contains 24 orderings.
-[t=0.013285s, 1356 KB] Simplifying 855 unary operators... done! [839 unary operators]
-[t=0.014418s, 1356 KB] time to simplify: 0.001141s
-[t=0.014562s, 1372 KB] Initializing additive heuristic...
-[t=0.014576s, 1372 KB] Initializing FF heuristic...
-[t=0.014677s, 1372 KB] Building successor generator...done!
-[t=0.015213s, 1372 KB] peak memory difference for successor generator creation: 0 KB
-[t=0.015233s, 1372 KB] time for successor generation creation: 0.000479s
-[t=0.015255s, 1372 KB] Variables: 34
-[t=0.015268s, 1372 KB] FactPairs: 105
-[t=0.015280s, 1372 KB] Bytes per state: 8
-[t=0.015341s, 1372 KB] Conducting lazy best first search, (real) bound = 2147483647
-[t=0.015429s, 1372 KB] New best heuristic value for ff: 15
-[t=0.015444s, 1372 KB] New best heuristic value for landmark_sum_heuristic: 8
-[t=0.015456s, 1372 KB] g=0, 1 evaluated, 0 expanded
-[t=0.015482s, 1372 KB] Initial heuristic value for ff: 15
-[t=0.015495s, 1372 KB] Initial heuristic value for landmark_sum_heuristic: 8
-[t=0.015569s, 1372 KB] New best heuristic value for ff: 12
-[t=0.015583s, 1372 KB] g=1, 3 evaluated, 2 expanded
-[t=0.016197s, 1372 KB] New best heuristic value for landmark_sum_heuristic: 7
-[t=0.016223s, 1372 KB] g=4, 21 evaluated, 19 expanded
-[t=0.016270s, 1372 KB] New best heuristic value for ff: 11
-[t=0.016283s, 1372 KB] g=5, 22 evaluated, 20 expanded
-[t=0.016505s, 1372 KB] New best heuristic value for ff: 10
-[t=0.016519s, 1372 KB] New best heuristic value for landmark_sum_heuristic: 6
-[t=0.016531s, 1372 KB] g=7, 30 evaluated, 26 expanded
-[t=0.016575s, 1372 KB] New best heuristic value for ff: 9
-[t=0.016588s, 1372 KB] New best heuristic value for landmark_sum_heuristic: 5
-[t=0.016599s, 1372 KB] g=8, 31 evaluated, 27 expanded
-[t=0.016677s, 1372 KB] New best heuristic value for ff: 8
-[t=0.016690s, 1372 KB] New best heuristic value for landmark_sum_heuristic: 4
-[t=0.016701s, 1372 KB] g=9, 33 evaluated, 29 expanded
-[t=0.016743s, 1372 KB] New best heuristic value for landmark_sum_heuristic: 3
-[t=0.016756s, 1372 KB] g=10, 34 evaluated, 30 expanded
-[t=0.016843s, 1372 KB] New best heuristic value for ff: 6
-[t=0.016856s, 1372 KB] New best heuristic value for landmark_sum_heuristic: 2
-[t=0.016867s, 1372 KB] g=11, 36 evaluated, 32 expanded
-Peak memory: 2944 KB
-caught signal 2 -- exiting
-Traceback (most recent call last):
-  File "C:\pddlgym\pddlgym\pddlgym_planners\FD\fast-downward.py", line 5, in <module>
-    main()
-  File "C:\pddlgym\pddlgym\pddlgym_planners\FD\driver\main.py", line 40, in main
-    (exitcode, continue_execution) = run_components.run_search(args)
-                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\pddlgym\pddlgym\pddlgym_planners\FD\driver\run_components.py", line 130, in run_search
-    call.check_call(
-  File "C:\pddlgym\pddlgym\pddlgym_planners\FD\driver\call.py", line 63, in check_call
-    return subprocess.check_call(cmd, stdin=stdin_file, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 408, in check_call
-    retcode = call(*popenargs, **kwargs)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 391, in call
-    return p.wait(timeout=timeout)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1264, in wait
-    return self._wait(timeout=timeout)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\samir\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1590, in _wait
-    result = _winapi.WaitForSingleObject(self._handle,
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-KeyboardInterrupt
+[t=0.000306s, 956 KB] reading input...
+[t=0.002089s, 988 KB] done reading input!
+[t=0.008145s, 1336 KB] Initializing landmark sum heuristic...
+[t=0.008199s, 1336 KB] Generating landmark graph...
+[t=0.008264s, 1336 KB] Building a landmark graph with reasonable orders.
+[t=0.008317s, 1336 KB] Initializing Exploration...
+[t=0.008536s, 1336 KB] Generating landmarks using the RPG/SAS+ approach
+[t=0.008930s, 1336 KB] Landmarks generation time: 0.000662s
+[t=0.008951s, 1336 KB] Discovered 6 landmarks, of which 0 are disjunctive and 0 are conjunctive.
+[t=0.008965s, 1336 KB] 4 edges
+[t=0.008977s, 1336 KB] approx. reasonable orders
+[t=0.009010s, 1336 KB] Landmarks generation time: 0.000803s
+[t=0.009023s, 1336 KB] Discovered 6 landmarks, of which 0 are disjunctive and 0 are conjunctive.
+[t=0.009036s, 1336 KB] 4 edges
+[t=0.009047s, 1336 KB] Landmark graph generation time: 0.000854s
+[t=0.009059s, 1336 KB] Landmark graph contains 6 landmarks, of which 0 are disjunctive and 0 are conjunctive.
+[t=0.009072s, 1336 KB] Landmark graph contains 4 orderings.
+[t=0.009088s, 1336 KB] Landmark graph contains a cycle of natural orderings.
+[t=0.009325s, 1336 KB] Simplifying 276 unary operators... done! [272 unary operators]
+[t=0.009670s, 1336 KB] time to simplify: 0.000353s
+[t=0.009759s, 1336 KB] Initializing additive heuristic...
+[t=0.009772s, 1336 KB] Initializing FF heuristic...
+[t=0.009860s, 1336 KB] Building successor generator...done!
+[t=0.010033s, 1336 KB] peak memory difference for successor generator creation: 0 KB
+[t=0.010049s, 1336 KB] time for successor generation creation: 0.000139s
+[t=0.010067s, 1336 KB] Variables: 32
+[t=0.010080s, 1336 KB] FactPairs: 92
+[t=0.010091s, 1336 KB] Bytes per state: 8
+[t=0.010198s, 1336 KB] Conducting lazy best first search, (real) bound = 2147483647
+[t=0.010260s, 1336 KB] Initial heuristic value for ff: infinity
+[t=0.010275s, 1336 KB] Completely explored state space -- no solution!
+[t=0.010286s, 1336 KB] Actual search time: 0.000063s
+[t=0.010299s, 1336 KB] Expanded 0 state(s).
+[t=0.010299s, 1336 KB] Reopened 0 state(s).
+[t=0.010299s, 1336 KB] Evaluated 1 state(s).
+[t=0.010299s, 1336 KB] Evaluations: 1
+[t=0.010299s, 1336 KB] Generated 0 state(s).
+[t=0.010299s, 1336 KB] Dead ends: 1 state(s).
+[t=0.010299s, 1336 KB] Number of registered states: 1
+[t=0.010299s, 1336 KB] Int hash set load factor: 1/1 = 1.000000
+[t=0.010299s, 1336 KB] Int hash set resizes: 0
+[t=0.010299s, 1336 KB] Search time: 0.000102s
+[t=0.010299s, 1336 KB] Total time: 0.010299s
+Search stopped without finding a solution.
+search exit code: 12
+
+Driver aborting after search

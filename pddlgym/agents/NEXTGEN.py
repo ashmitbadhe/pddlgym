@@ -6,8 +6,6 @@ import subprocess
 import os
 import re
 
-from pddlgym.safe_states_finder.strips_problem_wrapper import SimpleSTRIPSProblem
-
 class NextGenAgent:
     def __init__(self, env, domain_filepath, problem_filepath, safe_states_filepath=None, unsafety_limit=None, verbose=False):
         self.env = env
@@ -25,110 +23,48 @@ class NextGenAgent:
         self.verbose = verbose
         self.untranslated_plan = None
 
-        self.problem = SimpleSTRIPSProblem(env)
-
         self.plan_found = False
 
-        self.used_actions = set()
-
-    def compute_waitfor_conditions(self, initial_state):
-        self.env.action_space._update_objects_from_state(initial_state)
-        self.plan_with_waitfor = []
-
-        # Initialize goal literals G_{n+1}
-        goal_literals = set(initial_state.goal.literals)
-        G_next = goal_literals
-
-        for index in reversed(range(len(self.plan))):
-            action = self.to_Literal(self.plan[index])
-            pos_preconds = self.env.action_space._ground_action_to_pos_preconds[action]
-            add_effects = set(
-                e for e in self.env.action_space._ground_action_to_effects[action] if "Anti" not in str(e))
-            #del_effects = set(Anti(e) for e in self.env.action_space._ground_action_to_effects[action] if "Anti" in str(e))
-
-            # Step 2: Regress G_{i+1} through a_i to get G_i
-            G_i = (G_next - add_effects) | pos_preconds
-
-            # Step 1: Compute W_i
-            waitfor = set()
-
-            for g in G_i:
-                for event in self.env.action_space.event_literals:
-                    e_pos_preconds = self.env.action_space._ground_action_to_pos_preconds[event]
-                    # e_add_effects = set(
-                    #     e for e in self.env.action_space._ground_action_to_effects[event] if "Anti" not in str(e))
-                    e_del_effects = set(
-                        Anti(e) for e in self.env.action_space._ground_action_to_effects[event] if "Anti" in str(e))
-
-                    # Event can delete a goal literal
-                    if g in e_del_effects:
-                        if e_pos_preconds & add_effects:
-                            # Add its preconditions to waitfor
-                            waitfor.update({Anti(p) for p in e_pos_preconds if p not in pos_preconds and p.predicate not in self.problem.static_predicates})
-            self.plan_with_waitfor.insert(0, (frozenset(waitfor), action))
-            G_next = G_i  # prepare for next step in regression
-            #print(self.plan_with_waitfor[0])
-
     def __call__(self, state):
-        applicable_actions = self.env.action_space.all_ground_literals(state)
-        safe_actions = [a for a in applicable_actions if self.is_safe(state, a)]
+        if self.plan is None:
+            state, _ = self.env.reset()
 
-        if not safe_actions:
-            return None  # No safe actions at all
+            sas_filepath = self.generate_reversible_domain()
+            # Run FastDownward to generate the plan
+            self.plan = self.run_fastdownward(sas_filepath)
 
-        # Rank safe actions: prefer unused, then score-based
-        ranked = sorted(
-            safe_actions,
-            key=lambda a: (
-                a not in self.used_actions,  # True > False => unused first
-                -self.action_score(state, a)  # higher score first
-            ),
-            reverse=True
-        )
-        return ranked[0] if ranked else None
+            if self.plan:
+                self.plan_found = True
+                self.plan = self.retranslate_plan()
+                #print(self.untranslated_plan)
+            else:
+                print(f"Planning failed")
 
-    def action_score(self, state, action):
-        # Higher score = more preferred
-        score = 0
-        if action not in self.used_actions:
-            score += 10
-
-        # Simulate the action
-        next_state = self.simulate_action(state, action)
-        if any(lit in next_state and lit not in state for lit in state.goal.literals):
-            score+=10
-
-        return score
-
-
-
-
-    def is_safe(self, current_state, action):
-        state = current_state
-
-        p_plus = set()  # Initially empty
-        p_minus = set()
-        # Get positive preconditions
-        pos_preconds = self.space._ground_action_to_pos_preconds[action]
-
-        # Simulate the action
-        next_state = self.simulate_action(state, action)
-
-        # Compute next Ei, p_plus, p_minus
-        applicable_events = self.applicable_events(self.space.event_literals, next_state, p_plus, p_minus)
-
-        # Update p_plus and p_minus
-        for event in applicable_events:
-            add_effects, del_effects = self.get_add_del_effects(event, next_state)
-            p_plus.update(add_effects)
-            p_minus.update(del_effects)
-
-        # Check robustness: preconditions must not intersect with p_minus
-        if pos_preconds & p_minus:
-            if self.verbose:
-                print(f"  ⚠️ UNSAFE ACTION: positive preconditions {pos_preconds} intersect with p_minus {p_minus}")
-            return False  # not robust
-        return True
+        # If there is a plan, check for the safe sequence
+        if self.plan:
+            # Attempt to find safe sequence if it is not empty
+            if self.safe_sequence and self.is_action_applicable(self.safe_sequence[0], state):
+                selected_action = self.safe_sequence.pop(0)
+                self.untranslated_plan.pop(0)
+                self.plan.pop(0)
+                if self.verbose:
+                    print(f"Selected action from safe sequence: {selected_action}")
+            else:
+                # Find a new safe sequence from the current state
+                self.find_safe_sequence(state)
+                if not self.safe_sequence:
+                    selected_action = None # no-op
+                    self.noops_performed += 1
+                else:
+                    selected_action = self.safe_sequence.pop(0)
+                    self.plan.pop(0)
+                    self.untranslated_plan.pop(0)
+                    if self.verbose:
+                        print(f"Selected action from safe sequence: {selected_action}")
+        #
+            return selected_action
+        else:
+            raise Exception("Plan is empty. No more actions to take.")
 
     def generate_reversible_domain(self):
         command = [
@@ -163,7 +99,7 @@ class NextGenAgent:
 
         safe_index = None
         for i in range(0, len(self.plan)):
-            wait_for, action = self.plan_with_waitfor[i]
+            action = self.to_Literal(self.plan[i])
             if self.verbose:
                 print(f"\n[STEP {i}] Considering action: {action}")
 
@@ -193,13 +129,21 @@ class NextGenAgent:
                 p_minus.update(del_effects)
 
             # Check robustness: preconditions must not intersect with p_minus
-            if wait_for & p_minus:
+            if pos_preconds & p_minus:
                 if safe_index is None:
                     self.safe_sequence.clear()
                 else:
                     self.safe_sequence = self.safe_sequence[:safe_index+1]
                 if self.verbose:
                     print(f"  ⚠️ UNSAFE ACTION: positive preconditions {pos_preconds} intersect with p_minus {p_minus}")
+                break  # not robust
+            elif neg_preconds & p_plus:
+                if safe_index is None:
+                    self.safe_sequence.clear()
+                else:
+                    self.safe_sequence = self.safe_sequence[:safe_index+1]
+                if self.verbose:
+                    print(f"  ⚠️ UNSAFE ACTION: negative preconditions {pos_preconds} intersect with p_plus {p_minus}")
                 break  # not robust
 
             # Append the action to safe sequence
