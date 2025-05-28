@@ -9,6 +9,8 @@ Making the environment for Perestroika:
 
 Please make sure to run the demo file with the following arguments: domain_filepath, problem_filepath, safe_states_filepath, unsafeness_limit
 
+For agents that do not need safe_states file or unsafeness_limit, a dummy file for safe_states and a random integer for unsafeness_limit is sufficient.
+
 
 
 Implementation of "nature" to simulate non-deterministic events can be found [here](pddlgym/nature.py).
