@@ -102,7 +102,6 @@ def parse_literal(alist, type_dict, predicate_dict, negated=False):
         assert len(alist) == 2
         alist = alist[1]
         negated = not negated
-
     pred_id, arity = _get_predicate_id_and_arity(
         alist[0], type_dict, predicate_dict)
 
@@ -281,6 +280,48 @@ def parse_action(alist, type_dict, predicate_dict):
     else:
         return None
 
+def parse_event(alist, type_dict, predicate_dict):
+    iterator = iter(alist)
+    event_tag = next(iterator)
+    assert event_tag == ":event"
+    name = next(iterator)
+    parameters_tag_opt = next(iterator)
+    if parameters_tag_opt == ":parameters":
+        parameters = parse_typed_list(next(iterator),
+                                      only_variables=True)
+        precondition_tag_opt = next(iterator)
+    else:
+        parameters = []
+        precondition_tag_opt = parameters_tag_opt
+    if precondition_tag_opt == ":precondition":
+        precondition_list = next(iterator)
+        if not precondition_list:
+            # Note that :precondition () is allowed in PDDL.
+            precondition = pddl.Conjunction([])
+        else:
+            precondition = parse_condition(
+                precondition_list, type_dict, predicate_dict)
+        effect_tag = next(iterator)
+    else:
+        precondition = pddl.Conjunction([])
+        effect_tag = precondition_tag_opt
+    assert effect_tag == ":effect"
+    effect_list = next(iterator)
+    eff = []
+    if effect_list:
+        try:
+            cost = parse_effects(
+                effect_list, eff, type_dict, predicate_dict)
+        except ValueError as e:
+            raise SystemExit("Error in Event %s\nReason: %s." % (name, e))
+    for rest in iterator:
+        assert False, rest
+    if eff:
+        return pddl.Event(name, parameters, len(parameters),
+                           precondition, eff, cost)
+    else:
+        return None
+
 
 def parse_axiom(alist, type_dict, predicate_dict):
     assert len(alist) == 3
@@ -293,7 +334,7 @@ def parse_axiom(alist, type_dict, predicate_dict):
 
 
 def parse_task(domain_pddl, task_pddl):
-    domain_name, domain_requirements, types, type_dict, constants, predicates, predicate_dict, functions, actions, axioms \
+    domain_name, domain_requirements, types, type_dict, constants, predicates, predicate_dict, functions, actions, events, operators, axioms \
                  = parse_domain_pddl(domain_pddl)
     task_name, task_domain_name, task_requirements, objects, init, goal, use_metric = parse_task_pddl(task_pddl, type_dict, predicate_dict)
 
@@ -310,7 +351,7 @@ def parse_task(domain_pddl, task_pddl):
 
     return pddl.Task(
         domain_name, task_name, requirements, types, objects,
-        predicates, functions, init, goal, actions, axioms, use_metric)
+        predicates, functions, init, goal, actions, events, axioms, use_metric)
 
 
 def parse_domain_pddl(domain_pddl):
@@ -381,15 +422,26 @@ def parse_domain_pddl(domain_pddl):
 
     the_axioms = []
     the_actions = []
+    the_events = []
     for entry in entries:
+        action = None
+        event = None
         if entry[0] == ":derived":
             axiom = parse_axiom(entry, type_dict, predicate_dict)
             the_axioms.append(axiom)
         else:
-            action = parse_action(entry, type_dict, predicate_dict)
+            try:
+                action = parse_action(entry, type_dict, predicate_dict)
+            except: #if not action, could be an event
+                event = parse_event(entry, type_dict, predicate_dict)
             if action is not None:
                 the_actions.append(action)
+            elif event is not None:
+                the_events.append(event)
     yield the_actions
+    yield the_events
+    the_operators = the_actions+the_events
+    yield the_operators
     yield the_axioms
 
 def parse_task_pddl(task_pddl, type_dict, predicate_dict):

@@ -10,7 +10,7 @@ def demo_random(env_name, render=True, problem_index=0, verbose=True):
     env.fix_problem_index(problem_index)
     policy = lambda s : env.action_space.sample(s)
     video_path = "/tmp/{}_random_demo.mp4".format(env_name)
-    run_demo(env, policy, render=render, verbose=verbose, seed=0,
+    run_demo(env, policy, nature_type="IndependentEvents", render=render, verbose=verbose, seed=0,
              video_path=video_path)
 
 def run_all(render=True, verbose=True):

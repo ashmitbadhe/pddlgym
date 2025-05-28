@@ -10,8 +10,8 @@ from . import timers
 
 def get_fluent_facts(task, model):
     fluent_predicates = set()
-    for action in task.actions:
-        for effect in action.effects:
+    for operator in task.actions+ task.events:
+        for effect in operator.effects:
             fluent_predicates.add(effect.literal.predicate)
     for axiom in task.axioms:
         fluent_predicates.add(axiom.name)
@@ -46,7 +46,7 @@ def instantiate(task, model):
     instantiated_axioms = []
     reachable_action_parameters = defaultdict(list)
     for atom in model:
-        if isinstance(atom.predicate, pddl.Action):
+        if isinstance(atom.predicate, pddl.Action) or isinstance(atom.predicate, pddl.Event):
             action = atom.predicate
             parameters = action.parameters
             inst_parameters = atom.args[:len(parameters)]
@@ -73,7 +73,6 @@ def instantiate(task, model):
                 instantiated_axioms.append(inst_axiom)
         elif atom.predicate == "@goal-reachable":
             relaxed_reachable = True
-
     return (relaxed_reachable, fluent_facts, instantiated_actions,
             sorted(instantiated_axioms), reachable_action_parameters)
 
@@ -86,15 +85,20 @@ def explore(task):
 if __name__ == "__main__":
     import pddl_parser
     task = pddl_parser.open()
-    relaxed_reachable, atoms, actions, axioms, _ = explore(task)
+    relaxed_reachable, atoms, actions, events, axioms, _, _ = explore(task)
     print("goal relaxed reachable: %s" % relaxed_reachable)
     print("%d atoms:" % len(atoms))
     for atom in atoms:
         print(" ", atom)
     print()
     print("%d actions:" % len(actions))
+    print("%d events:" % len(events))
     for action in actions:
         action.dump()
+        print()
+    print()
+    for event in events:
+        event.dump()
         print()
     print()
     print("%d axioms:" % len(axioms))

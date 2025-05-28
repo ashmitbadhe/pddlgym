@@ -8,9 +8,10 @@ import numpy as np
 import os
 import gym
 import imageio
+from pddlgym.nature import create_nature
 
 
-def get_object_combinations(objects, arity, var_types=None, 
+def get_object_combinations(objects, arity, var_types=None,
                             type_to_parent_types=None, allow_duplicates=False):
     type_to_objs = defaultdict(list)
 
@@ -31,11 +32,11 @@ def get_object_combinations(objects, arity, var_types=None,
         if not allow_duplicates and len(set(choice)) != len(choice):
             continue
         yield choice
+        yield choice
 
-def run_demo(env, policy, max_num_steps=10, render=False,
+def run_demo(env, policy, nature_type = "NoNature", max_num_steps=10, render=False,
              video_path=None, fps=3, verbose=False, seed=None,
              check_reward=False):
-
     images = []
 
     if seed is not None:
@@ -46,24 +47,41 @@ def run_demo(env, policy, max_num_steps=10, render=False,
     if seed is not None:
         env.action_space.seed(seed)
 
+    #Create an instance of nature if applicable to domain
+    if nature_type != "NoNature":
+        nature_instance = create_nature(nature_type, obs, env)
+
+
     for t in range(max_num_steps):
-        if verbose:
-            print("Obs:", obs)
+        # if verbose:
+        #     print("Obs:", obs)
 
         if render:
             images.append(env.render())
-    
+
         action = policy(obs)
+
         if verbose:
-            print("Act:", action)
+            print(f"Act {t}:", action)
 
         obs, reward, done, _, _ = env.step(action)
-        env.render()
+        completion = (sum(lit in obs.literals for lit in obs.goal.literals) / len(obs.goal.literals)) * 100
+        print(f"{completion:.2f}% Completed")
+
+        if render:
+            images.append(env.render())
         if verbose:
             print("Rew:", reward)
 
         if done:
             break
+
+        #apply nature to environment if applicable
+        if nature_type != "NoNature":
+            obs, applied_events, event_literals = nature_instance.apply_nature(obs)
+            # if verbose:
+            #     print("Events:", applied_events)
+
 
     if verbose:
         print("Final obs:", obs)

@@ -23,6 +23,7 @@ from pddlgym.spaces import LiteralSpace, LiteralSetSpace, LiteralActionSpace
 import glob
 import os
 from itertools import product
+from collections.abc import Iterable
 
 import gym
 
@@ -34,7 +35,7 @@ class InvalidAction(Exception):
     """See PDDLEnv docstring"""
     pass
 
-def get_successor_state(state, action, domain, raise_error_on_invalid_action=False, 
+def get_successor_state(state, action, domain, raise_error_on_invalid_action=False,
                         inference_mode="infer", require_unique_assignment=True, get_all_transitions=False, return_probs=False):
     """
     Compute successor state(s) using operators in the domain
@@ -54,9 +55,12 @@ def get_successor_state(state, action, domain, raise_error_on_invalid_action=Fal
     -------
     next_state : State
     """
-    selected_operator, assignment = _select_operator(state, action, domain, 
-        inference_mode=inference_mode, 
-        require_unique_assignment=require_unique_assignment)
+    if action is not None:
+        selected_operator, assignment = _select_operator(state, action, domain,
+            inference_mode=inference_mode,
+            require_unique_assignment=require_unique_assignment)
+    else:
+        assignment = None
 
     # A ground operator was found; execute the ground effects
     if assignment is not None:
@@ -98,6 +102,7 @@ def _select_operator(state, action, domain, inference_mode="infer",
     if domain.operators_as_actions:
         # There should be only one possible operator if actions are operators
         possible_operators = set()
+
         for name, operator in domain.operators.items():
             if name.lower() == action.predicate.name.lower():
                 assert len(possible_operators) == 0
@@ -121,7 +126,7 @@ def _select_operator(state, action, domain, inference_mode="infer",
             conds = [action.predicate(*operator.params)] + conds
         # Check whether action is in the preconditions
         action_literal = None
-        for lit in conds: 
+        for lit in conds:
             if lit.predicate == action.predicate:
                 action_literal = lit
                 break
@@ -328,16 +333,23 @@ class PDDLEnv(gym.Env):
         # Initialize action space with problem-independent components
         actions = list(self.domain.actions)
         self.action_predicates = [self.domain.predicates[a] for a in actions]
+
+        events = []
+        if self.domain.events is not None:
+            events = list(self.domain.events)
+        self.event_predicates = [self.domain.predicates[a] for a in events]
+
+
         self._dynamic_action_space = dynamic_action_space
         if dynamic_action_space:
             if self.domain.operators_as_actions and self._domain_is_strips:
                 self._action_space = LiteralActionSpace(
-                    self.domain, self.action_predicates,
+                    self.domain, self.action_predicates, self.event_predicates,
                     type_hierarchy=self.domain.type_hierarchy,
                     type_to_parent_types=self.domain.type_to_parent_types)
             else:
                 self._action_space = LiteralSpace(
-                    self.action_predicates, lit_valid_test=self._action_valid_test,
+                    self.action_predicates+self.event_predicates, lit_valid_test=self._action_valid_test,
                     type_hierarchy=self.domain.type_hierarchy,
                     type_to_parent_types=self.domain.type_to_parent_types)
 
@@ -370,13 +382,13 @@ class PDDLEnv(gym.Env):
         domain : PDDLDomainParser
         problems : [ PDDLProblemParser ]
         """
-        domain = PDDLDomainParser(domain_file, 
+        domain = PDDLDomainParser(domain_file,
             expect_action_preds=(not operators_as_actions),
             operators_as_actions=operators_as_actions)
         problems = []
         problem_files = [f for f in glob.glob(os.path.join(problem_dir, "*.pddl"))]
         for problem_file in sorted(problem_files):
-            problem = PDDLProblemParser(problem_file, domain.domain_name, 
+            problem = PDDLProblemParser(problem_file, domain.domain_name,
                 domain.types, domain.predicates, domain.actions, domain.constants)
             problems.append(problem)
         return domain, problems
@@ -461,7 +473,7 @@ class PDDLEnv(gym.Env):
         """
         Execute an action and update the state.
 
-        Tries to find a ground operator for which the 
+        Tries to find a ground operator for which the
         preconditions hold when this action is taken. If none
         exist, optionally raises InvalidAction. If multiple
         exist, raises an AssertionError, since we assume
@@ -481,7 +493,7 @@ class PDDLEnv(gym.Env):
             1 if the goal is reached and 0 otherwise.
         done : bool
             True if the goal is reached.
-        truncated : bool 
+        truncated : bool
             Whether a truncation condition outside the scope of the MDP is satisfied. This never happens, so set to False.
         debug_info : dict
             See self._get_debug_info.
@@ -541,7 +553,7 @@ class PDDLEnv(gym.Env):
         return check_goal(state, self._goal)
 
     def _action_valid_test(self, state, action):
-        _, assignment = _select_operator(state, action, self.domain, 
+        _, assignment = _select_operator(state, action, self.domain,
             inference_mode=self._inference_mode)
         return assignment is not None
 
@@ -550,6 +562,7 @@ class PDDLEnv(gym.Env):
             return self._render(self._state.literals, *args, **kwargs)
 
     def _handle_derived_literals(self, state):
+        return state
         # first remove any old derived literals since they're outdated
         to_remove = set()
         for lit in state.literals:
@@ -563,7 +576,7 @@ class PDDLEnv(gym.Env):
         for lit in all_ground_literals:
             if not lit.predicate.is_derived and lit not in state_literals:
                 state_literals = {lit.negative} | state_literals
-                
+
         while True:  # loop, because derived predicates can be recursive
             new_derived_literals = set()
             for pred in self.domain.predicates.values():
@@ -588,4 +601,25 @@ class PDDLEnv(gym.Env):
                 state = state.with_literals(state.literals | new_derived_literals)
             else:  # terminate
                 break
+        return state
+
+    def simulate_events(self, events, simulated_state=None, apply_bool=False):
+        if simulated_state is None:
+            state = self._state
+        else:
+            state = simulated_state
+
+        if not isinstance(events, Iterable) or isinstance(events, (str, bytes)):
+            events = [events]
+
+        for event in events:
+            state = get_successor_state(
+                state, event, self.domain,
+                inference_mode=self._inference_mode,
+                raise_error_on_invalid_action=self._raise_error_on_invalid_action
+            )
+
+        if apply_bool:
+            self.set_state(state)
+
         return state
