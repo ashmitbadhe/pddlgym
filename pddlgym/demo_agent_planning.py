@@ -23,10 +23,10 @@ def demo_random_perestroika():
     safe_states_filepath = sys.argv[3]
     unsafeness_limit = sys.argv[4]
 
-    #policy = APPAgent(env, domain_filepath, problem_filepath, verbose=False)
+    policy = APPAgent(env, domain_filepath, problem_filepath, verbose=False)
     #policy = LIMITAgent(env, domain_filepath, problem_filepath, safe_states_filepath, verbose=False)
     #policy = MCTSAgent(env)
-    policy = FONDAgent(env, domain_filepath, problem_filepath)
+    #policy = FONDAgent(env, domain_filepath, problem_filepath)
 
 
     # Specify video output path
