@@ -389,43 +389,41 @@ class PDDLDomain:
         return parent_types
 
     def to_string(self):
-        """Create PDDL string
-        """
+        """Create PDDL string"""
         for op in self.operators.values():
             if op.name in self.actions:
                 op.tag = "action"
-            elif op.name in self.events:
+            elif self.events and op.name in self.events:
                 op.tag = "event"
+
         predicates = "\n\t".join([lit.pddl_str() for lit in self.predicates.values()])
         operators = "\n\t".join([op.pddl_str() for op in self.operators.values()])
+
         if self.constants:
-            constants_str = "\n\t".join(list(sorted(map(lambda o: str(o).replace(":", " - "),
-                                                    self.constants))))
+            constants_str = "\n\t".join(sorted(str(o).replace(":", " - ") for o in self.constants))
             constants = f"\n  (:constants {constants_str})\n"
         else:
             constants = ""
+
         requirements = ":typing"
         if "=" in self.predicates:
             requirements += " :equality"
 
-        domain_str = """
-(define (domain {})
-  (:requirements {})
-  (:types {})
-  {}
-  (:predicates {}
-  )
-  ; (:actions {})
-  ; (:events {})
+        domain_str = f"""
+    (define (domain {self.domain_name})
+      (:requirements {requirements})
+      (:types {self._types_pddl_str()})
+      {constants}
+      (:predicates {predicates}
+      )
+      ; (:actions {" ".join(map(str, self.actions))})
+      ; (:events {" ".join(map(str, self.events or []))})
 
-  {}
+      {operators}
 
-  {}
-
-)
-        """.format(self.domain_name, requirements, self._types_pddl_str(),
-                   constants, predicates, " ".join(map(str, self.actions)), " ".join(map(str, self.events)), operators,
-                   self._derived_preds_pddl_str())
+      {self._derived_preds_pddl_str()}
+    )
+        """
         return domain_str
 
     def write(self, fname):

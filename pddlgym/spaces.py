@@ -61,7 +61,10 @@ class LiteralSpace(Space):
     def sample_literal(self, state):
         while True:
             num_lits = len(self._all_ground_literals)
-            idx = self.np_random.choice(num_lits)
+            if num_lits:
+                idx = self.np_random.choice(num_lits)
+            else:
+                return None
             lit = self._all_ground_literals[idx]
             if self._lit_valid_test(state, lit):
                 break
