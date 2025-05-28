@@ -128,9 +128,7 @@ class APPAgent:
             "python",
             "pddlgym/safe_states_finder/translator.py",
             self.domain_filepath,
-            self.problem_filepath,
-            self.domain_filepath,
-            "1"
+            self.problem_filepath
         ]
 
         log_filepath = os.path.join("pddlgym/safe_states_finder/", "translation.log")

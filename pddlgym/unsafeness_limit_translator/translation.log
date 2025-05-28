@@ -1,12 +1,73 @@
 C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py:102: SyntaxWarning: invalid escape sequence '\i'
   1. for all v=val from l+:       (v=val \in eff(a)) or (v=val \in pre(a) and v does not change).
-Traceback (most recent call last):
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py", line 171, in <module>
-    translate(options.safe_state_filepath)
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\translator.py", line 34, in translate
-    safe_states: list = safe_state_parser.parse_safe_states(safe_states_file)
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\pddlgym\pddlgym\unsafeness_limit_translator\safe_state_parser.py", line 9, in parse_safe_states
-    with open(safe_states_file) as file:
-         ^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'pddlgym/pddl/auv/safe1.txt'
+Parsing...
+Parsing: [0.016s CPU, 0.003s wall-clock]
+Normalizing task... [0.000s CPU, 0.000s wall-clock]
+Instantiating...
+Generating Datalog program... [0.000s CPU, 0.000s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.000s CPU, 0.005s wall-clock]
+Preparing model... [0.000s CPU, 0.001s wall-clock]
+Generated 79 rules.
+Computing model... [0.000s CPU, 0.002s wall-clock]
+124 relevant atoms
+224 auxiliary atoms
+348 final queue length
+424 total queue pushes
+Completing instantiation... [0.000s CPU, 0.001s wall-clock]
+Instantiating: [0.000s CPU, 0.009s wall-clock]
+Computing fact groups...
+Finding invariants...
+11 initial candidates
+Finding invariants: [0.000s CPU, 0.003s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+11 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.001s wall-clock]
+Computing fact groups: [0.000s CPU, 0.004s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.000s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.000s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Translator axioms removed by simplifying: 0
+Computing negative axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.000s CPU, 0.000s wall-clock]
+Translating task: [0.000s CPU, 0.001s wall-clock]
+32 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+0 operators removed
+0 axioms removed
+4 propositions removed
+Detecting unreachable propositions: [0.000s CPU, 0.001s wall-clock]
+Reordering and filtering variables...
+13 of 13 variables necessary.
+0 of 2 mutex groups necessary.
+33 of 33 operators necessary.
+0 of 0 axiom rules necessary.
+Reordering and filtering variables: [0.016s CPU, 0.001s wall-clock]
+Translator variables: 13
+Translator derived variables: 0
+Translator facts: 34
+Translator goal facts: 3
+Translator mutex groups: 0
+Translator total mutex groups size: 0
+Translator operators: 33
+Translator axioms: 0
+Translator task size: 286
+warning: could not determine peak memory
+Translating operator number 6 of 33.
+Translating operator number 12 of 33.
+Translating operator number 18 of 33.
+Translating operator number 24 of 33.
+Translating operator number 30 of 33.
+Translating operator number 33 of 33.
+Operator translating done. 10 unsafe operators replaced with 10 copies, 15 safe operators persisted, 8 operators ignored
+Writing output... [0.016s CPU, 0.002s wall-clock]
+Done! [0.047s CPU, 0.034s wall-clock]

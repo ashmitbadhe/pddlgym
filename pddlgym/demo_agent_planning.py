@@ -20,10 +20,9 @@ def demo_random_perestroika():
     env._state = state
     domain_filepath = sys.argv[1]
     problem_filepath = sys.argv[2]
-    safe_states_filepath = sys.argv[3]
-    unsafeness_limit = sys.argv[4]
+    safe_states_filepath = sys.argv[4]
 
-    policy = APPAgent(env, domain_filepath, problem_filepath, verbose=False)
+    #policy = APPAgent(env, domain_filepath, problem_filepath, verbose=False)
     #policy = LIMITAgent(env, domain_filepath, problem_filepath, safe_states_filepath, verbose=False)
     #policy = MCTSAgent(env)
     #policy = FONDAgent(env, domain_filepath, problem_filepath)
@@ -32,7 +31,7 @@ def demo_random_perestroika():
     # Specify video output path
     video_path = "auv_app_agent.mp4"
 
-    # Run the demo for exactly 15 steps with rendering
+    # Run the demo for exactly 150 steps with rendering
     run_demo(env, policy, nature_type="IndependentEvents", max_num_steps=150, render=False, video_path=video_path, fps=3, verbose=True)
 
 

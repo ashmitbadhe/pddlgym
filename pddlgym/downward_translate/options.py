@@ -18,9 +18,9 @@ def parse_args():
         "task", help="path to task pddl file")
 
     argparser.add_argument(
-        "safe_states_file", help="path to safe states file")
+        "--safe_states_file", help="path to safe states file")
     argparser.add_argument(
-        "unsafety_limit", type=int, help="maximum unsafety actions in a row reached by planner")
+        "--unsafety_limit", type=int, help="maximum unsafety actions in a row reached by planner")
     argparser.add_argument(
         "--translate-events-action", help="ignore 'events' operator", dest="skip_events", action="store_false")
     argparser.add_argument(
