@@ -1600,16 +1600,16 @@ sample a r1 l-3-2
 1
 end_operator
 begin_operator
-event-action-move-ship-free-req-0 s1 l-2-2 l-2-3
+event-action-move-ship-free-req-0 s1 l-2-1 l-2-2
 1
 13 0
 6
-0 7 1 2
-0 8 0 1
-0 9 1 0
-0 14 -1 2
-0 15 -1 1
-0 16 -1 0
+0 6 1 0
+0 7 0 1
+0 9 0 1
+0 14 -1 1
+0 15 -1 0
+0 16 -1 1
 1
 end_operator
 begin_operator
@@ -1626,25 +1626,25 @@ event-action-move-ship-free-req-0 s1 l-2-2 l-2-1
 1
 end_operator
 begin_operator
+event-action-move-ship-free-req-0 s1 l-2-2 l-2-3
+1
+13 0
+6
+0 7 1 2
+0 8 0 1
+0 9 1 0
+0 14 -1 2
+0 15 -1 1
+0 16 -1 0
+1
+end_operator
+begin_operator
 event-action-move-ship-free-req-0 s1 l-2-3 l-2-2
 1
 13 0
 6
 0 7 2 1
 0 8 1 0
-0 9 0 1
-0 14 -1 1
-0 15 -1 0
-0 16 -1 1
-1
-end_operator
-begin_operator
-event-action-move-ship-free-req-0 s1 l-2-1 l-2-2
-1
-13 0
-6
-0 6 1 0
-0 7 0 1
 0 9 0 1
 0 14 -1 1
 0 15 -1 0

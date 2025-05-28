@@ -2,30 +2,30 @@ Parsing...
 Parsing: [0.000s CPU, 0.003s wall-clock]
 Normalizing task... [0.000s CPU, 0.000s wall-clock]
 Instantiating...
-Generating Datalog program... [0.000s CPU, 0.000s wall-clock]
+Generating Datalog program... [0.000s CPU, 0.001s wall-clock]
 Normalizing Datalog program...
-Normalizing Datalog program: [0.000s CPU, 0.004s wall-clock]
+Normalizing Datalog program: [0.016s CPU, 0.004s wall-clock]
 Preparing model... [0.000s CPU, 0.001s wall-clock]
 Generated 79 rules.
-Computing model... [0.000s CPU, 0.003s wall-clock]
+Computing model... [0.000s CPU, 0.002s wall-clock]
 124 relevant atoms
 224 auxiliary atoms
 348 final queue length
 424 total queue pushes
-Completing instantiation... [0.000s CPU, 0.001s wall-clock]
-Instantiating: [0.000s CPU, 0.010s wall-clock]
+Completing instantiation... [0.000s CPU, 0.000s wall-clock]
+Instantiating: [0.016s CPU, 0.009s wall-clock]
 Computing fact groups...
 Finding invariants...
 11 initial candidates
-Finding invariants: [0.000s CPU, 0.004s wall-clock]
+Finding invariants: [0.000s CPU, 0.002s wall-clock]
 Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
-Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.001s wall-clock]
 Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
 Choosing groups...
 11 uncovered facts
 Choosing groups: [0.000s CPU, 0.000s wall-clock]
 Building translation key... [0.000s CPU, 0.000s wall-clock]
-Computing fact groups: [0.000s CPU, 0.004s wall-clock]
+Computing fact groups: [0.000s CPU, 0.003s wall-clock]
 Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
 Building dictionary for full mutex groups... [0.000s CPU, 0.000s wall-clock]
 Building mutex information...
@@ -35,15 +35,15 @@ Processing axioms...
 Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
 Translator axioms removed by simplifying: 0
 Computing negative axioms... [0.000s CPU, 0.000s wall-clock]
-Processing axioms: [0.000s CPU, 0.001s wall-clock]
-Translating task: [0.000s CPU, 0.002s wall-clock]
+Processing axioms: [0.000s CPU, 0.000s wall-clock]
+Translating task: [0.000s CPU, 0.001s wall-clock]
 32 effect conditions simplified
 0 implied preconditions added
 Detecting unreachable propositions...
 0 operators removed
 0 axioms removed
 4 propositions removed
-Detecting unreachable propositions: [0.016s CPU, 0.001s wall-clock]
+Detecting unreachable propositions: [0.000s CPU, 0.001s wall-clock]
 Reordering and filtering variables...
 13 of 13 variables necessary.
 0 of 2 mutex groups necessary.
@@ -64,5 +64,5 @@ warning: could not determine peak memory
 4 irreversible events found.
 4 are likely reversible.
 Validation done.
-Writing output... [0.000s CPU, 0.006s wall-clock]
+Writing output... [0.016s CPU, 0.004s wall-clock]
 Done!
