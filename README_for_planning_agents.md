@@ -7,9 +7,7 @@ Making the environment for AUV:
 Making the environment for Perestroika:
   env = pddlgym.make("PDDLEnvPerestroika-v0")
 
-Please make sure to run the demo file with the following arguments:
-
-domain_filepath, problem_filepath, safe_states_filepath, unsafeness_limit
+Please make sure to run the demo file with the following arguments: domain_filepath, problem_filepath, safe_states_filepath, unsafeness_limit
 
 
 
