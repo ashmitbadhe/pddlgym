@@ -7,7 +7,14 @@ Making the environment for AUV:
 Making the environment for Perestroika:
   env = pddlgym.make("PDDLEnvPerestroika-v0")
 
-Please make sure to run the demo file with the following arguments: domain_filepath, problem_filepath, safe_states_filepath, unsafeness_limit
+Please make sure to run the demo file with the following arguments: "domain_filepath", "problem_filepath", "safe_states_filepath"
+
+Example arguments for AUV domain Problem 1:
+
+"pddlgym/pddl/auv.pddl" "pddlgym/pddl/auv/problem1.pddl" "--safe_states_file" "pddlgym/pddl/auv/safe1.txt"
+
+
+domain_filpath and problem_filepath is required for all agents (APP, LIMIT, MCTS, and FOND), while the safe_states_filepath is only required for LIMIT agent.
 
 For agents that do not need safe_states file or unsafeness_limit, a dummy file for safe_states and a random integer for unsafeness_limit is sufficient.
 
