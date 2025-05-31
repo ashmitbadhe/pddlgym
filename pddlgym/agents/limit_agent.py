@@ -119,7 +119,9 @@ class LIMITAgent:
             "--add-events-as-operators",
             self.domain_filepath,
             self.problem_filepath,
+            "--safe_states_file",
             self.safe_states_filepath,
+            "--unsafety_limit",
             str(limit)
         ]
 

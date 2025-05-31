@@ -3,6 +3,7 @@ import time
 import subprocess
 from pathlib import Path
 import re
+import os
 from pddlgym.agents.helper.helper_functions import Helper
 from pddlgym.structs import Literal, Predicate
 
@@ -96,8 +97,11 @@ class FONDAgent:
             domain_file (str): Path to the original domain file.
             problem_file (str): Path to the original problem file.
         """
+        log_filepath = os.path.join("pddlgym/toFOND/", "log.txt")
         command = f"python pddlgym/toFOND/toFOND2.py {domain_file} {problem_file} {self.domain_file} {20} {self.fond_domain} {self.fond_problem}"
-        subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        with open(log_filepath, "w") as log_file:
+            result = subprocess.run(command, shell=True, stdout=log_file, stderr=log_file, text=True)
+
 
     def find_policy(self):
         """

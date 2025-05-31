@@ -1,0 +1,19 @@
+pddlgym\toFOND\fond_domain.pddl
+pddlgym\toFOND\fond_problem.pddl
+Generating Datalog program... [0.000s CPU, 0.001s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.000s CPU, 0.009s wall-clock]
+Preparing model... [0.000s CPU, 0.003s wall-clock]
+Generated 79 rules.
+Computing model... [0.016s CPU, 0.005s wall-clock]
+124 relevant atoms
+224 auxiliary atoms
+348 final queue length
+424 total queue pushes
+Completing instantiation... [0.000s CPU, 0.002s wall-clock]
+Group keys: dict_keys(['s1'])
+Group sizes:  [8]
+Limit: 20
+Found 25 ground actions and 8 ground events
+There are 8 independent sets of events
+================================================================================

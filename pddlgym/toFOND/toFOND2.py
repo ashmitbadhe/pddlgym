@@ -57,11 +57,11 @@ if __name__ == '__main__':
 
     limit = None;
     output_domain_and_problem = []
-    if len(sys.argv) > 4:
+    if len(sys.argv) > 5:
         limit = int(sys.argv[4])
         output_domain_and_problem.append(sys.argv[5])
         output_domain_and_problem.append(sys.argv[6])
-        sys.argv = sys.argv[:5]
+        sys.argv = sys.argv[:3]
 
     from pddlgym.downward_translate import pddl_parser
     from pddlgym.downward_translate import instantiate
@@ -220,7 +220,7 @@ if __name__ == '__main__':
     template_loader = jinja2.FileSystemLoader(
         searchpath=os.path.join(os.path.dirname(os.path.realpath(__file__)), "./pddl_templates"))
     template_env = jinja2.Environment(loader=template_loader)
-    problem_template = template_env.get_template('problem2.pddl.pddl')
+    problem_template = template_env.get_template('problem2.pddl')
     output_text = problem_template.render(problem_name=task.task_name,
                                           domain_name=task.domain_name,
                                           goals=goal_atoms,

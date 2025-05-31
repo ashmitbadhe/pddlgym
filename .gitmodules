@@ -1,0 +1,3 @@
+[submodule "pddlgym/planners-for-relevant-policies"]
+	path = pddlgym/planners-for-relevant-policies
+	url = https://github.com/QuMuLab/planner-for-relevant-policies
